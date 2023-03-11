@@ -1,0 +1,51 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+    {{> "systems/scop/templates/actor/parts/actor-header.html"}}
+
+    {{!-- Sheet Tab Navigation --}}
+    <nav class="sheet-tabs tabs" data-group="primary">
+        {{!-- Default tab is specified in actor-sheet.mjs --}}
+        <a class="item" data-tab="features">{{localize "SCOP.Features"}}</a>
+        <a class="item" data-tab="description">{{localize "SCOP.Background"}}</a>
+    </nav>
+
+    {{!-- Sheet Body --}}
+    <section class="sheet-body">
+
+        {{!-- Owned Features Tab --}}
+        <div class="tab features" data-group="primary" data-tab="features">
+            {{> "systems/scop/templates/actor/parts/actor-concepts.html"}}
+            <div class="resources grid grid-2col">
+                <div>
+                    {{> "systems/scop/templates/actor/parts/actor-skills.html"}}
+                </div>
+                <div>
+                    {{> "systems/scop/templates/actor/parts/actor-powers.html"}}
+                </div>
+            </div>
+            <div class="resources grid grid-2col">
+                <div>
+                    {{> "systems/scop/templates/actor/parts/actor-resources.html"}}
+                </div>
+                <div>
+                    {{> "systems/scop/templates/actor/parts/actor-equipment.html"}}
+                </div>
+            </div>
+        </div>
+
+        {{!-- Biography Tab --}}
+        <div class="tab biography" data-group="primary" data-tab="description">
+            <div class="description-editor">
+                <h3>{{localize "SCOP.Description"}}</h3>
+                {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+            <div class="biography-editor">
+                <h3>{{localize "SCOP.Biography"}}</h3>
+                {{editor system.biography target="system.biography" rollData=rollData button=true owner=owner editable=editable}}
+            </div>
+        </div>
+
+    </section>
+
+</form>
+

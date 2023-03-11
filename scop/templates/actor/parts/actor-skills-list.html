@@ -1,0 +1,19 @@
+{{#each skills as |item id|}}
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-name">
+            <div class="item-image">
+                <a class="rollable" data-roll-type="skill">
+                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                </a>
+            </div>
+            <h4>
+                <a class="item-control item-edit">
+                    {{item.name}}: {{numberFormat item.system.value sign=true}}.
+                    {{#if system.ownerId}}
+                        ({{localize "SCOP.Cost"}}: {{item.system.cost}})
+                    {{/if}}
+                </a>
+            </h4>
+        </div>
+    </li>
+{{/each}}

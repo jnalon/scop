@@ -1,0 +1,46 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <div class="header-fields">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
+            </h1>
+            <div class="feature-level flex-group-right">
+                <label class="header-label" for="system.value">
+                    {{localize "SCOP.Leveled"}}:
+                </label>
+                <input type="text" value="{{system.value}}" disabled/>
+                {{#if (greaterThan item.system.value item.system.min)}}
+                    <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <span class="item-control inactive"><i class="fas fa-arrow-down"></i></span>
+                {{/if}}
+                {{#if (greaterThan item.system.max item.system.value)}}
+                    <a class="item-control" id="increase" title="{{localize 'SCOP.Increase'}}"><i class="fas fa-arrow-up"></i></a>
+                {{else}}
+                    <span class="item-control inactive"><i class="fas fa-arrow-up"></i></span>
+                {{/if}}
+                <span> / </span>
+                <input type="text" value="{{system.max}}" disabled/>
+                {{#if (greaterThan item.system.max 0)}}
+                    <a class="item-control" id="max-decrease" title="{{localize 'SCOP.MaxDecrease'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <span class="item-control inactive"><i class="fas fa-arrow-down"></i></span>
+                {{/if}}
+                <a class="item-control" id="max-increase" title="{{localize 'SCOP.MaxIncrease'}}"><i class="fas fa-arrow-up"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <section class="form-section">
+        <h3>{{localize "SCOP.Description"}}</h3>
+        <div class="scop-editor" data-group="primary" data-tab="description">
+            {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+        </div>
+        <div class="item-controls trashcan">
+            <a class="item-control" id="delete" title="{{localize 'SCOP.DeleteResource'}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </section>
+
+</form>

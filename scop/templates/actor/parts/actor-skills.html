@@ -1,0 +1,31 @@
+<div class="flexrow">
+    <h3>{{localize "SCOP.Skills"}}</h3>
+    <h3 class="item-create" data-type="skill">
+        <a title="{{localize 'SCOP.NewSkill'}}">
+            <i class="fas fa-plus"></i>{{localize "SCOP.Skill"}}
+        </a>
+    </h3>
+</div>
+<ol class="items-list">
+    <li class="item flexrow" data-item-id="0">
+        <div class="item-name">
+            <div class="item-image">
+                <a id="no-skill" data-roll-type="skill">
+                    <img src="{{actor.img}}" title="{{localize 'SCOP.NoSkill'}}" width="24" height="24"/>
+                </a>
+            </div>
+            <h4>{{localize "SCOP.NoSkill"}}</h4>
+        </div>
+    </li>
+    <li class="item flexrow" data-item-id="1">
+        <div class="item-name">
+            <div class="item-image">
+                <a id="concept-skill" data-roll-type="skill">
+                    <img src="{{actor.img}}" title="{{localize 'SCOP.ConceptSkill'}}" width="24" height="24"/>
+                </a>
+            </div>
+            <h4>{{localize "SCOP.ConceptSkill"}}</h4>
+        </div>
+    </li>
+    {{> "systems/scop/templates/actor/parts/actor-skills-list.html" skills=skills}}
+</ol>

@@ -1,0 +1,12 @@
+<header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+        <h1 class="charname">
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
+        </h1>
+        <ol class="items-list">
+            {{> "systems/scop/templates/actor/parts/actor-limits.html" resource=system.health datatype='health' name='SCOP.Vitality'}}
+            {{> "systems/scop/templates/actor/parts/actor-limits.html" resource=system.energy datatype='energy' name='SCOP.Energy'}}
+        </ol>
+    </div>
+</header>

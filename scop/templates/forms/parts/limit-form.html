@@ -1,0 +1,38 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <header class="sheet-header">
+        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+        <div class="header-fields flexcol">
+            <h1 class="charname">
+                <input type="text" value="{{localize name}}" placeholder="{{localize name}}" disabled/>
+            </h1>
+            <div class="feature-level flex-group-right">
+
+                <label class="header-label" for="limit.value">
+                    {{localize "SCOP.Leveled"}}:
+                </label>
+                <input type="text" value="{{limit.value}}" disabled/>
+                {{#if (greaterThan limit.value limit.min)}}
+                    <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <span class="item-control inactive"><i class="fas fa-arrow-down"></i></span>
+                {{/if}}
+                {{#if (greaterThan limit.max limit.value)}}
+                    <a class="item-control" id="increase" title="{{localize 'SCOP.Increase'}}"><i class="fas fa-arrow-up"></i></a>
+                {{else}}
+                    <span class="item-control inactive"><i class="fas fa-arrow-up"></i></span>
+                {{/if}}
+                <span> / </span>
+                <input type="text" value="{{limit.max}}" disabled/>
+                {{#if (greaterThan limit.max 0)}}
+                      <a class="item-control" id="max-decrease" title="{{localize 'SCOP.MaxDecrease'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                      <span class="item-control inactive"><i class="fas fa-arrow-down"></i></span>
+                {{/if}}
+                <a class="item-control" id="max-increase" title="{{localize 'SCOP.MaxIncrease'}}"><i class="fas fa-arrow-up"></i></a>
+
+            <div>
+        </div>
+    </header>
+
+</form>

@@ -1,0 +1,43 @@
+<div class="flexrow">
+    <h3>{{localize "SCOP.Resources"}}</h3>
+    <h3 class="item-create" data-type="resource">
+        <a title="{{localize 'SCOP.NewResource'}}">
+            <i class="fas fa-plus"></i>{{localize "SCOP.Resource"}}
+        </a>
+    </h3>
+</div>
+<ol class="items-list">
+    {{#each resources as |item id|}}
+        <li class="item flexrow" data-item-id="{{item._id}}">
+            <div class="item-name">
+                <div class="item-image">
+                    {{#if (greaterThan item.system.value 0)}}
+                        <a class="item-control resource-use">
+                            <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                        </a>
+                    {{else}}
+                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                    {{/if}}
+                </div>
+                <h4>
+                    <a class="item-control item-edit">
+                        {{item.name}}:
+                    </a>
+                </h4>
+            </div>
+            <div class="item-controls">
+                {{{dots item.system.value item.system.max}}}
+                {{#if (greaterThan item.system.value 0)}}
+                    <a class="item-control item-decrease" title="{{localize 'SCOP.Use'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <a class="item-control inactive"><i class="fas fa-arrow-down"></i></a>
+                {{/if}}
+                {{#if (greaterThan item.system.max item.system.value)}}
+                    <a class="item-control item-increase" title="{{localize 'SCOP.Recover'}}"><i class="fas fa-arrow-up"></i></a>
+                {{else}}
+                    <a class="item-control inactive"><i class="fas fa-arrow-up"></i></a>
+                {{/if}}
+            </div>
+        </li>
+    {{/each}}
+</ol>

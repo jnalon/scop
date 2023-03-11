@@ -1,0 +1,30 @@
+<li class="item flexrow" data-item-id="{{_id}}">
+    <div class="item-name">
+        <div class="item-image">
+            <img src="{{img}}" title="{{name}}" width="24" height="24"/>
+        </div>
+        <h4>
+            <a class="item-control item-edit">
+                {{name}}: {{numberFormat system.value sign=true}}
+            </a>
+        </h4>
+    </div>
+    <div class="item-controls">
+        <a class="item-create" title="{{localize 'SCOP.NewPowerSkill'}}" data-type="skill">
+            <i class="fas fa-plus"></i>{{localize "SCOP.PowerSkill"}}
+        </a>
+    </div>
+</li>
+<ol class="items-sublist">
+    <li class="item flexrow" data-item-id="{{item._id}}">
+        <div class="item-name">
+            <div class="item-image">
+                <a class="no-power-skill" data-roll-type="skill">
+                    <img src="{{img}}" title="{{localize 'SCOP.NoSkill'}}" width="24" height="24"/>
+                </a>
+            </div>
+            <h4>{{localize "SCOP.NoSkill"}}</h4>
+        </div>
+    </li>
+    {{> "systems/scop/templates/actor/parts/actor-skills-list.html" skills=skills}}
+</ol>

@@ -1,0 +1,24 @@
+<div class="flexrow">
+    <h3>{{localize "SCOP.Equipment"}}</h3>
+    <h3 class="item-create" data-type="equipment">
+        <a title="{{localize 'SCOP.NewEquipment'}}">
+            <i class="fas fa-plus"></i>{{localize "SCOP.Equipment"}}
+        </a>
+    </h3>
+</div>
+<ol class="items-list">
+    {{#each equipment as |item id|}}
+        <li class="item flexrow" data-item-id="{{item._id}}">
+            <div class="item-name">
+                <div class="item-image">
+                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                </div>
+                <h4>
+                    <a class="item-control item-edit">
+                        {{item.name}}
+                    </a>
+                </h4>
+            </div>
+        </li>
+    {{/each}}
+</ol>

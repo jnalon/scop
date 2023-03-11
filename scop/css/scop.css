@@ -1,0 +1,568 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+/* Global styles */
+.window-app {
+  font-family: "Roboto", sans-serif;
+}
+
+.rollable:hover, .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+.grid,
+.grid-2col {
+  display: grid;
+  grid-column: span 2/span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.grid-3col {
+  grid-column: span 3/span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4col {
+  grid-column: span 4/span 4;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-5col {
+  grid-column: span 5/span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.grid-6col {
+  grid-column: span 6/span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.grid-7col {
+  grid-column: span 7/span 7;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.grid-8col {
+  grid-column: span 8/span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.grid-9col {
+  grid-column: span 9/span 9;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.grid-10col {
+  grid-column: span 10/span 10;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.grid-11col {
+  grid-column: span 11/span 11;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.grid-12col {
+  grid-column: span 12/span 12;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.grid-start-2 {
+  grid-column-start: 2;
+}
+
+.grid-start-3 {
+  grid-column-start: 3;
+}
+
+.grid-start-4 {
+  grid-column-start: 4;
+}
+
+.grid-start-5 {
+  grid-column-start: 5;
+}
+
+.grid-start-6 {
+  grid-column-start: 6;
+}
+
+.grid-start-7 {
+  grid-column-start: 7;
+}
+
+.grid-start-8 {
+  grid-column-start: 8;
+}
+
+.grid-start-9 {
+  grid-column-start: 9;
+}
+
+.grid-start-10 {
+  grid-column-start: 10;
+}
+
+.grid-start-11 {
+  grid-column-start: 11;
+}
+
+.grid-start-12 {
+  grid-column-start: 12;
+}
+
+.grid-span-2 {
+  grid-column-end: span 2;
+}
+
+.grid-span-3 {
+  grid-column-end: span 3;
+}
+
+.grid-span-4 {
+  grid-column-end: span 4;
+}
+
+.grid-span-5 {
+  grid-column-end: span 5;
+}
+
+.grid-span-6 {
+  grid-column-end: span 6;
+}
+
+.grid-span-7 {
+  grid-column-end: span 7;
+}
+
+.grid-span-8 {
+  grid-column-end: span 8;
+}
+
+.grid-span-9 {
+  grid-column-end: span 9;
+}
+
+.grid-span-10 {
+  grid-column-end: span 10;
+}
+
+.grid-span-11 {
+  grid-column-end: span 11;
+}
+
+.grid-span-12 {
+  grid-column-end: span 12;
+}
+
+.flex-group-center,
+.flex-group-left,
+.flex-group-right {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flex-group-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.flex-group-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.flexshrink {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+
+.flex-between {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.flexlarge {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+}
+
+.align-left {
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.align-right {
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.align-center {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Styles limited to scop sheets */
+.scop {
+  /* ----------------------------------------- */
+  /*  Items Lists                              */
+  /* ----------------------------------------- */
+  /* Example style for Scop (can be removed if not needed) */
+}
+.scop .item-form {
+  font-family: "Roboto", sans-serif;
+}
+.scop .sheet-header {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 auto;
+  flex: 0 auto;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+.scop .sheet-header .profile-img {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+.scop .sheet-header .header-fields {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+.scop .sheet-header h1.charname {
+  height: 50px;
+  padding: 0px;
+  margin: 5px 0;
+  border-bottom: 0;
+}
+.scop .sheet-header h1.charname input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.scop .sheet-tabs {
+  -webkit-box-flex: 0;
+  -ms-flex: 0;
+  flex: 0;
+}
+.scop .sheet-body,
+.scop .sheet-body .tab,
+.scop .sheet-body .tab .editor {
+  height: 77%;
+}
+.scop .tox .tox-editor-container {
+  background: #fff;
+}
+.scop .tox .tox-edit-area {
+  padding: 0 8px;
+}
+.scop .resource-label {
+  font-weight: bold;
+}
+.scop .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+.scop .items-header > * {
+  font-size: 14px;
+  text-align: center;
+}
+.scop .items-header .item-name {
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.scop .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #444;
+}
+.scop .items-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.scop .items-list .item-name {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.scop .items-list .item-name h3, .scop .items-list .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.scop .items-list .item-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+.scop .items-list .item-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+.scop .items-list .item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 1px solid #c9c7b8;
+}
+.scop .items-list .item:last-child {
+  border-bottom: none;
+}
+.scop .items-list .item .item-name {
+  color: #191813;
+}
+.scop .items-list .item .item-name .item-image {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+.scop .items-list .item-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.scop .items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+.scop .items-list .items-header > * {
+  font-size: 12px;
+  text-align: center;
+}
+.scop .items-list .items-header .item-name {
+  padding-left: 5px;
+  text-align: left;
+}
+.scop .item-formula {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 200px;
+  flex: 0 0 200px;
+  padding: 0 8px;
+}
+.scop .effects .item .effect-source,
+.scop .effects .item .effect-duration,
+.scop .effects .item .effect-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.scop .effects .item .effect-controls {
+  border: none;
+}
+.scop .sheet-header h1.feature {
+  height: 50px;
+  padding: 0px;
+  margin: 0;
+  border-bottom: 0;
+}
+.scop .sheet-header h1.feature input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+.scop .feature-level {
+  margin-top: 5px;
+  padding: 0;
+  vertical-align: top;
+}
+.scop .feature-level checkbox {
+  margin: 0px;
+  padding: 0;
+  border: 0;
+}
+.scop .feature-level label {
+  font-size: 140%;
+  font-weight: bold;
+}
+.scop .feature-level input {
+  width: 20%;
+  margin-top: 5px;
+  padding: 0;
+  text-align: center;
+}
+.scop .description-editor {
+  height: 30%;
+}
+.scop .biography-editor {
+  height: 100%;
+}
+.scop .dots {
+  font-size: 85%;
+  font-weight: bold;
+  margin-right: 0.1em;
+  vertical-align: baseline;
+}
+.scop .inactive {
+  opacity: 0.5;
+}
+.scop .header-label {
+  font-size: 120%;
+  font-weight: bold;
+  margin-right: 0.6em;
+}
+.scop .item-create {
+  padding: 0;
+  text-align: right;
+  vertical-align: baseline;
+  font-size: 95%;
+}
+.scop .sheet-header h1.itemname {
+  height: 50px;
+  padding: 0px;
+  margin: 5px 0;
+  border: 1px;
+}
+.scop .items-sublist {
+  list-style: none;
+  margin-left: 24px;
+  margin-right: 24px;
+  padding: 0;
+}
+.scop .header-table {
+  display: table;
+}
+.scop .header-row {
+  display: table-row;
+}
+.scop .header-cell {
+  display: table-cell;
+  vertical-align: top;
+}
+/*.scop .form-section {
+  display: flex;
+  flex-flow: column;
+  height: 300px;
+}
+.scop .scop-editor {
+  flex: 1;
+  overflow: auto;
+}*/
+.scop .form-section {
+  display: grid;
+  align-items: stretch;
+  height: 300px;
+  grid-template-rows: min-content auto 24px;
+}
+.scop .scop-editor {
+  overflow: auto;
+  height: 100%
+}
+.scop .trashcan {
+  margin-top: 8px;
+  margin-right: 8px;
+  text-align: right;
+  vertical-align: bottom;
+  min-height: 24px;
+}
+.roll-results {
+  margin-top: 0.5em;
+  margin-bottom: 0.8em;
+}
+.valid-dice {
+  font-size: 200%;
+}
+.discarded-dice {
+  font-size: 200%;
+  opacity: 0.5;
+}
+.roll-bonus {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.roll-mod {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 110%;
+  font-weight: bold;
+}
+.roll-ul {
+  list-style-type: circle;
+  display: block;
+}
+.roll-final {
+  font-size: 150%;
+  font-weight: bold;
+}

@@ -1,0 +1,48 @@
+{
+    "SCOP.Add": " Add",
+    "SCOP.Name": "Name",
+    "SCOP.Damage": "Damage",
+    "SCOP.Recover": "Recover",
+    "SCOP.Use": "Use",
+    "SCOP.Decrease": "Decrease",
+    "SCOP.MaxDecrease": "Decrease Max",
+    "SCOP.Increase": "Increase",
+    "SCOP.MaxIncrease": "Increase Max",
+    "SCOP.Rolling": "Rolling the Dice",
+    "SCOP.Roll": "Roll the Dice",
+    "SCOP.Effort": "Make an Effort",
+    "SCOP.New": "New",
+
+    "SCOP.Features": "Features",
+    "SCOP.Vitality": "Vitality",
+    "SCOP.Energy": "Energy"
+,
+    "SCOP.Concept": "Concept",
+    "SCOP.Concepts": "Concepts",
+    "SCOP.NewConcept": "New Concept",
+    "SCOP.DeleteConcept": "Delete Concept",
+    "SCOP.Question": "Question",
+    "SCOP.Answer": "Answer",
+
+    "SCOP.Skill": "Skill",
+    "SCOP.Skills": "Skills",
+    "SCOP.NewSkill": "New Skill",
+    "SCOP.DeleteSkill": "Delete Skill",
+
+    "SCOP.Resource": "Resource",
+    "SCOP.Resources": "Resources",
+    "SCOP.NewResource": "New Resource",
+    "SCOP.UsingResource": "Using Resource",
+    "SCOP.DeleteResource": "Delete Resource",
+
+    "SCOP.Power": "Power",
+    "SCOP.Powers": "Powers",
+    "SCOP.NewPower": "New Power",
+    "SCOP.NewPowerSkill": "New Power Skill",
+    "SCOP.DeletePower": "Delete Power",
+    "SCOP.Leveled": "Level",
+
+    "SCOP.Background": "Background",
+    "SCOP.Description": "Description",
+    "SCOP.Biography": "Biography"
+}

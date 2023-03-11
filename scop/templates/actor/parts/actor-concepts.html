@@ -1,0 +1,27 @@
+<div class="flexrow">
+    <h3>{{localize "SCOP.Concepts"}}</h3>
+    <h3 class="item-create" data-type="concept">
+        <a title="{{localize 'SCOP.NewConcept'}}">
+            <i class="fas fa-plus"></i>{{localize "SCOP.Concept"}}
+        </a>
+    </h3>
+</div>
+<ol class="items-list">
+    {{#each concepts as |item id|}}
+        <li class="item flexrow" data-item-id="{{item._id}}">
+            <div class="item-name">
+                <div class="item-image">
+                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                </div>
+                <h4>
+                    <a class="item-control item-edit">
+                        {{item.system.question}}: {{item.system.answer}}.
+                        {{#if (greaterThan item.system.value 1)}}
+                            ({{localize "SCOP.Level"}}: {{item.system.value}})
+                        {{/if}}
+                    </a>
+                </h4>
+            </div>
+        </li>
+    {{/each}}
+</ol>

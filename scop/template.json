@@ -1,0 +1,68 @@
+{
+    "Actor": {
+        "types": [ "character" ],
+        "templates": {
+            "limits": {
+                "health": {
+                    "type": "health",
+                    "value": 6,
+                    "min": 0,
+                    "max": 6
+                },
+                "energy": {
+                    "type": "energy",
+                    "value": 6,
+                    "min": 0,
+                    "max": 6
+                }
+            },
+            "background": {
+                "biography": "",
+                "description": ""
+            }
+        },
+        "character": {
+            "templates": [ "limits", "background" ],
+            "concepts": [ ],
+            "skills": [ ],
+            "resources": [ ],
+            "powers": [ ]
+        }
+    },
+    "Item": {
+        "types": [ "concept", "skill", "resource", "power", "equipment" ],
+        "templates": {
+            "base": {
+                "description": ""
+            }
+        },
+        "concept": {
+            "templates": [ "base" ],
+            "question": "",
+            "answer": "",
+            "value": 1
+        },
+        "skill": {
+            "templates": [ "base" ],
+            "ownerId": 0,
+            "value": 0,
+            "cost": 1
+        },
+        "resource": {
+            "templates": [ "base" ],
+            "value": 0,
+            "min": 0,
+            "max": 0
+        },
+        "power": {
+            "templates": [ "base" ],
+            "leveled": true,
+            "value": 1
+        },
+        "equipment": {
+            "templates": [ "base" ],
+            "value": 0,
+            "weight": 0
+        }
+    }
+}

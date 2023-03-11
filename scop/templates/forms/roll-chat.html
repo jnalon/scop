@@ -1,0 +1,15 @@
+<h3>
+    {{actor.name}} {{localize "SCOP.Tries"}} {{name}}
+</h3>
+<div class="flexrow flex-group-center roll-results">
+    {{#each mainRoll.valid as |value|}}
+        <span class="valid-dice">{{value}}</span>
+    {{/each}}
+    {{#each mainRoll.discard as |value|}}
+        <span class="discarded-dice">{{value}}</span>
+    {{/each}}
+</div>
+{{> "systems/scop/templates/forms/parts/roll-chat-bonus.html"}}
+<div class="roll-final">
+    <span class="result-label">{{localize "SCOP.Result"}}: {{finalResult}}</span>
+</div>

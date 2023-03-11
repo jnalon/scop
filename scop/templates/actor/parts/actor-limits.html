@@ -1,0 +1,18 @@
+<li class="item flexrow" data-type={{datatype}}>
+    <div class="item-name">
+        <a class="header-label limit-edit">{{localize name}}</a>
+    </div>
+    <div class="item-controls">
+        {{{dots resource.value resource.max}}}
+        {{#if (greaterThan resource.value 0)}}
+            <a class="item-control limit-decrease" title="{{localize 'SCOP.Use'}}"><i class="fas fa-arrow-down"></i></a>
+        {{else}}
+            <a class="item-control inactive"><i class="fas fa-arrow-down"></i></a>
+        {{/if}}
+        {{#if (greaterThan resource.max resource.value)}}
+            <a class="item-control limit-increase" title="{{localize 'SCOP.Recover'}}"><i class="fas fa-arrow-up"></i></a>
+        {{else}}
+            <a class="item-control inactive"><i class="fas fa-arrow-up"></i></a>
+        {{/if}}
+    </div>
+</li>

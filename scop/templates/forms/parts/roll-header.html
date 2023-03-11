@@ -1,0 +1,18 @@
+<header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+        <h1 class="charname">
+            <input name="name" type="text" value="{{name}}" placeholder="{{localize 'SCOP.Name'}}" disabled/>
+        </h1>
+        <ol class="items-list">
+            <li class="item flexrow">
+                <div class="item-name">
+                    <span class="header-label limit-edit">{{localize "SCOP.Energy"}}</span>
+                </div>
+                <div class="item-controls">
+                    {{{dots system.energy.value system.energy.max}}}
+                </div>
+            </li>
+        </ol>
+    </div>
+</header>

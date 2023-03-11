@@ -1,0 +1,71 @@
+const CUT_VALUE = 3;
+const BASE_DICE = 3;
+
+class ScopBaseRoll extends Roll {
+
+    /** @override */
+    constructor(diceNumber, bonus, rollData) {
+        const formula = `${diceNumber}d10`;
+        super(formula, rollData);
+        this.bonus = bonus;
+        this.valid = new Array();
+        this.discard = new Array();
+    }
+
+    /** @override */
+    async roll(options) {
+        super.roll(options);
+        for (let die of this.dice[0].results) {  // TODO: Ugly, there might be another way.
+            if (die.result <= CUT_VALUE) {
+                this.valid.push(die.result);
+            } else {
+                this.discard.push(die.result);
+            }
+        }
+        this.valid = this.valid.sort((a, b) => { return a - b });
+        this.discard = this.discard.sort((a, b) => { return a - b });
+    }
+
+}
+
+
+export class ScopRoll extends ScopBaseRoll {
+
+    /** @override */
+    constructor(skillLevel, bonus, rollData) {
+        const diceNumber = skillLevel + BASE_DICE;
+        super(diceNumber, bonus, rollData);
+    }
+
+    /** @override */
+    get result() {
+        if (this.valid.length > 0) {
+            const successes = this.valid.length;
+            const lastIndex = this.valid.length - 1;
+            const baseValue = this.valid[lastIndex];
+            return baseValue + (successes - 1) + this.bonus;
+        } else {
+            return 0;
+        }
+    }
+
+}
+
+
+export class EffortRoll extends ScopBaseRoll {
+
+    /** @override */
+    constructor(diceNumber, bonus, rollData) {
+        super(diceNumber, bonus, rollData);
+    }
+
+    /** @override */
+    get result() {
+        if (this.valid.length > 0) {
+            return this.valid.length + this.bonus;
+        } else {
+            return 0;
+        }
+    }
+
+}

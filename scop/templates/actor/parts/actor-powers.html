@@ -1,0 +1,18 @@
+<div class="flexrow">
+    <h3>{{localize "SCOP.Powers"}}</h3>
+    <h3 class="item-create" data-type="power">
+        <a title="{{localize 'SCOP.NewPower'}}">
+            <i class="fas fa-plus"></i>{{localize "SCOP.Power"}}
+        </a>
+    </h3>
+</div>
+<ol class="items-list">
+    {{#each powers as |item id|}}
+        {{#if item.system.leveled}}
+            {{> "systems/scop/templates/actor/parts/actor-power-list.html"}}
+        {{else}}
+            {{> "systems/scop/templates/actor/parts/actor-special-ability.html"
+                energy=@root.actor.system.energy.value}}
+        {{/if}}
+    {{/each}}
+</ol>
