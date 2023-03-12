@@ -1,0 +1,19 @@
+{{#if useConcepts}}
+    <div class="roll-bonus">
+        <h4 class="roll-mod">
+            {{localize "SCOP.Concepts"}} ({{localize "SCOP.Total"}}:
+            {{numberFormat conceptBonus sign=true}}d)
+        </h4>
+    </div>
+
+    <ul class="roll-ul">
+        {{#each concepts}}
+            {{#if (notEqual use 0)}}
+                <li class="roll-li">
+                    {{concept.system.question}}: {{concept.system.answer}}
+                    ({{numberFormat use sign=true}}d)
+                </li>
+            {{/if}}
+        {{/each}}
+    </ul>
+{{/if}}

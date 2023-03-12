@@ -32,8 +32,8 @@ class ScopBaseRoll extends Roll {
 export class ScopRoll extends ScopBaseRoll {
 
     /** @override */
-    constructor(skillLevel, bonus, rollData) {
-        const diceNumber = skillLevel + BASE_DICE;
+    constructor(testLevel, bonus, rollData) {
+        const diceNumber = testLevel + BASE_DICE;
         super(diceNumber, bonus, rollData);
     }
 

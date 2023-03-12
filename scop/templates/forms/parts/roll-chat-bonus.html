@@ -1,4 +1,4 @@
-{{#if (or (or usePower useConcepts) (notEqual bonus 0))}}
+{{#if (or usePower (notEqual bonus 0))}}
     <div class="roll-bonus">
         <h4 class="roll-mod">
             {{localize "SCOP.Modifiers"}} ({{localize "SCOP.Total"}}:
@@ -12,17 +12,6 @@
         {{/if}}
         {{#if usePower}}
             <li class="roll-li">{{power.name}}: {{numberFormat power.system.value sign=true}}</li>
-        {{/if}}
-
-        {{#if useConcepts}}
-            {{#each concepts}}
-                {{#if (notEqual use 0)}}
-                    <li class="roll-li">
-                        {{concept.system.question}}: {{concept.system.answer}}
-                        ({{numberFormat use sign=true}})
-                    </li>
-                {{/if}}
-            {{/each}}
         {{/if}}
     </ul>
 {{/if}}

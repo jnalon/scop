@@ -20,6 +20,7 @@
         "systems/scop/templates/forms/parts/roll-bonus.html",
         "systems/scop/templates/forms/parts/roll-concepts.html",
         "systems/scop/templates/forms/parts/roll-powers.html",
+        "systems/scop/templates/forms/parts/roll-chat-concept-bonus.html",
         "systems/scop/templates/forms/parts/roll-chat-bonus.html",
         "systems/scop/templates/forms/parts/limit-form.html",
     ]);
