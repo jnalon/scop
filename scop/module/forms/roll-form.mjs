@@ -3,7 +3,7 @@ import { ScopRoll, EffortRoll } from "../rolls/scop-roll.mjs";
 class ScopRollBaseForm extends FormApplication {
 
     /** @override */
-    constructor(actor) {
+    constructor(actor, caller) {
         super();
         this.actor = actor;
         this.name = "";
@@ -14,6 +14,10 @@ class ScopRollBaseForm extends FormApplication {
         this.totalBonus = 0;
         this.effort = false;
         this.finalResult = 0;
+        if (caller != undefined) {
+            this.caller = caller;
+            this.caller.deactivate();
+        }
     }
 
     _getConcepts() {
@@ -61,6 +65,15 @@ class ScopRollBaseForm extends FormApplication {
         context.system = actorData.system;
         context.flags = actorData.flags;
         return context;
+    }
+
+    /** @override */
+    async close(...args) {
+        if (this.caller != undefined) {
+            this.caller.activate();
+            this.caller = undefined;
+        }
+        super.close(...args);
     }
 
     _getSkillLevel() {
@@ -199,8 +212,8 @@ class ScopRollBaseForm extends FormApplication {
 
 export class ScopNoSkillRollForm extends ScopRollBaseForm {
 
-    constructor(actor) {
-        super(actor);
+    constructor(actor, caller=undefined) {
+        super(actor, caller);
         this.name = game.i18n.localize("SCOP.NoSkill");
     }
 
@@ -209,8 +222,8 @@ export class ScopNoSkillRollForm extends ScopRollBaseForm {
 
 export class ScopConceptSkillRollForm extends ScopRollBaseForm {
 
-    constructor(actor) {
-        super(actor);
+    constructor(actor, caller=undefined) {
+        super(actor, caller);
         this.name = game.i18n.localize("SCOP.ConceptSkill");
     }
 
@@ -222,8 +235,8 @@ export class ScopConceptSkillRollForm extends ScopRollBaseForm {
 
 export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
 
-    constructor(actor, item) {
-        super(actor);
+    constructor(actor, item, caller=undefined) {
+        super(actor, caller);
         this.name = game.i18n.localize("SCOP.NoSkill");
         this.power = item;
         this.usePower = false;
@@ -270,8 +283,8 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
 
 export class ScopRollForm extends ScopRollBaseForm {
 
-    constructor(actor, item, ownerItem) {
-        super(actor);
+    constructor(actor, item, ownerItem, caller=undefined) {
+        super(actor, caller);
         this.name = item.name;
         this.skill = item;
         this.power = ownerItem;

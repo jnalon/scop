@@ -13,6 +13,7 @@ export class ScopItem extends Item {
     prepareDerivedData() {
         if (this.type == "concept") {
             this.img = "icons/magic/holy/yin-yang-balance-symbol.webp";
+            this.name = this.system.question + ": " + this.system.answer + ".";
         } else if (this.type == "power") {
             this.img = "icons/magic/light/explosion-star-glow-silhouette.webp";
         } else if (this.type == "skill" && this.system.ownerId == 0) {

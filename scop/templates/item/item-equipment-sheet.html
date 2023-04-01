@@ -3,7 +3,7 @@
     <header class="sheet-header">
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
         <div class="header-fields">
-            <h1 class="charname">
+            <h1 class="feature">
                 <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
             </h1>
         </div>
@@ -12,7 +12,7 @@
     <section class="form-section">
         <h3>{{localize "SCOP.Description"}}</h3>
         <div class="scop-editor" data-group="primary" data-tab="description">
-            {{editor system.description target="system.description" rollData=rollData button=true owner=owner editable=editable}}
+            {{editor system.description target="system.description" button=true  engine="prosemirror" editable=editable}}
         </div>
         <div class="item-controls trashcan">
             <a class="item-control" id="delete" title="{{localize 'SCOP.DeleteEquipment'}}"><i class="fas fa-trash"></i></a>

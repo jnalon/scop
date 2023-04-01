@@ -9,6 +9,11 @@ import { ScopNoSkillRollForm, ScopConceptSkillRollForm, ScopRollForm, ScopNoPowe
  */
 export class ScopActorSheet extends ActorSheet {
 
+    constructor(object={}, options={}) {
+        super(object, options);
+        this._active = true;
+    }
+
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -16,6 +21,7 @@ export class ScopActorSheet extends ActorSheet {
             template: "systems/scop/templates/actor/actor-sheet.html",
             width: 600,
             height: 900,
+            popOut: true,
             tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
         });
     }
@@ -81,8 +87,20 @@ export class ScopActorSheet extends ActorSheet {
         context.equipment = equipment;
     }
 
+    deactivate() {
+        this._active = false;
+        this.render(true);
+    }
+
+    activate() {
+        this._active = true;
+        this.render(true);
+    }
+
     /** @override */
     activateListeners(html) {
+        if (!this._active)
+            return;
         super.activateListeners(html);
         $('#no-skill').click(this._onNoSkillRoll.bind(this));
         $('#concept-skill').click(this._onConceptSkillRoll.bind(this));
@@ -151,7 +169,7 @@ export class ScopActorSheet extends ActorSheet {
         delete itemData.system["type"];
 
         let item = await Item.create(itemData, { parent: this.actor });
-        await item.sheet.render(true);
+        await item.sheet.render(true, {}, this);
         if (item.type == "skill") {
             const itemId = this._getItemId(event);
             item = await item.setOwnerID(itemId);
@@ -163,7 +181,7 @@ export class ScopActorSheet extends ActorSheet {
     async _onItemEdit(event) {
         event.preventDefault();
         const item = this._getItem(event);
-        await item.sheet.render(true);
+        await item.sheet.render(true, {}, this);
     }
 
     /** @private */
@@ -192,10 +210,10 @@ export class ScopActorSheet extends ActorSheet {
         event.preventDefault();
         const type = this._getItemType(event);
         if (type == "health") {
-            const sheet = new ScopHealthForm(this.actor);
+            const sheet = new ScopHealthForm(this.actor, this);
             await sheet.render(true);
         } else if (type == "energy") {
-            const sheet = new ScopEnergyForm(this.actor);
+            const sheet = new ScopEnergyForm(this.actor, this);
             await sheet.render(true);
         }
     }
@@ -258,14 +276,14 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     _onNoSkillRoll(event) {
         event.preventDefault();
-        const sheet = new ScopNoSkillRollForm(this.actor);
+        const sheet = new ScopNoSkillRollForm(this.actor, this);
         sheet.render(true);
     }
 
     /** @private */
     _onConceptSkillRoll(event) {
         event.preventDefault();
-        const sheet = new ScopConceptSkillRollForm(this.actor);
+        const sheet = new ScopConceptSkillRollForm(this.actor, this);
         sheet.render(true);
     }
 
@@ -277,7 +295,7 @@ export class ScopActorSheet extends ActorSheet {
         if (!dataset.rollType) return;
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        const sheet = new ScopNoPowerSkillRollForm(this.actor, item);
+        const sheet = new ScopNoPowerSkillRollForm(this.actor, item, this);
         sheet.render(true);
     }
 
@@ -291,7 +309,7 @@ export class ScopActorSheet extends ActorSheet {
             const itemId = element.closest('.item').dataset.itemId;
             const item = this.actor.items.get(itemId);
             const ownerItem = this.actor.items.get(item.system.ownerId);
-            const sheet = new ScopRollForm(this.actor, item, ownerItem);
+            const sheet = new ScopRollForm(this.actor, item, ownerItem, this);
             sheet.render(true);
         }
     }

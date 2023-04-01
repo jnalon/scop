@@ -72,7 +72,8 @@ Handlebars.registerHelper('plural', function(value, singular, plural) {
 Handlebars.registerHelper('dots', function(value, max) {
     const filled_symbol = '<span class="dots"><i class="fa-solid fa-circle"></i></span>';
     const empty_symbol = '<span class="dots"><i class="fa-regular fa-circle"></i></span>';
-    const result = filled_symbol.repeat(value) + empty_symbol.repeat(max - value);
+    const white_space = '<span class="dots">&nbsp;</span>';
+    const result = filled_symbol.repeat(value) + empty_symbol.repeat(max - value) + white_space;
     return result;
 });
 

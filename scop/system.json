@@ -31,7 +31,7 @@
   "secondaryTokenAttribute": "power",
   "url": "https://scop.wiki.br/",
   "manifest": "https://raw.githubusercontent.com/jnalon/scop/main/scop/system.json",
-  "download": "https://github.com/jnalon/scop/raw/main/releases/scop-0.1.2.zip",
+  "download": "https://github.com/jnalon/scop/raw/main/releases/scop-0.1.3.zip",
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"
 }

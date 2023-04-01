@@ -2,7 +2,7 @@
     <div class="item-name">
         <a class="header-label limit-edit">{{localize name}}</a>
     </div>
-    <div class="item-controls">
+    <div class="flex-group-right">
         {{{dots resource.value resource.max}}}
         {{#if (greaterThan resource.value 0)}}
             <a class="item-control limit-decrease" title="{{localize 'SCOP.Use'}}"><i class="fas fa-arrow-down"></i></a>

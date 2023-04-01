@@ -1,9 +1,13 @@
 export class ScopHealthForm extends FormApplication {
 
     /** @override */
-    constructor(actor) {
+    constructor(actor, caller=undefined) {
         super();
         this.actor = actor;
+        if (caller != undefined) {
+            this.caller = caller;
+            this.caller.deactivate();
+        }
     }
 
     /** @override */
@@ -33,6 +37,15 @@ export class ScopHealthForm extends FormApplication {
         context.system = actorData.system;
         context.flags = actorData.flags;
         return context;
+    }
+
+    /** @override */
+    async close(...args) {
+        if (this.caller != undefined) {
+            this.caller.activate();
+            this.caller = undefined;
+        }
+        super.close(...args);
     }
 
     /** @override */

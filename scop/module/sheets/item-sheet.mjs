@@ -21,10 +21,23 @@ export class ScopItemSheet extends ItemSheet {
     }
 
     /** @override */
-    async render(force) {
-        const value = super.render(force);
+    async render(force, options={}, caller=undefined) {
+        const value = super.render(force, options);
+        if (caller != undefined) {
+            this.caller = caller;
+            this.caller.deactivate();
+        }
         this.item.update({ _id: this.item._id, "name": this.item.name.capitalize() });
         return value;
+    }
+
+    /** @override */
+    async close(...args) {
+        if (this.caller != undefined) {
+            this.caller.activate();
+            this.caller = undefined;
+        }
+        super.close(...args);
     }
 
     /** @override */
