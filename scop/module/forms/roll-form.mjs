@@ -77,7 +77,7 @@ class ScopRollBaseForm extends FormApplication {
     }
 
     _getSkillLevel() {
-        return -2;
+        return 0;
     }
 
     _getAdditionalBonus() {
@@ -217,19 +217,6 @@ export class ScopNoSkillRollForm extends ScopRollBaseForm {
         this.name = game.i18n.localize("SCOP.NoSkill");
     }
 
-}
-
-
-export class ScopConceptSkillRollForm extends ScopRollBaseForm {
-
-    constructor(actor, caller=undefined) {
-        super(actor, caller);
-        this.name = game.i18n.localize("SCOP.ConceptSkill");
-    }
-
-    _getSkillLevel() {
-        return 0;
-    }
 }
 
 

@@ -1,7 +1,7 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { ScopHealthForm } from "../forms/health-form.mjs";
 import { ScopEnergyForm } from "../forms/energy-form.mjs";
-import { ScopNoSkillRollForm, ScopConceptSkillRollForm, ScopRollForm, ScopNoPowerSkillRollForm } from "../forms/roll-form.mjs";
+import { ScopNoSkillRollForm, ScopRollForm, ScopNoPowerSkillRollForm } from "../forms/roll-form.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -103,7 +103,6 @@ export class ScopActorSheet extends ActorSheet {
             return;
         super.activateListeners(html);
         $('#no-skill').click(this._onNoSkillRoll.bind(this));
-        $('#concept-skill').click(this._onConceptSkillRoll.bind(this));
         $('.rollable').click(this._onRoll.bind(this));
         $('.no-power-skill').click(this._onNoPowerSkillRoll.bind(this));
         $('.resource-use').click(this._onResourceUse.bind(this));
@@ -277,13 +276,6 @@ export class ScopActorSheet extends ActorSheet {
     _onNoSkillRoll(event) {
         event.preventDefault();
         const sheet = new ScopNoSkillRollForm(this.actor, this);
-        sheet.render(true);
-    }
-
-    /** @private */
-    _onConceptSkillRoll(event) {
-        event.preventDefault();
-        const sheet = new ScopConceptSkillRollForm(this.actor, this);
         sheet.render(true);
     }
 

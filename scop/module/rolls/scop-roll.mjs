@@ -1,11 +1,12 @@
 const CUT_VALUE = 3;
-const BASE_DICE = 3;
+const BASE_DICE = 1;
+const BASE_TYPE = "d6";
 
 class ScopBaseRoll extends Roll {
 
     /** @override */
     constructor(diceNumber, bonus, rollData) {
-        const formula = `${diceNumber}d10`;
+        const formula = `${diceNumber}${BASE_TYPE}`;
         super(formula, rollData);
         this.bonus = bonus;
         this.valid = new Array();
