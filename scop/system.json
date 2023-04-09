@@ -2,7 +2,7 @@
   "id": "scop",
   "title": "Scop",
   "description": "Scop RPG para o FoundryVTT!",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "compatibility": {
     "minimum": 10,
     "verified": "10.287",
