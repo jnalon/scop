@@ -1,5 +1,5 @@
 const CUT_VALUE = 3;
-const BASE_DICE = 1;
+const BASE_DICE = 2;
 const BASE_TYPE = "d6";
 
 class ScopBaseRoll extends Roll {
