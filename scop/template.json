@@ -30,7 +30,7 @@
         }
     },
     "Item": {
-        "types": [ "concept", "skill", "resource", "power", "equipment" ],
+        "types": [ "concept", "skill", "resource", "power", "powerskill", "equipment" ],
         "templates": {
             "base": {
                 "description": ""
@@ -44,7 +44,6 @@
         },
         "skill": {
             "templates": [ "base" ],
-            "ownerId": 0,
             "value": 0,
             "cost": 1
         },
@@ -56,8 +55,15 @@
         },
         "power": {
             "templates": [ "base" ],
+            "powerId": "",
             "leveled": true,
             "value": 1
+        },
+        "powerskill": {
+            "templates": [ "base" ],
+            "powerId": "",
+            "value": 0,
+            "cost": 1
         },
         "equipment": {
             "templates": [ "base" ],

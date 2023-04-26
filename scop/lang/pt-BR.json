@@ -21,6 +21,7 @@
     "SCOP.MakeAnEffort": "Busque suas Forças",
     "SCOP.Exerts": "busca suas forças",
     "SCOP.NoEnergy": "Sem Energia!",
+    "SCOP.BonusDice": "Dados de Bônus",
     "SCOP.Modifier": "Modificador",
     "SCOP.Modifiers": "Modificadores",
     "SCOP.Total": "Total",
@@ -60,10 +61,12 @@
     "SCOP.NewPower": "Novo Poder",
     "SCOP.NewPowerSkill": "Nova Habilidade do Poder",
     "SCOP.DeletePower": "Apaga o Poder",
+    "SCOP.SpecialAbility": "Habilidade Especial",
     "SCOP.Leveled": "Nível",
 
     "SCOP.Equipment": "Equipamento",
     "SCOP.Equipments": "Equipamentos",
+    "SCOP.Quantity": "Quantidade",
     "SCOP.NewEquipment": "Novo Item",
     "SCOP.DeleteEquipment": "Apaga o Item"
 

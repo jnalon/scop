@@ -594,6 +594,11 @@
   padding: 0;
   border: 0;
 }
+.roll-bonus-dice {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
 .roll-mod {
   margin: 0;
   padding: 0;
@@ -614,4 +619,24 @@
   margin-top: 0;
   padding: 0;
   text-align: center;
+}
+.scop .roll-bonus-dice input {
+  width: 20%;
+  margin-top: 0;
+  padding: 0;
+  text-align: center;
+}
+.scop .list-level input {
+  width: 60%;
+  margin-top: 5px;
+  padding: 0;
+  text-align: center;
+}
+.scop .list-level input:disabled {
+  width: 60%;
+  margin-top: 5px;
+  padding: 0;
+  text-align: center;
+  border: 1px solid;
+  border-color: var(--color-border-light-tertiary);
 }

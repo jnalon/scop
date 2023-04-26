@@ -27,7 +27,6 @@ export class ScopItemSheet extends ItemSheet {
             this.caller = caller;
             this.caller.deactivate();
         }
-        this.item.update({ _id: this.item._id, "name": this.item.name.capitalize() });
         return value;
     }
 
@@ -48,6 +47,17 @@ export class ScopItemSheet extends ItemSheet {
         let actor = this.object?.parent ?? null;
         if (actor) {
             context.rollData = actor.getRollData();
+            context.isActor = true;
+        } else {
+            context.isActor = false;
+            if (this.item.type == 'powerskill') {
+                context.powerList = [ ];
+                for (let i of game.items) {
+                    if (i.type == 'power') {
+                        context.powerList.push(i)
+                    }
+                }
+            }
         }
         context.system = itemData.system;
         context.flags = itemData.flags;
@@ -81,12 +91,14 @@ export class ScopItemSheet extends ItemSheet {
 
     /** @private */
     _removePowerSkills() {
-        const thisId = this.item._id;
-        this.item.actor.items.forEach(i => {
-            if (i.system.ownerId == thisId) {
+        if (!this.item.actor)
+            return;
+        const thisPowerId = this.item.system.powerId;
+        for (let i of this.item.actor.items) {
+            if (i.type == "powerskill" && i.system.powerId == thisPowerId) {
                 i.delete();
             }
-        });
+        }
     }
 
     /** @private */
@@ -104,7 +116,7 @@ export class ScopItemSheet extends ItemSheet {
     /** @private */
     _onCostDecrease(event) {
         event.preventDefault(false);
-        if (this.item.type == "skill") {
+        if (this.item.type == "powerskill") {
             this.item.costDecrease();
         }
     }
@@ -112,7 +124,7 @@ export class ScopItemSheet extends ItemSheet {
     /** @private */
     _onCostIncrease(event) {
         event.preventDefault();
-        if (this.item.type == "skill") {
+        if (this.item.type == "powerskill") {
             this.item.costIncrease();
         }
     }
@@ -133,6 +145,15 @@ export class ScopItemSheet extends ItemSheet {
     _onToggle(event) {
         event.preventDefault();
         this.item.toggle();
+    }
+
+    /** @override */
+    _onSubmit(event) {
+        if (this.item.type == 'powerskill') {
+            const powerId = $('#power-name').find(':selected').val();
+            this.item.setPowerId(powerId);
+        }
+        super._onSubmit(event);
     }
 
 }

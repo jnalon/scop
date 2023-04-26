@@ -6,6 +6,18 @@
             <h1 class="feature">
                 <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
             </h1>
+            {{#if this.isActor}}
+                <div class="feature-level flex-group-left">
+                    <label class="header-label" for="system.value">{{localize "SCOP.Quantity"}}:</label>
+                    <input type="text" value="{{system.value}}" disabled/>
+                    {{#if (greaterThan system.value 0)}}
+                        <a class="item-control" id="decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
+                    {{else}}
+                        <a class="item-control inactive" id="decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
+                    {{/if}}
+                    <a class="item-control" id="increase" title="Increase"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            {{/if}}
         </div>
     </header>
 

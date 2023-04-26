@@ -10,7 +10,7 @@
         </h4>
     </div>
     <div class="item-controls">
-        <a class="item-create" title="{{localize 'SCOP.NewPowerSkill'}}" data-type="skill">
+        <a class="item-create" title="{{localize 'SCOP.NewPowerSkill'}}" data-type="powerskill">
             <i class="fas fa-plus"></i>{{localize "SCOP.PowerSkill"}}
         </a>
     </div>
@@ -26,5 +26,5 @@
             <h4>{{localize "SCOP.NoSkill"}}</h4>
         </div>
     </li>
-    {{> "systems/scop/templates/actor/parts/actor-skills-list.html" skills=skills}}
+    {{> "systems/scop/templates/actor/parts/actor-powerskills-list.html" skills=skills}}
 </ol>

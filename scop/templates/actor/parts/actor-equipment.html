@@ -19,6 +19,15 @@
                     </a>
                 </h4>
             </div>
+            <div class="flex-group-right list-level">
+                <input type="text" value="{{item.system.value}}" disabled/>
+                {{#if (greaterThan item.system.value 0)}}
+                    <a class="item-control item-decrease" title="{{localize 'SCOP.Use'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <a class="item-control inactive"><i class="fas fa-arrow-down"></i></a>
+                {{/if}}
+                <a class="item-control item-increase" title="{{localize 'SCOP.Increase'}}"><i class="fas fa-arrow-up"></i></a>
+            </div>
         </li>
     {{/each}}
 </ol>

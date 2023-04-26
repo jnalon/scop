@@ -8,7 +8,8 @@
             </div>
             <h4>
                 <a class="item-control item-edit">
-                    {{item.name}}: {{numberFormat item.system.value sign=true}}.
+                    {{item.name}}: {{numberFormat item.system.value sign=true}}
+                    ({{localize "SCOP.Cost"}}: {{item.system.cost}}).
                 </a>
             </h4>
         </div>

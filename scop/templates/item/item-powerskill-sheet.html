@@ -1,0 +1,54 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <header class="sheet-header">
+        <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
+        <div class="header-fields">
+            <h1 class="feature">
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.NewSkill'}}"/>
+            </h1>
+            {{#if (not this.isActor)}}
+                <div class="feature-level flex-group-left">
+                    <label class="header-label" for="power-name">{{localize "SCOP.PowerSkill"}}:</label>
+                    <select name="power-name" id="power-name">
+                        {{#each powerList as |power id|}}
+                            {{#if (equal power.system.powerId @root.system.powerId)}}
+                                <option value="{{power.system.powerId}}" selected>{{power.name}}</option>
+                            {{else}}
+                                <option value="{{power.system.powerId}}">{{power.name}}</option>
+                            {{/if}}
+                        {{/each}}
+                    </select>
+                </div>
+            {{/if}}
+            <div class="feature-level flex-group-left">
+                <label class="header-label" for="system.cost">{{localize "SCOP.Cost"}}:</label>
+                <input type="text" value="{{system.cost}}" disabled/>
+                {{#if (greaterThan system.cost 1)}}
+                    <a class="item-control" id="cost-decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <span class="item-control inactive" title="Decrease"><i class="fas fa-arrow-down"></i></span>
+                {{/if}}
+                <a class="item-control" id="cost-increase" title="Increase"><i class="fas fa-arrow-up"></i></a>
+            </div>
+            {{#if this.isActor}}
+                <div class="feature-level flex-group-left">
+                    <label class="header-label" for="system.value">{{localize "SCOP.Level"}}:</label>
+                    <input type="text" value="{{numberFormat system.value sign=true}}" disabled/>
+                    <a class="item-control" id="decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
+                    <a class="item-control" id="increase" title="Increase"><i class="fas fa-arrow-up"></i></a>
+                </div>
+            {{/if}}
+        </div>
+    </header>
+
+    <section class="form-section">
+        <h3>{{localize "SCOP.Description"}}</h3>
+        <div class="scop-editor" data-group="primary" data-tab="description">
+            {{editor system.description target="system.description" button=true  engine="prosemirror" editable=editable}}
+        </div>
+        <div class="item-controls trashcan">
+            <a class="item-control" id="delete" title="{{localize 'SCOP.DeleteSkill'}}"><i class="fas fa-trash"></i></a>
+        </div>
+    </section>
+
+</form>

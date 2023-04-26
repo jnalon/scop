@@ -11,7 +11,7 @@
                     </span>
                     <h4>
                         <span class="item-control inactive">
-                            {{item.concept.system.question}}: {{item.concept.system.answer}}.
+                            {{item.concept.name}}
                             {{#if (greaterThan item.concept.system.value 1)}}
                                 ({{localize "SCOP.Level"}}: {{item.concept.system.value}})
                             {{/if}}
@@ -23,7 +23,7 @@
                     </a>
                     <h4>
                         <a class="item-control">
-                            {{item.concept.system.question}}: {{item.concept.system.answer}}.
+                            {{item.concept.name}}
                             {{#if (greaterThan item.concept.system.value 1)}}
                                 ({{localize "SCOP.Level"}}: {{item.concept.system.value}})
                             {{/if}}

@@ -65,23 +65,26 @@ export class ScopActorSheet extends ActorSheet {
             if (i.type == 'concept') {
                 concepts.push(i);
             } else if (i.type == 'skill') {
-                if (powersMap.has(i.system.ownerId)) {
-                    powersMap.get(i.system.ownerId).skills.push(i);
-                } else {
-                    skills.push(i);
-                }
+                skills.push(i);
             } else if (i.type == 'resource') {
                 resources.push(i);
             } else if (i.type == 'power') {
                 i.skills = [ ];
                 powers.push(i);
-                powersMap.set(i._id, i);
+                powersMap.set(i.system.powerId, i);
+            } else if (i.type == 'powerskill') {
+                if (powersMap.has(i.system.powerId)) {
+                    powersMap.get(i.system.powerId).skills.push(i);
+                }
             } else if (i.type == 'equipment') {
                 equipment.push(i);
             }
         }
+        for (let power of powers) {
+            power.skills = power.skills.sort((a, b) => { return b.system.value - a.system.value });
+        }
         context.concepts = concepts;
-        context.skills = skills;
+        context.skills = skills.sort((a, b) => { return b.system.value - a.system.value });
         context.resources = resources;
         context.powers = powers;
         context.equipment = equipment;
@@ -119,6 +122,13 @@ export class ScopActorSheet extends ActorSheet {
         }
     }
 
+    /** @private */
+    _getItemType(event) {
+        const li = $(event.currentTarget).parents(".item");
+        const type = li.data("type");
+        return type;
+    }
+
      /** @private */
    _getItemId(event) {
         const li = $(event.currentTarget).parents(".item");
@@ -134,10 +144,35 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
-    _getItemType(event) {
-        const li = $(event.currentTarget).parents(".item");
-        const type = li.data("type");
-        return type;
+    _getItemName(event) {
+        const item = this._getItem(event);
+        const name = item.name;
+        return name;
+    }
+
+    /** @private */
+    _getPowerId(event) {
+        const item = this._getItem(event);
+        const powerId = item.system.powerId;
+        return powerId;
+    }
+
+    /** @private */
+    _getItemByName(name) {
+        for (let i of this.actor.items) {
+            if (i.name == name) {
+                return i;
+            }
+        }
+    }
+
+    /** @private */
+    _getItemByPowerId(powerId) {
+        for (let i of this.actor.items) {
+            if (i.type == 'power' && i.system.powerId == powerId) {
+                return i;
+            }
+        }
     }
 
     /** @private */
@@ -155,6 +190,8 @@ export class ScopActorSheet extends ActorSheet {
             name = game.i18n.localize('SCOP.NewResource');
         } else if (type == "power") {
             name = game.i18n.localize('SCOP.NewPower');
+        } else if (type == "powerskill") {
+            name = game.i18n.localize('SCOP.NewPowerSkill');
         } else if (type == "equipment") {
             name = game.i18n.localize('SCOP.NewEquipment');
         } else {
@@ -169,9 +206,9 @@ export class ScopActorSheet extends ActorSheet {
 
         let item = await Item.create(itemData, { parent: this.actor });
         await item.sheet.render(true, {}, this);
-        if (item.type == "skill") {
-            const itemId = this._getItemId(event);
-            item = await item.setOwnerID(itemId);
+        if (item.type == "powerskill") {
+            const powerId = this._getPowerId(event);
+            item = await item.setPowerId(powerId);
         }
         return item;
     }
@@ -300,8 +337,8 @@ export class ScopActorSheet extends ActorSheet {
         if (dataset.rollType == 'skill') {
             const itemId = element.closest('.item').dataset.itemId;
             const item = this.actor.items.get(itemId);
-            const ownerItem = this.actor.items.get(item.system.ownerId);
-            const sheet = new ScopRollForm(this.actor, item, ownerItem, this);
+            const powerItem = this._getItemByPowerId(item.system.powerId);
+            const sheet = new ScopRollForm(this.actor, item, powerItem, this);
             sheet.render(true);
         }
     }

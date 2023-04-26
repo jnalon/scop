@@ -54,6 +54,7 @@ Handlebars.registerHelper('toLowerCase', function(str) {
     return str.toLowerCase();
 });
 
+Handlebars.registerHelper('not', v => !v);
 Handlebars.registerHelper('equal', (v1, v2) => v1 == v2);
 Handlebars.registerHelper('notEqual', (v1, v2) => v1 != v2);
 Handlebars.registerHelper('greaterThan', (v1, v2) => v1 > v2);

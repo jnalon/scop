@@ -10,6 +10,7 @@ class ScopRollBaseForm extends FormApplication {
         this._getConcepts();
         this.useConcepts = false;
         this.conceptBonus = 0;
+        this.bonusDice = 0;
         this.bonus = 0;
         this.totalBonus = 0;
         this.effort = false;
@@ -59,6 +60,7 @@ class ScopRollBaseForm extends FormApplication {
         context.concepts = this.concepts;
         context.useConcepts = this.useConcepts;
         context.conceptBonus = this.conceptBonus;
+        context.bonusDice = this.bonusDice;
         context.bonus = this.bonus;
         context.effort = this.effort;
         context.cost = this._getEffortCost();
@@ -92,6 +94,7 @@ class ScopRollBaseForm extends FormApplication {
         this._getConcepts();
         this.useConcepts = false;
         this.conceptBonus = 0;
+        this.bonusDice = 0;
         this.bonus = 0;
         this.totalBonus = 0;
     }
@@ -113,6 +116,8 @@ class ScopRollBaseForm extends FormApplication {
         if (!this.effort) {
             html.find('.use-concept').click(this._onUseConcept.bind(this));
         }
+        $('#bonus-dice-decrease').click(this._onBonusDiceDecrease.bind(this));
+        $('#bonus-dice-increase').click(this._onBonusDiceIncrease.bind(this));
         $('#bonus-decrease').click(this._onBonusDecrease.bind(this));
         $('#bonus-increase').click(this._onBonusIncrease.bind(this));
         $('#roll').click(this._onRoll.bind(this));
@@ -136,6 +141,18 @@ class ScopRollBaseForm extends FormApplication {
         this.render(true);
     }
 
+    _onBonusDiceDecrease(event) {
+        event.preventDefault();
+        this.bonusDice = this.bonusDice - 1;
+        this.render(true);
+    }
+
+    _onBonusDiceIncrease(event) {
+        event.preventDefault();
+        this.bonusDice = this.bonusDice + 1;
+        this.render(true);
+    }
+
     _onBonusDecrease(event) {
         event.preventDefault();
         this.bonus = this.bonus - 1;
@@ -151,7 +168,7 @@ class ScopRollBaseForm extends FormApplication {
     async _onRoll(event) {
         event.preventDefault();
         const rollData = this.actor.getRollData();
-        const testLevel = this._getSkillLevel() + this._applyConcepts();
+        const testLevel = this._getSkillLevel() + this._applyConcepts() + this.bonusDice;
         const additionalBonus = this._getAdditionalBonus();
         this.totalBonus = this.bonus + additionalBonus;
 
@@ -222,10 +239,10 @@ export class ScopNoSkillRollForm extends ScopRollBaseForm {
 
 export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
 
-    constructor(actor, item, caller=undefined) {
+    constructor(actor, powerItem, caller=undefined) {
         super(actor, caller);
         this.name = game.i18n.localize("SCOP.NoSkill");
-        this.power = item;
+        this.power = powerItem;
         this.usePower = false;
     }
 
@@ -261,6 +278,10 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
         this.render(true);
     }
 
+    _getSkillLevel(event) {
+        return -1;
+    }
+
     _getAdditionalBonus() {
         return this._applyPower();
     }
@@ -270,11 +291,11 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
 
 export class ScopRollForm extends ScopRollBaseForm {
 
-    constructor(actor, item, ownerItem, caller=undefined) {
+    constructor(actor, skillItem, powerItem, caller=undefined) {
         super(actor, caller);
-        this.name = item.name;
-        this.skill = item;
-        this.power = ownerItem;
+        this.name = skillItem.name;
+        this.skill = skillItem;
+        this.power = powerItem;
         this.usePower = false;
     }
 

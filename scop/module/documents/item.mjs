@@ -5,6 +5,15 @@
 export class ScopItem extends Item {
 
     /** @override */
+    _onUpdate(...args) {
+        this.setName(this.name.capitalize());
+        if (this.type == 'power' && this.system.powerId == "") {
+            this.setPowerId(this._id);
+        }
+        super._onUpdate(...args);
+    }
+
+    /** @override */
     prepareData() {
         super.prepareData();
     }
@@ -13,15 +22,14 @@ export class ScopItem extends Item {
     prepareDerivedData() {
         if (this.type == "concept") {
             this.img = "icons/magic/holy/yin-yang-balance-symbol.webp";
-            this.name = this.system.question + ": " + this.system.answer + ".";
-        } else if (this.type == "power") {
-            this.img = "icons/magic/light/explosion-star-glow-silhouette.webp";
-        } else if (this.type == "skill" && this.system.ownerId == 0) {
-            this.img = "icons/tools/smithing/hammer-sledge-steel-grey.webp";
         } else if (this.type == "skill") {
-            this.img = "icons/magic/fire/beam-jet-stream-embers.webp";
+            this.img = "icons/tools/smithing/hammer-sledge-steel-grey.webp";
         } else if (this.type == "resource") {
             this.img = "icons/commodities/currency/coins-engraved-copper.webp";
+        } else if (this.type == "power") {
+            this.img = "icons/magic/light/explosion-star-glow-silhouette.webp";
+        } else if (this.type == "powerskill") {
+            this.img = "icons/magic/fire/beam-jet-stream-embers.webp";
         } else if (this.type == "equipment") {
             this.img = "icons/containers/bags/pack-leather-black-brown.webp";
         }
@@ -39,8 +47,8 @@ export class ScopItem extends Item {
         return this.update({ _id: this.id, "name": name });
     }
 
-    async setOwnerID(ownerId) {
-        return this.update({ _id: this._id, "system.ownerId": ownerId });
+    async setPowerId(powerId) {
+        return this.update({ _id: this._id, "system.powerId": powerId });
     }
 
     async decrease() {
@@ -49,6 +57,8 @@ export class ScopItem extends Item {
             new_value = 1;
         } else if (this.type == 'resource' && new_value < this.system.min) {
             new_value = this.system.min;
+        } else if (this.type == 'equipment' && new_value < 0) {
+            new_value = 0;
         }
         return this.update({ _id: this._id, "system.value": new_value });
     }

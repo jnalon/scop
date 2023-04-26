@@ -1,5 +1,3 @@
-{{log 'skill' this}}
-
 <form class="{{cssClass}}" autocomplete="off">
 
     <header class="sheet-header">
@@ -8,22 +6,12 @@
             <h1 class="feature">
                 <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.NewSkill'}}"/>
             </h1>
-            <div class="feature-level flex-group-right">
-                <label class="header-label" for="system.value">{{localize "SCOP.Level"}}:</label>
-                <input type="text" value="{{numberFormat system.value sign=true}}" disabled/>
-                <a class="item-control" id="decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
-                <a class="item-control" id="increase" title="Increase"><i class="fas fa-arrow-up"></i></a>
-            </div>
-            {{#if system.ownerId}}
-                <div class="feature-level flex-group-right">
-                    <label class="header-label" for="system.cost">{{localize "SCOP.Cost"}}:</label>
-                    <input type="text" value="{{system.cost}}" disabled/>
-                    {{#if (greaterThan system.cost 1)}}
-                        <a class="item-control" id="cost-decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
-                    {{else}}
-                        <span class="item-control inactive" title="Decrease"><i class="fas fa-arrow-down"></i></span>
-                    {{/if}}
-                    <a class="item-control" id="cost-increase" title="Increase"><i class="fas fa-arrow-up"></i></a>
+            {{#if this.isActor}}
+                <div class="feature-level flex-group-left">
+                    <label class="header-label" for="system.value">{{localize "SCOP.Level"}}:</label>
+                    <input type="text" value="{{numberFormat system.value sign=true}}" disabled/>
+                    <a class="item-control" id="decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
+                    <a class="item-control" id="increase" title="Increase"><i class="fas fa-arrow-up"></i></a>
                 </div>
             {{/if}}
         </div>

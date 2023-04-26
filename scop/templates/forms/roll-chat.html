@@ -2,6 +2,7 @@
     {{actor.name}} {{localize "SCOP.Tries"}} {{name}}
 </h3>
 {{> "systems/scop/templates/forms/parts/roll-chat-concept-bonus.html"}}
+{{> "systems/scop/templates/forms/parts/roll-chat-bonus-dice.html"}}
 <div class="flexrow flex-group-center roll-results">
     {{#each mainRoll.valid as |value|}}
         <span class="valid-dice">{{value}}</span>

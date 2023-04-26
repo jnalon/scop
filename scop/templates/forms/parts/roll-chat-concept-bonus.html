@@ -10,7 +10,7 @@
         {{#each concepts}}
             {{#if (notEqual use 0)}}
                 <li class="roll-li">
-                    {{concept.system.question}}: {{concept.system.answer}}
+                    {{concept.name}}
                     ({{numberFormat use sign=true}}d)
                 </li>
             {{/if}}
