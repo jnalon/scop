@@ -1,6 +1,6 @@
-const CUT_VALUE = 3;
+const CUT_VALUE = 4;
 const BASE_DICE = 2;
-const BASE_TYPE = "d6";
+const BASE_TYPE = "d10";
 
 class ScopBaseRoll extends Roll {
 
