@@ -7,7 +7,7 @@
                 <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.NewSkill'}}"/>
             </h1>
             {{#if this.isActor}}
-                <div class="feature-level flex-group-left">
+                <div class="feature-level flex-group-right">
                     <label class="header-label" for="system.value">{{localize "SCOP.Level"}}:</label>
                     <input type="text" value="{{numberFormat system.value sign=true}}" disabled/>
                     <a class="item-control" id="decrease" title="Decrease"><i class="fas fa-arrow-down"></i></a>
@@ -21,9 +21,6 @@
         <h3>{{localize "SCOP.Description"}}</h3>
         <div class="scop-editor" data-group="primary" data-tab="description">
             {{editor system.description target="system.description" button=true  engine="prosemirror" editable=editable}}
-        </div>
-        <div class="item-controls trashcan">
-            <a class="item-control" id="delete" title="{{localize 'SCOP.DeleteSkill'}}"><i class="fas fa-trash"></i></a>
         </div>
     </section>
 

@@ -7,11 +7,8 @@
                 <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
             </h1>
             {{#if this.isActor}}
-                <div class="feature-level flex-group-left">
-                    <label class="header-label" for="system.value">
-                        {{localize "SCOP.Leveled"}}:
-                    </label>
-                    <input type="text" value="{{system.value}}" disabled/>
+                <div class="feature-level flex-group-right">
+                    {{{dots item.system.value item.system.max}}}
                     {{#if (greaterThan item.system.value item.system.min)}}
                         <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
                     {{else}}
@@ -23,7 +20,6 @@
                         <span class="item-control inactive"><i class="fas fa-arrow-up"></i></span>
                     {{/if}}
                     <span> / </span>
-                    <input type="text" value="{{system.max}}" disabled/>
                     {{#if (greaterThan item.system.max 0)}}
                         <a class="item-control" id="max-decrease" title="{{localize 'SCOP.MaxDecrease'}}"><i class="fas fa-arrow-down"></i></a>
                     {{else}}
@@ -39,9 +35,6 @@
         <h3>{{localize "SCOP.Description"}}</h3>
         <div class="scop-editor" data-group="primary" data-tab="description">
             {{editor system.description target="system.description" button=true  engine="prosemirror" editable=editable}}
-        </div>
-        <div class="item-controls trashcan">
-            <a class="item-control" id="delete" title="{{localize 'SCOP.DeleteResource'}}"><i class="fas fa-trash"></i></a>
         </div>
     </section>
 

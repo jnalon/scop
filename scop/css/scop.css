@@ -230,9 +230,13 @@
   /* ----------------------------------------- */
   /* Example style for Scop (can be removed if not needed) */
 }
+
 .scop .item-form {
   font-family: "Roboto", sans-serif;
 }
+
+
+/* Sheet Header ***********************************************************************************/
 .scop .sheet-header {
   -webkit-box-flex: 0;
   -ms-flex: 0 auto;
@@ -252,6 +256,7 @@
   justify-content: flex-start;
   margin-bottom: 10px;
 }
+
 .scop .sheet-header .profile-img {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 100px;
@@ -260,12 +265,14 @@
   margin-right: 10px;
   align-self: start;
 }
+
 .scop .sheet-header .header-fields {
   -webkit-box-flex: 1;
   -ms-flex: 1;
   flex: 1;
   align-self: start;
 }
+
 .scop .sheet-header h1.charname {
   height: 50px;
   padding: 0px;
@@ -273,32 +280,96 @@
   margin-bottom: 5px;
   border-bottom: 0;
 }
+
 .scop .sheet-header h1.charname input {
   width: 100%;
   height: 100%;
   margin: 0;
   margin-bottom: 5px;
 }
+
+
+.scop .sheet-header .feature {
+  height: 50px;
+  padding: 0px;
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.scop .sheet-header .feature input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+.scop .sheet-header .feature input:disabled {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border: 1px solid;
+  border-color: var(--color-border-light-tertiary);
+}
+
+.scop .feature-level {
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+}
+
+.scop .feature-level checkbox {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.scop .feature-level label {
+  font-size: 120%;
+  font-weight: bold;
+}
+
+.scop .feature-level input {
+  width: 20%;
+  padding: 0;
+  text-align: center;
+}
+
+.scop .feature-level input:disabled {
+  width: 20%;
+  padding: 0;
+  text-align: center;
+  border: 1px solid;
+  border-color: var(--color-border-light-tertiary);
+}
+/**************************************************************************************************/
+
+
 .scop .sheet-tabs {
   -webkit-box-flex: 0;
   -ms-flex: 0;
   flex: 0;
 }
+
 .scop .sheet-body,
 .scop .sheet-body .tab,
 .scop .sheet-body .tab .editor {
 /*   height: 77%; */
   height: calc(100% - 2px);
 }
+
 .scop .tox .tox-editor-container {
   background: #fff;
 }
+
 .scop .tox .tox-edit-area {
   padding: 0 8px;
 }
+
 .scop .resource-label {
   font-weight: bold;
 }
+
+
+/* Sheet item presentation ************************************************************************/
 .scop .items-header {
   height: 28px;
   margin: 2px 0;
@@ -310,10 +381,19 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
+
+.scop .item-create {
+  padding: 0;
+  text-align: right;
+  vertical-align: baseline;
+  font-size: 95%;
+}
+
 .scop .items-header > * {
   font-size: 14px;
   text-align: center;
 }
+
 .scop .items-header .item-name {
   font-weight: bold;
   padding-left: 5px;
@@ -322,6 +402,7 @@
   display: -ms-flexbox;
   display: flex;
 }
+
 .scop .items-list {
   list-style: none;
   margin: 0;
@@ -330,83 +411,13 @@
   scrollbar-width: thin;
   color: #444;
 }
+
 .scop .items-list .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.scop .items-list .item-name {
-  -webkit-box-flex: 2;
-  -ms-flex: 2;
-  flex: 2;
-  margin: 0;
-  overflow: hidden;
-  font-size: 13px;
-  text-align: left;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-.scop .items-list .item-name h3, .scop .items-list .item-name h4 {
-  margin: 0;
-  white-space: nowrap;
-  overflow-x: hidden;
-  align-self: center;
-}
-.scop .item-name {
-  margin: 0;
-  white-space: nowrap;
-  overflow-x: hidden;
-  align-self: center;
-  font-size: 110%;
-}
-.scop .items-list .item-controls {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 100px;
-  flex: 0 0 100px;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
-  justify-content: flex-end;
-}
-.scop .items-list .item-controls a {
-  font-size: 12px;
-  text-align: center;
-  margin: 0 6px;
-}
-.scop .items-list .item {
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  padding: 0 2px;
-  border-bottom: 1px solid #c9c7b8;
-}
-.scop .items-list .item:last-child {
-  border-bottom: none;
-}
-.scop .items-list .item .item-name {
-  color: #191813;
-}
-.scop .items-list .item .item-name .item-image {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 30px;
-  flex: 0 0 30px;
-  height: 30px;
-  background-size: 30px;
-  border: none;
-  margin-right: 5px;
-}
-.scop .items-list .item-prop {
-  text-align: center;
-  border-left: 1px solid #c9c7b8;
-  border-right: 1px solid #c9c7b8;
-  font-size: 12px;
-}
+
 .scop .items-list .items-header {
   height: 28px;
   margin: 2px 0;
@@ -418,20 +429,141 @@
   border: 2px groove #eeede0;
   font-weight: bold;
 }
+
 .scop .items-list .items-header > * {
   font-size: 12px;
   text-align: center;
 }
+
 .scop .items-list .items-header .item-name {
   padding-left: 5px;
   text-align: left;
 }
+
+.scop .items-list .item-name {
+  -webkit-box-flex: 2;
+  -ms-flex: 2;
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 12px;
+  text-align: left;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.scop .item-name {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+  align-self: center;
+  font-size: 110%;
+}
+
+.scop .items-list .item {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 1px solid #c9c7b8;
+  display: flex;
+}
+
+.scop .items-list .item:last-child {
+  border-bottom: none;
+}
+
+.scop .items-list .item .item-image {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 30px;
+  flex: 0 0 30px;
+  height: 25px;
+  width: 25px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+
+.scop .items-list .item .item-name {
+  color: #191813;
+}
+
+.scop .items-list .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+  align-self: center;
+}
+
+.scop .items-sublist {
+  list-style: none;
+  margin-left: 10px;
+  margin-right: 0px;
+  padding: 0;
+}
+
+.scop .items-sublist .item-create {
+  padding: 0;
+  text-align: right;
+  vertical-align: baseline;
+  font-size: 75%;
+}
+
+.scop .items-list .item-level {
+  padding-right: 20px;
+  padding-left: 10px;
+  font-size: 120%;
+  text-align: center;
+}
+
+.scop .items-list .item-level-dots {
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 95%;
+  text-align: right;
+  min-width: fit-content;
+}
+
+.scop .items-list .item-controls {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 100px;
+  flex: 0 0 100px;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  max-width: fit-content;
+  padding-left: 2px;
+  border-left: 1px dotted;
+  border-color: var(--color-border-light-tertiary);
+}
+
+.scop .items-list .item-controls a {
+  font-size: 10px;
+  text-align: center;
+  margin: 4px;
+}
+
+.scop .items-list .item-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+
 .scop .item-formula {
   -webkit-box-flex: 0;
   -ms-flex: 0 0 200px;
   flex: 0 0 200px;
   padding: 0 8px;
 }
+
 .scop .effects .item .effect-source,
 .scop .effects .item .effect-duration,
 .scop .effects .item .effect-controls {
@@ -440,123 +572,72 @@
   border-right: 1px solid #c9c7b8;
   font-size: 12px;
 }
+
 .scop .effects .item .effect-controls {
   border: none;
 }
-.scop .sheet-header .feature {
-  height: 50px;
-  padding: 0px;
-  margin: 0;
-  margin-bottom: 5px;
-}
-.scop .sheet-header .feature input {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-}
-.scop .sheet-header .feature input:disabled {
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  border: 1px solid;
-  border-color: var(--color-border-light-tertiary);
-}
-.scop .feature-level {
-  margin: 0;
-  padding: 0;
-  vertical-align: top;
-}
-.scop .feature-level checkbox {
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-.scop .feature-level label {
-  font-size: 140%;
-  font-weight: bold;
-}
-.scop .feature-level input {
-  width: 20%;
-  margin-top: 5px;
-  padding: 0;
-  text-align: center;
-}
-.scop .feature-level input:disabled {
-  width: 20%;
-  margin-top: 5px;
-  padding: 0;
-  text-align: center;
-  border: 1px solid;
-  border-color: var(--color-border-light-tertiary);
-}
+/**************************************************************************************************/
+
+
 .scop .description-editor {
   height: 30%;
 }
+
 .scop .biography-editor {
   height: 100%;
 }
+
 .scop .dots {
   font-size: 85%;
   font-weight: bold;
   margin-right: 0.1em;
   vertical-align: baseline;
 }
+
 .scop .inactive {
   opacity: 0.5;
 }
+
 .scop .header-label {
   font-size: 120%;
   font-weight: bold;
   margin-right: 0.6em;
 }
-.scop .item-create {
-  padding: 0;
-  text-align: right;
-  vertical-align: baseline;
-  font-size: 95%;
-}
+
 .scop .sheet-header h1.itemname {
   height: 50px;
   padding: 0px;
   margin: 5px 0;
   border: 1px;
 }
-.scop .items-sublist {
-  list-style: none;
-  margin-left: 24px;
-  margin-right: 24px;
-  padding: 0;
-}
+
 .scop .header-table {
   display: table;
 }
+
 .scop .header-row {
   display: table-row;
 }
+
 .scop .header-cell {
   display: table-cell;
   vertical-align: top;
 }
-/*.scop .form-section {
-  display: flex;
-  flex-flow: column;
-  height: 300px;
-}
-.scop .scop-editor {
-  flex: 1;
-  overflow: auto;
-}*/
+
 .scop .form-section {
   display: grid;
   align-items: stretch;
-  height: 300px;
   grid-template-rows: min-content auto 24px;
+  margin-bottom: 1em;
 }
+
 .scop .scop-editor {
   overflow: auto;
   height: 100%;
   display: flex;
+  min-height: 300px;
 }
+
 .editor {
   position: relative;
   max-height: 100%;
@@ -566,39 +647,41 @@
   display: flex;
   flex-direction: column;
 }
+
 .sheet .editor-content {
   overflow-y: auto;
   word-break: break-word;
   flex: 1 1 auto;
 }
-.scop .trashcan {
-  margin-top: 8px;
-  margin-right: 8px;
-  text-align: right;
-  vertical-align: bottom;
-  min-height: 24px;
-}
+
+
+/* Roll formatting. *******************************************************************************/
 .roll-results {
   margin-top: 0.5em;
   margin-bottom: 0.8em;
 }
+
 .valid-dice {
   font-size: 200%;
 }
+
 .discarded-dice {
   font-size: 200%;
   opacity: 0.5;
 }
+
 .roll-bonus {
   margin: 0;
   padding: 0;
   border: 0;
 }
+
 .roll-bonus-dice {
   margin: 0;
   padding: 0;
   border: 0;
 }
+
 .roll-mod {
   margin: 0;
   padding: 0;
@@ -606,32 +689,53 @@
   font-size: 110%;
   font-weight: bold;
 }
+
 .roll-ul {
   list-style-type: circle;
   display: block;
 }
+
 .roll-final {
   font-size: 150%;
   font-weight: bold;
 }
+
 .scop .roll-bonus input {
   width: 20%;
   margin-top: 0;
   padding: 0;
   text-align: center;
+  border-color: var(--color-border-light-tertiary);
+  color: var(--color-text-dark-secondary);
 }
+
+.scop .roll-bonus input:disabled {
+  border: 1px solid;
+  border-color: var(--color-border-light-tertiary);
+}
+
 .scop .roll-bonus-dice input {
   width: 20%;
   margin-top: 0;
   padding: 0;
   text-align: center;
+  border-color: var(--color-border-light-tertiary);
+  color: var(--color-text-dark-secondary);
 }
+
+.scop .roll-bonus-dice input:disabled {
+  border: 1px solid;
+  border-color: var(--color-border-light-tertiary);
+}
+/**************************************************************************************************/
+/*
 .scop .list-level input {
   width: 60%;
   margin-top: 5px;
   padding: 0;
   text-align: center;
 }
+
 .scop .list-level input:disabled {
   width: 60%;
   margin-top: 5px;
@@ -639,4 +743,4 @@
   text-align: center;
   border: 1px solid;
   border-color: var(--color-border-light-tertiary);
-}
+}*/

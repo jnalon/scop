@@ -76,6 +76,7 @@ export class ScopItemSheet extends ItemSheet {
             $("#max-decrease").click(this._onMaxDecrease.bind(this));
             $("#max-increase").click(this._onMaxIncrease.bind(this));
             $("#toggle").click(this._onToggle.bind(this));
+            $("#text-toggle").click(this._onToggle.bind(this));
         }
     }
 

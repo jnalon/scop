@@ -1,7 +1,8 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { ScopHealthForm } from "../forms/health-form.mjs";
 import { ScopEnergyForm } from "../forms/energy-form.mjs";
-import { ScopNoSkillRollForm, ScopRollForm, ScopNoPowerSkillRollForm } from "../forms/roll-form.mjs";
+import { ScopNoSkillRollForm, ScopSkillRollForm, ScopNoPowerSkillRollForm, ScopPowerSkillRollForm }
+       from "../forms/roll-form.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -105,7 +106,6 @@ export class ScopActorSheet extends ActorSheet {
         if (!this._active)
             return;
         super.activateListeners(html);
-        $('#no-skill').click(this._onNoSkillRoll.bind(this));
         $('.rollable').click(this._onRoll.bind(this));
         $('.no-power-skill').click(this._onNoPowerSkillRoll.bind(this));
         $('.resource-use').click(this._onResourceUse.bind(this));
@@ -210,6 +210,10 @@ export class ScopActorSheet extends ActorSheet {
             const powerId = this._getPowerId(event);
             item = await item.setPowerId(powerId);
         }
+
+        console.log(event);
+        console.log(item);
+
         return item;
     }
 
@@ -310,6 +314,30 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
+    _onRoll(event) {
+        event.preventDefault();
+        const element = event.currentTarget;
+        const dataset = element.dataset;
+        if (!dataset.rollType) return;
+        if (dataset.rollType == 'no-skill') {
+            this._onNoSkillRoll(event);
+        }
+        if (dataset.rollType == 'skill') {
+            const itemId = element.closest('.item').dataset.itemId;
+            const item = this.actor.items.get(itemId);
+            const sheet = new ScopSkillRollForm(this.actor, item, this);
+            sheet.render(true);
+        }
+        if (dataset.rollType == 'power-skill') {
+            const itemId = element.closest('.item').dataset.itemId;
+            const item = this.actor.items.get(itemId);
+            const powerItem = this._getItemByPowerId(item.system.powerId);
+            const sheet = new ScopPowerSkillRollForm(this.actor, item, powerItem, this);
+            sheet.render(true);
+        }
+    }
+
+    /** @private */
     _onNoSkillRoll(event) {
         event.preventDefault();
         const sheet = new ScopNoSkillRollForm(this.actor, this);
@@ -326,21 +354,6 @@ export class ScopActorSheet extends ActorSheet {
         const item = this.actor.items.get(itemId);
         const sheet = new ScopNoPowerSkillRollForm(this.actor, item, this);
         sheet.render(true);
-    }
-
-    /** @private */
-    _onRoll(event) {
-        event.preventDefault();
-        const element = event.currentTarget;
-        const dataset = element.dataset;
-        if (!dataset.rollType) return;
-        if (dataset.rollType == 'skill') {
-            const itemId = element.closest('.item').dataset.itemId;
-            const item = this.actor.items.get(itemId);
-            const powerItem = this._getItemByPowerId(item.system.powerId);
-            const sheet = new ScopRollForm(this.actor, item, powerItem, this);
-            sheet.render(true);
-        }
     }
 
 }

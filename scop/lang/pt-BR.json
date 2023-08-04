@@ -38,6 +38,7 @@
     "SCOP.Concept": "Conceito",
     "SCOP.Concepts": "Conceitos",
     "SCOP.NewConcept": "Novo Conceito",
+    "SCOP.EditConcept": "Edita o Conceito",
     "SCOP.DeleteConcept": "Apaga o Conceito",
     "SCOP.Question": "Pergunta",
     "SCOP.Answer": "Resposta",
@@ -45,6 +46,7 @@
     "SCOP.Skill": "Habilidade",
     "SCOP.Skills": "Habilidades",
     "SCOP.NewSkill": "Nova Habilidade",
+    "SCOP.EditSkill": "Edita a Habilidade",
     "SCOP.DeleteSkill": "Apaga a Habilidade",
     "SCOP.NoSkill": "Sem Habilidade",
     "SCOP.ConceptSkill": "Habilidade do Conceito",
@@ -53,13 +55,14 @@
     "SCOP.Resources": "Recursos",
     "SCOP.NewResource": "Novo Recurso",
     "SCOP.UsingResource": "Usando o Recurso",
+    "SCOP.EditResource": "Edita o Recurso",
     "SCOP.DeleteResource": "Apaga o Recurso",
 
     "SCOP.Power": "Poder",
     "SCOP.Powers": "Poderes",
-    "SCOP.PowerSkill": "Habilidade do Poder",
+    "SCOP.PowerSkill": "Habilidade",
     "SCOP.NewPower": "Novo Poder",
-    "SCOP.NewPowerSkill": "Nova Habilidade do Poder",
+    "SCOP.NewPowerSkill": "Nova Habilidade",
     "SCOP.DeletePower": "Apaga o Poder",
     "SCOP.SpecialAbility": "Habilidade Especial",
     "SCOP.Leveled": "Nível",
@@ -67,7 +70,7 @@
     "SCOP.Equipment": "Equipamento",
     "SCOP.Equipments": "Equipamentos",
     "SCOP.Quantity": "Quantidade",
-    "SCOP.NewEquipment": "Novo Item",
-    "SCOP.DeleteEquipment": "Apaga o Item"
-
+    "SCOP.NewEquipment": "Novo Equipamento",
+    "SCOP.EditEquipment": "Edita o Equipamento",
+    "SCOP.DeleteEquipment": "Apaga o Equipamento"
 }

@@ -7,10 +7,7 @@
                 <input type="text" value="{{localize name}}" placeholder="{{localize name}}" disabled/>
             </h1>
             <div class="feature-level flex-group-right">
-                <label class="header-label" for="limit.value">
-                    {{localize "SCOP.Leveled"}}:
-                </label>
-                <input type="text" value="{{limit.value}}" disabled/>
+                {{{dots limit.value limit.max}}}
                 {{#if (greaterThan limit.value limit.min)}}
                     <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
                 {{else}}
@@ -22,7 +19,6 @@
                     <span class="item-control inactive"><i class="fas fa-arrow-up"></i></span>
                 {{/if}}
                 <span> / </span>
-                <input type="text" value="{{limit.max}}" disabled/>
                 {{#if (greaterThan limit.max 0)}}
                       <a class="item-control" id="max-decrease" title="{{localize 'SCOP.MaxDecrease'}}"><i class="fas fa-arrow-down"></i></a>
                 {{else}}

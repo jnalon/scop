@@ -8,7 +8,9 @@ class ScopRollBaseForm extends FormApplication {
         this.actor = actor;
         this.name = "";
         this._getConcepts();
-        this.useConcepts = false;
+        this.useConcepts = true;
+        this.useBonusDice = true;
+        this.useBonus = true;
         this.conceptBonus = 0;
         this.bonusDice = 0;
         this.bonus = 0;
@@ -59,6 +61,8 @@ class ScopRollBaseForm extends FormApplication {
         context.name = this.name;
         context.concepts = this.concepts;
         context.useConcepts = this.useConcepts;
+        context.useBonusDice = this.useBonusDice;
+        context.useBonus = this.useBonus;
         context.conceptBonus = this.conceptBonus;
         context.bonusDice = this.bonusDice;
         context.bonus = this.bonus;
@@ -93,6 +97,8 @@ class ScopRollBaseForm extends FormApplication {
     _resetBonus() {
         this._getConcepts();
         this.useConcepts = false;
+        this.useBonusDice = false;
+        this.useBonus = false;
         this.conceptBonus = 0;
         this.bonusDice = 0;
         this.bonus = 0;
@@ -232,6 +238,9 @@ export class ScopNoSkillRollForm extends ScopRollBaseForm {
     constructor(actor, caller=undefined) {
         super(actor, caller);
         this.name = game.i18n.localize("SCOP.NoSkill");
+        this.useConcepts = true;
+        this.useBonusDice = true;
+        this.useBonus = true;
     }
 
 }
@@ -243,12 +252,14 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
         super(actor, caller);
         this.name = game.i18n.localize("SCOP.NoSkill");
         this.power = powerItem;
+        this.useConcepts = false;
+        this.useBonusDice = false;
+        this.useBonus = false;
         this.usePower = false;
     }
 
     getData() {
         const context = super.getData();
-        context.name = this.name;
         context.power = this.power;
         context.usePower = this.usePower;
         return context;
@@ -257,6 +268,10 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
     _resetBonus() {
         super._resetBonus()
         this.usePower = false;
+    }
+
+    _applyConcepts() {
+        return 0;
     }
 
     _applyPower() {
@@ -286,10 +301,44 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
         return this._applyPower();
     }
 
+    async _onRoll(event) {
+        super._onRoll(event);
+        this.actor.decrease(this.actor.system.energy, 1);
+    }
+
 }
 
 
-export class ScopRollForm extends ScopRollBaseForm {
+export class ScopSkillRollForm extends ScopRollBaseForm {
+
+    constructor(actor, skillItem, caller=undefined) {
+        super(actor, caller);
+        this.name = skillItem.name;
+        this.skill = skillItem;
+    }
+
+    getData() {
+        const context = super.getData();
+        context.skill = this.skill;
+        return context;
+    }
+
+    _resetBonus() {
+        super._resetBonus()
+    }
+
+    _getSkillLevel() {
+        return this.skill.system.value;
+    }
+
+    _getEffortCost() {
+        return this.skill.system.cost;
+    }
+
+}
+
+
+export class ScopPowerSkillRollForm extends ScopRollBaseForm {
 
     constructor(actor, skillItem, powerItem, caller=undefined) {
         super(actor, caller);
@@ -301,7 +350,6 @@ export class ScopRollForm extends ScopRollBaseForm {
 
     getData() {
         const context = super.getData();
-        context.name = this.skill.name;
         context.skill = this.skill;
         context.power = this.power;
         context.usePower = this.usePower;
@@ -337,11 +385,16 @@ export class ScopRollForm extends ScopRollBaseForm {
     }
 
     _getEffortCost() {
-        return this.skill.system.cost;
+        return 1;
     }
 
     _getAdditionalBonus() {
         return this._applyPower();
     }
 
+    async _onRoll(event) {
+        super._onRoll(event);
+        this.actor.decrease(this.actor.system.energy, 1);
+    }
 }
+

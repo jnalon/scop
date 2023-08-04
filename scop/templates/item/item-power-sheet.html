@@ -6,17 +6,17 @@
             <h1 class="feature">
                 <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
             </h1>
-            <div class="feature-level flex-group-right">
-                <div class="flex-group-left">
+            <div class="feature-level flexrow">
+                <div class="align-left">
                     {{#if item.system.leveled}}
                         <a class="item-control" id="toggle"><i class="fa-regular fa-square"></i></a>
                     {{else}}
                         <a class="item-control" id="toggle"><i class="fa-solid fa-square"></i></a>
                     {{/if}}
-                    <label class="header-label">{{localize "SCOP.SpecialAbility"}}</label>
+                    <a class="header-label" id="text-toggle">{{localize "SCOP.SpecialAbility"}}</a>
                 </div>
                 {{#if this.isActor}}
-                    <div class="flex-group-left">
+                    <div class="align-right">
                         {{#if item.system.leveled}}
                             <label class="header-label" for="system.leveled">{{localize "SCOP.Level"}}:</label>
                             <input type="text" value="{{numberFormat item.system.value sign=true}}" disabled/>
@@ -38,9 +38,6 @@
         <h3>{{localize "SCOP.Description"}}</h3>
         <div class="scop-editor" data-group="primary" data-tab="description">
             {{editor system.description target="system.description" button=true  engine="prosemirror" editable=editable}}
-        </div>
-        <div class="item-controls trashcan">
-            <a class="item-control" id="delete" title="{{localize 'SCOP.DeletePower'}}"><i class="fas fa-trash"></i></a>
         </div>
     </section>
 

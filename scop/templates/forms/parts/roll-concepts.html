@@ -5,19 +5,7 @@
     {{#each concepts as |item id|}}
         <li class="item flexrow use-concept" data-item-id="{{item.concept._id}}">
             <div class="item-name">
-                {{#if @root.effort}}
-                    <span class="item-image inactive">
-                        <img src="{{item.concept.img}}" title="{{item.concept.name}}" width="24" height="24"/>
-                    </span>
-                    <h4>
-                        <span class="item-control inactive">
-                            {{item.concept.name}}
-                            {{#if (greaterThan item.concept.system.value 1)}}
-                                ({{localize "SCOP.Level"}}: {{item.concept.system.value}})
-                            {{/if}}
-                        </span>
-                    </h4>
-                {{else}}
+                {{#if @root.useConcepts}}
                     <a class="item-image">
                         <img src="{{item.concept.img}}" title="{{item.concept.name}}" width="24" height="24"/>
                     </a>
@@ -28,6 +16,18 @@
                                 ({{localize "SCOP.Level"}}: {{item.concept.system.value}})
                             {{/if}}
                         </a>
+                    </h4>
+                {{else}}
+                    <span class="item-image inactive">
+                        <img src="{{item.concept.img}}" title="{{item.concept.name}}" width="24" height="24"/>
+                    </span>
+                    <h4>
+                        <span class="item-control inactive">
+                            {{item.concept.name}}
+                            {{#if (greaterThan item.concept.system.value 1)}}
+                                ({{localize "SCOP.Level"}}: {{item.concept.system.value}})
+                            {{/if}}
+                        </span>
                     </h4>
                 {{/if}}
             </div>
