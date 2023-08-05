@@ -123,6 +123,13 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
+    _getActorId(event) {
+        const form = $(event.currentTarget).parents("form");
+        const _id = form.data("actorId");
+        return _id;
+    }
+
+    /** @private */
     _getItemType(event) {
         const li = $(event.currentTarget).parents(".item");
         const type = li.data("type");
@@ -177,7 +184,12 @@ export class ScopActorSheet extends ActorSheet {
 
     /** @private */
     async _onItemCreate(event) {
+        // Needed when we have more than one sheet opened.
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
+
         const header = event.currentTarget;
         const type = header.dataset.type;
         const data = duplicate(header.dataset);
@@ -210,16 +222,15 @@ export class ScopActorSheet extends ActorSheet {
             const powerId = this._getPowerId(event);
             item = await item.setPowerId(powerId);
         }
-
-        console.log(event);
-        console.log(item);
-
         return item;
     }
 
     /** @private */
     async _onItemEdit(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const item = this._getItem(event);
         await item.sheet.render(true, {}, this);
     }
@@ -227,6 +238,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onItemDecrease(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const item = this._getItem(event);
         item.decrease();
     }
@@ -234,6 +248,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onItemIncrease(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const item = this._getItem(event);
         item.increase();
     }
@@ -241,6 +258,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onItemDelete(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const item = this._getItem(event);
         item.delete();
     }
@@ -248,6 +268,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onLimitEdit(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const type = this._getItemType(event);
         if (type == "health") {
             const sheet = new ScopHealthForm(this.actor, this);
@@ -261,6 +284,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onLimitDecrease(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const type = this._getItemType(event);
         if (type == "health") {
             this.actor.decrease(this.actor.system.health);
@@ -272,6 +298,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onLimitIncrease(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const type = this._getItemType(event);
         if (type == "health") {
             this.actor.increase(this.actor.system.health);
@@ -283,6 +312,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     async _onResourceUse(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const item = await this._getItem(event).decrease();
         const template_file = "systems/scop/templates/forms/resource-chat.html";
         const rendered_html = await renderTemplate(template_file, item);
@@ -298,6 +330,9 @@ export class ScopActorSheet extends ActorSheet {
 
     async _onSpecialAbilityUse(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         if (this.actor.system.energy.value <= 0) return;
         await this.actor.decrease(this.actor.system.energy);
         const item = await this._getItem(event);
@@ -316,6 +351,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     _onRoll(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const element = event.currentTarget;
         const dataset = element.dataset;
         if (!dataset.rollType) return;
@@ -340,6 +378,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     _onNoSkillRoll(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const sheet = new ScopNoSkillRollForm(this.actor, this);
         sheet.render(true);
     }
@@ -347,6 +388,9 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     _onNoPowerSkillRoll(event) {
         event.preventDefault();
+        if (this._getActorId(event) != this.actor._id) {
+            return;
+        }
         const element = event.currentTarget;
         const dataset = element.dataset;
         if (!dataset.rollType) return;
