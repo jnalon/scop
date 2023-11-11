@@ -4,14 +4,13 @@
 {{> "systems/scop/templates/forms/parts/roll-chat-concept-bonus.html"}}
 {{> "systems/scop/templates/forms/parts/roll-chat-bonus-dice.html"}}
 <div class="flexrow flex-group-center roll-results">
-    {{#each mainRoll.valid as |value|}}
-        <span class="valid-dice">{{value}}</span>
-    {{/each}}
-    {{#each mainRoll.discard as |value|}}
-        <span class="discarded-dice">{{value}}</span>
-    {{/each}}
+    {{{printDice mainRoll.valid mainRoll.discard mainRoll.drama}}}
 </div>
 {{> "systems/scop/templates/forms/parts/roll-chat-bonus.html"}}
 <div class="roll-final">
     <span class="result-label">{{localize "SCOP.Result"}}: {{finalResult}}</span>
+</div>
+<div class="roll-final">
+    <span class="result-label">{{localize "SCOP.DramaDice"}}: </span>
+    {{{printDramaDie mainRoll.drama}}}
 </div>

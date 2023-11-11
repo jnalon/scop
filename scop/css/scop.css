@@ -670,6 +670,18 @@
   opacity: 0.5;
 }
 
+.drama-dice {
+  color: blue;
+}
+
+.good-drama-dice {
+  color: green;
+}
+
+.bad-drama-dice {
+  color: red;
+}
+
 .roll-bonus {
   margin: 0;
   padding: 0;

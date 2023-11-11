@@ -9,6 +9,7 @@ class ScopBaseRoll extends Roll {
         const formula = `${diceNumber}${BASE_TYPE}`;
         super(formula, rollData);
         this.bonus = bonus;
+        this.drama = 0;
         this.valid = new Array();
         this.discard = new Array();
     }
@@ -16,6 +17,7 @@ class ScopBaseRoll extends Roll {
     /** @override */
     async roll(options) {
         super.roll(options);
+        this.drama = this.dice[0].results[0].result;
         for (let die of this.dice[0].results) {  // TODO: Ugly, there might be another way.
             if (die.result <= CUT_VALUE) {
                 this.valid.push(die.result);

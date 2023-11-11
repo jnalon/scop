@@ -78,6 +78,40 @@ Handlebars.registerHelper('dots', function(value, max) {
     return result;
 });
 
+Handlebars.registerHelper('printDice', function(valid, discard, drama) {
+    const main_roll = valid.concat(discard);
+    const drama_index = main_roll.indexOf(drama);
+    var result = '';
+    for (let index=0; index < main_roll.length; index++) {
+        const value = main_roll[index];
+        var valid_style = 'valid-dice';
+        if (value > 4) {
+            valid_style = 'discarded-dice';
+        }
+        var drama_style = '';
+        if (index == drama_index) {
+            if (value == 1) {
+                drama_style = 'good-drama-dice';
+            } else if (value == 10) {
+                drama_style = 'bad-drama-dice';
+            } else {
+                drama_style = 'drama-dice';
+            }
+        }
+        result += `<span class="${valid_style} ${drama_style}">${value}</span>`;
+    }
+    return result;
+});
+
+Handlebars.registerHelper('printDramaDie', function(drama) {
+    if (drama == 1) {
+        return '<span class="good-drama-dice">1!!</span>';
+    } else if (drama == 10) {
+        return '<span class="bad-drama-dice">10!!</span>';
+    } else {
+        return '<span class="drama-doce">' + drama + '</span>';
+    }
+});
 
 
 Hooks.once("ready", async function() {
