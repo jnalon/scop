@@ -11,35 +11,19 @@
         {{> "systems/scop/templates/forms/parts/roll-bonus-dice.html"}}
         {{> "systems/scop/templates/forms/parts/roll-bonus.html"}}
     </div>
-
     <hr>
-
-    {{#if effort}}
-        <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0" disabled>
-            {{localize "SCOP.Roll"}}
+    {{#if (and (greaterThan useCost 0) (greaterEqual actor.system.energy.value useCost))}}
+        <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0">
+            {{localize "SCOP.Roll"}} ({{localize "SCOP.Cost"}} {{useCost}})
         </button>
-        {{#if (greaterEqual actor.system.energy.value cost)}}
-            <button type="button" id="effort" title="{{localize 'SCOP.Effort'}}" class="flex0">
-                {{localize "SCOP.MakeAnEffort"}} ({{localize "SCOP.Cost"}}: {{cost}})
-            </button>
-        {{else}}
-            <button type="button" id="effort" title="{{localize 'SCOP.Effort'}}" class="flex0" disabled>
-                {{localize "SCOP.NoEnergy"}}
-            </button>
-        {{/if}}
-    {{else}}
+    {{else if (greaterEqual actor.system.energy.value useCost)}}
         <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0">
             {{localize "SCOP.Roll"}}
         </button>
-        {{#if (greaterEqual actor.system.energy.value cost)}}
-            <button type="button" id="effort" title="{{localize 'SCOP.MakeAnEffort'}}" class="flex0" disabled>
-                {{localize "SCOP.MakeAnEffort"}} ({{localize "SCOP.Cost"}}: {{cost}})
-            </button>
-        {{else}}
-            <button type="button" id="effort" title="{{localize 'SCOP.MakeAnEffort'}}" class="flex0" disabled>
-                {{localize "SCOP.NoEnergy"}}
-            </button>
-        {{/if}}
+    {{else}}
+        <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0" disabled>
+            {{localize "SCOP.NoEnergy"}} ({{localize "SCOP.Cost"}} {{useCost}})
+        </button>
     {{/if}}
 
 </form>

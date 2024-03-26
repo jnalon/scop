@@ -9,6 +9,7 @@ import { ScopHealthForm } from "./forms/health-form.mjs";
 // Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SCOP } from "./helpers/config.mjs";
+import { ScopEffortRoll } from "./forms/roll-form.mjs";
 
 
 Hooks.once('init', async function() {
@@ -37,6 +38,30 @@ Hooks.once('init', async function() {
     // Preload Handlebars templates.
     return preloadHandlebarsTemplates();
 });
+
+
+// Hides the Effort button if the user is not the owner of the message.
+Hooks.on("renderChatMessage", (app, html, data) => {
+    const button = html.find(".chat-effort-button");
+    if (button.length > 0) {
+        const actorId = button.data("actorId");
+        const actor = game.actors.get(actorId);
+        const userId = game.data.userId;
+        const ownership = actor.ownership[userId];
+        if (ownership == CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) {
+            button.click(_onEffortButton);
+        } else {
+            $(button).hide();
+        }
+    }
+});
+
+
+async function _onEffortButton(event) {
+    event.preventDefault();
+    const effortRoll = new ScopEffortRoll(event);
+    await effortRoll.updateChatMessage();
+}
 
 
 // If you need to add Handlebars helpers, here are a few useful examples:
@@ -81,7 +106,7 @@ Handlebars.registerHelper('dots', function(value, max) {
 Handlebars.registerHelper('printDice', function(valid, discard, drama) {
     const main_roll = valid.concat(discard);
     const drama_index = main_roll.indexOf(drama);
-    var result = '';
+    var result = '<div class="flexrow flex-group-center roll-results">';
     for (let index=0; index < main_roll.length; index++) {
         const value = main_roll[index];
         var valid_style = 'valid-dice';
@@ -100,6 +125,7 @@ Handlebars.registerHelper('printDice', function(valid, discard, drama) {
         }
         result += `<span class="${valid_style} ${drama_style}">${value}</span>`;
     }
+    result += '</div>';
     return result;
 });
 

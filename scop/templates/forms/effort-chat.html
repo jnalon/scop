@@ -1,16 +1,13 @@
 <h3>
     {{actor.name}} {{localize "SCOP.Exerts"}}
 </h3>
-<div class="flexrow flex-group-center roll-results">
-    {{#each effortRoll.valid as |value|}}
-        <span class="valid-dice">{{value}}</span>
-    {{/each}}
-    {{#each effortRoll.discard as |value|}}
-        <span class="discarded-dice">{{value}}</span>
-    {{/each}}
-</div>
-{{> "systems/scop/templates/forms/parts/roll-chat-bonus.html"}}
-<div class="roll-final">
+{{{printDice effortRoll.valid effortRoll.discard 0}}}
+{{#if (notEqual bonus 0)}}
+    <div class="roll-mod">
+        {{localize "SCOP.Modifiers"}} ({{localize "SCOP.Total"}}: {{numberFormat totalBonus sign=true}})
+    </div>
+{{/if}}
+<div class="roll-mod">
     <span class="result-label">{{localize "SCOP.EffortBonus"}}: {{numberFormat effortBonus sign=true}}</span>
 </div>
 <div class="roll-final">

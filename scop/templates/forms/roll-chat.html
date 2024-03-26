@@ -3,14 +3,21 @@
 </h3>
 {{> "systems/scop/templates/forms/parts/roll-chat-concept-bonus.html"}}
 {{> "systems/scop/templates/forms/parts/roll-chat-bonus-dice.html"}}
-<div class="flexrow flex-group-center roll-results">
-    {{{printDice mainRoll.valid mainRoll.discard mainRoll.drama}}}
-</div>
+{{{printDice mainRoll.valid mainRoll.discard mainRoll.drama}}}
 {{> "systems/scop/templates/forms/parts/roll-chat-bonus.html"}}
 <div class="roll-final">
     <span class="result-label">{{localize "SCOP.Result"}}: {{finalResult}}</span>
 </div>
 <div class="roll-final">
-    <span class="result-label">{{localize "SCOP.DramaDice"}}: </span>
-    {{{printDramaDie mainRoll.drama}}}
+    <span class="result-label">{{localize "SCOP.DramaDice"}}: {{{printDramaDie mainRoll.drama}}}</span>
 </div>
+{{#if (greaterThan mainRoll.discard.length 0)}}
+    <div class="chat-buttons" data-owner-id="{{actor._id}}">
+        <button type="button" id="effort" title="Effort" class="chat-effort-button"
+                data-actor-id="{{actor._id}}" data-previous-result="{{finalResult}}"
+                data-reroll-dice="{{mainRoll.discard.length}}" data-total-bonus="{{totalBonus}}"
+                data-effort-cost="{{effortCost}}">
+            {{localize "SCOP.MakeAnEffort"}}
+        </button>
+    </div>
+{{/if}}

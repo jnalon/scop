@@ -7,11 +7,18 @@
             <a class="item-control item-image">
                 <img src="{{power.img}}" title="{{power.name}}" width="24" height="24"/>
             </a>
-            <a class="item-control">
-                <h4>
+            <h4>
+                <a class="item-control">
                     {{power.name}}: {{numberFormat power.system.value sign=true}}
-                </h4>
-            </a>
+                </a>
+            </h4>
+        </div>
+        <div class="item-controls" id="use-concept" data-item-id="{{item.power._id}}">
+            {{#if usePower}}
+                <a class="item-control"><i class="fa-solid fa-plus"></i></a>
+            {{else}}
+                <a class="item-control"><i class="fa-regular fa-square"></i></a>
+            {{/if}}
         </div>
     </li>
 </ol>

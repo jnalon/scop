@@ -1,5 +1,18 @@
 import { ScopRoll, EffortRoll } from "../rolls/scop-roll.mjs";
 
+
+async function _sendChatMessage(template_file, data) {
+    const rendered_html = await renderTemplate(template_file, data);
+    const speaker = ChatMessage.getSpeaker({ actor: data.actor });
+    const rollMode = game.settings.get('core', 'rollMode');
+    ChatMessage.create({
+        speaker: speaker,
+        rollMode: rollMode,
+        content: rendered_html
+    });
+}
+
+
 class ScopRollBaseForm extends FormApplication {
 
     /** @override */
@@ -15,7 +28,6 @@ class ScopRollBaseForm extends FormApplication {
         this.bonusDice = 0;
         this.bonus = 0;
         this.totalBonus = 0;
-        this.effort = false;
         this.finalResult = 0;
         if (caller != undefined) {
             this.caller = caller;
@@ -57,6 +69,8 @@ class ScopRollBaseForm extends FormApplication {
     getData() {
         const context = super.getData();
         const actorData = this.actor.toObject(false);
+
+        // Teste para ver os dados do usuário:
         context.actor = actorData;
         context.name = this.name;
         context.concepts = this.concepts;
@@ -66,8 +80,11 @@ class ScopRollBaseForm extends FormApplication {
         context.conceptBonus = this.conceptBonus;
         context.bonusDice = this.bonusDice;
         context.bonus = this.bonus;
-        context.effort = this.effort;
-        context.cost = this._getEffortCost();
+        context.useCost = this._getUseCost();
+        context.effortCost = this._getEffortCost();
+        context.mainRoll = this.mainRoll;
+        context.finalResult = this.finalResult;
+        context.totalBonus = this.totalBonus;
         context.system = actorData.system;
         context.flags = actorData.flags;
         return context;
@@ -87,6 +104,10 @@ class ScopRollBaseForm extends FormApplication {
     }
 
     _getAdditionalBonus() {
+        return 0;
+    }
+
+    _getUseCost() {
         return 0;
     }
 
@@ -119,15 +140,12 @@ class ScopRollBaseForm extends FormApplication {
 
     activateListeners(html) {
         super.activateListeners(html);
-        if (!this.effort) {
-            html.find('.use-concept').click(this._onUseConcept.bind(this));
-        }
+        html.find('.use-concept').click(this._onUseConcept.bind(this));
         $('#bonus-dice-decrease').click(this._onBonusDiceDecrease.bind(this));
         $('#bonus-dice-increase').click(this._onBonusDiceIncrease.bind(this));
         $('#bonus-decrease').click(this._onBonusDecrease.bind(this));
         $('#bonus-increase').click(this._onBonusIncrease.bind(this));
         $('#roll').click(this._onRoll.bind(this));
-        $('#effort').click(this._onEffort.bind(this));
     }
 
     _onUseConcept(event) {
@@ -179,55 +197,13 @@ class ScopRollBaseForm extends FormApplication {
         this.totalBonus = this.bonus + additionalBonus;
 
         this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
-        await this.mainRoll.roll({ async: true });
+        let roll = await this.mainRoll.roll({ async: true });
         this.finalResult = this.mainRoll.result;
 
         const template_file = "systems/scop/templates/forms/roll-chat.html";
-        await this._sendChatMessage(template_file);
-
-        if (this.mainRoll.discard.length == 0 || this.actor.system.energy.value < this._getEffortCost()) {
-            this.close();
-        } else {
-            if (this.mainRoll.result > 0) {
-                this._resetBonus();
-            }
-            this._getConcepts();
-            this.useConcepts = false;
-            this.conceptBonus = 0;
-            this.effort = true;
-            await this.render(true);
-        }
-
-    }
-
-    async _onEffort(event) {
-        event.preventDefault();
-        const rollData = this.actor.getRollData();
-        const diceNumber = this.mainRoll.discard.length;
-        const additionalBonus = this._getAdditionalBonus();
-        this.totalBonus = this.bonus + additionalBonus;
-
-        this.effortRoll = new EffortRoll(diceNumber, this.totalBonus, rollData);
-        await this.actor.decrease(this.actor.system.energy, this._getEffortCost());
-        await this.effortRoll.roll({ async: true });
-        this.effortBonus = this.effortRoll.result;
-        this.finalResult = this.mainRoll.result + this.effortBonus;
-
-        const template_file = "systems/scop/templates/forms/effort-chat.html";
-        await this._sendChatMessage(template_file);
+        const context = this.getData();
+        await _sendChatMessage(template_file, context);
         this.close();
-    }
-
-    async _sendChatMessage(template_file) {
-        const rendered_html = await renderTemplate(template_file, this);
-        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-        const rollMode = game.settings.get('core', 'rollMode');
-        ChatMessage.create({
-            speaker: speaker,
-            rollMode: rollMode,
-            flavor: rendered_html,
-            content: ''
-        });
     }
 
 }
@@ -297,6 +273,14 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
         return -1;
     }
 
+    _getUseCost() {
+        return 1;
+    }
+
+    _getEffortCost() {
+        return 1;
+    }
+
     _getAdditionalBonus() {
         return this._applyPower();
     }
@@ -332,7 +316,7 @@ export class ScopSkillRollForm extends ScopRollBaseForm {
     }
 
     _getEffortCost() {
-        return this.skill.system.cost;
+        return 1;
     }
 
 }
@@ -384,6 +368,10 @@ export class ScopPowerSkillRollForm extends ScopRollBaseForm {
         return this.skill.system.value;
     }
 
+    _getUseCost() {
+        return 1;
+    }
+
     _getEffortCost() {
         return 1;
     }
@@ -398,3 +386,75 @@ export class ScopPowerSkillRollForm extends ScopRollBaseForm {
     }
 }
 
+
+export class ScopEffortRoll {
+
+    constructor(event) {
+        const li = $(event.currentTarget).closest("li");
+        this.messageId = li.data("messageId");
+        this.message = this._getMessage(this.messageId);
+        this.button = $(this.message.content).find("#effort");
+        this.actorId = $(this.button).data("actorId");
+        this.actor = this._getActor(this.actorId);
+        this.previousResult = this._getPreviousResult();
+        this.diceNumber = this._getRerollDice();
+        this.totalBonus = this._getTotalBonus();
+        this.effortCost = this._getEffortCost();
+    }
+
+    _getMessage(messageId) {
+        return game.messages.get(messageId);
+    }
+
+    _getActor(actorId) {
+        return game.actors.get(actorId);
+    }
+
+    _getPreviousResult() {
+        return $(this.button).data("previousResult");
+    }
+
+    _getRerollDice() {
+        return $(this.button).data("rerollDice");
+    }
+
+    _getTotalBonus() {
+        return $(this.button).data("totalBonus");
+    }
+
+    _getEffortCost() {
+        return $(this.button).data("effortCost");
+    }
+
+    async roll() {
+        const rollData = this.actor.getRollData();
+        this.effortRoll = new EffortRoll(this.diceNumber, this.totalBonus, rollData);
+        await this.actor.decrease(this.actor.system.energy, 1);
+        await this.effortRoll.roll({ async: true });
+        this.effortBonus = this.effortRoll.result;
+        this.finalResult = this.previousResult + this.effortBonus + this.totalBonus;
+        await _sendChatMessage("systems/scop/templates/forms/effort-chat.html", this);
+    }
+
+    async updateChatMessage() {
+        const content = $(this.message.content);
+        const button = $(content).find("#effort");
+        if (this.actor.system.energy.value >= this.effortCost) {
+            this.roll();
+            $(button).prop("disabled", true);
+        } else {
+            $(button).after('<div class="roll-no-energy">'
+                            + game.i18n.localize("SCOP.NoEnergy") + '</div>');
+        }
+
+        // I don't like this, but I couldn't find another way to make jQuery concatenate the HTML for a
+        // sequence of HTML tags.
+        var ptext = "";
+        for (var p of $(content)) {
+            if (p.outerHTML) {
+                ptext += p.outerHTML + "\n";
+            }
+        }
+        this.message.update({ _id: this.messageId, content: ptext });
+    }
+}

@@ -65,7 +65,7 @@ export class EffortRoll extends ScopBaseRoll {
     /** @override */
     get result() {
         if (this.valid.length > 0) {
-            return this.valid.length + this.bonus;
+            return this.valid.length;
         } else {
             return 0;
         }

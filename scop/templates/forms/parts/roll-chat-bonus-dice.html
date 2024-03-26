@@ -1,7 +1,5 @@
 {{#if (notEqual bonusDice 0)}}
-    <div class="roll-bonus">
-        <h4 class="roll-mod">
-            {{localize "SCOP.BonusDice"}}: {{numberFormat bonusDice sign=true}}d
-        </h4>
+    <div class="roll-mod">
+        {{localize "SCOP.BonusDice"}}: {{numberFormat bonusDice sign=true}}d
     </div>
 {{/if}}
