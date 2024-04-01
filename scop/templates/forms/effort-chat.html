@@ -1,15 +1,15 @@
 <h3>
-    {{actor.name}} {{localize "SCOP.Exerts"}}
+    {{actor.name}} {{localize "SCOP.Roll.Exerts"}}
 </h3>
 {{{printDice effortRoll.valid effortRoll.discard 0}}}
 {{#if (notEqual bonus 0)}}
     <div class="roll-mod">
-        {{localize "SCOP.Modifiers"}} ({{localize "SCOP.Total"}}: {{numberFormat totalBonus sign=true}})
+        {{localize "SCOP.Roll.Modifiers"}} ({{localize "SCOP.Roll.Total"}}: {{numberFormat totalBonus sign=true}})
     </div>
 {{/if}}
 <div class="roll-mod">
-    <span class="result-label">{{localize "SCOP.EffortBonus"}}: {{numberFormat effortBonus sign=true}}</span>
+    <span class="result-label">{{localize "SCOP.Roll.EffortBonus"}}: {{numberFormat effortBonus sign=true}}</span>
 </div>
 <div class="roll-final">
-    <span class="result-label">{{localize "SCOP.Result"}}: {{finalResult}}</span>
+    <span class="result-label">{{localize "SCOP.Roll.Result"}}: {{finalResult}}</span>
 </div>

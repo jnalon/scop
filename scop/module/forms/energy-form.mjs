@@ -18,7 +18,7 @@ export class ScopEnergyForm extends FormApplication {
             height: 'auto',
             id: 'energy-form',
             template: "systems/scop/templates/forms/energy-form.html",
-            title: game.i18n.localize("SCOP.Vitality")
+            title: game.i18n.localize("SCOP.Energy")
         };
         const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
         return mergedOptions;

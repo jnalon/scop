@@ -1,14 +1,14 @@
 {{#if (or usePower (notEqual bonus 0))}}
     <div class="roll-bonus">
         <h4 class="roll-mod">
-            {{localize "SCOP.Modifiers"}} ({{localize "SCOP.Total"}}:
+            {{localize "SCOP.Roll.Modifiers"}} ({{localize "SCOP.Roll.Total"}}:
             {{numberFormat totalBonus sign=true}})
         </h4>
     </div>
 
     <ul class="roll-ul">
         {{#if (notEqual bonus 0)}}
-            <li class="roll-li">{{localize "SCOP.Modifier"}}: {{numberFormat bonus sign=true}}</li>
+            <li class="roll-li">{{localize "SCOP.Roll.Modifier"}}: {{numberFormat bonus sign=true}}</li>
         {{/if}}
         {{#if usePower}}
             <li class="roll-li">{{power.name}}: {{numberFormat power.system.value sign=true}}</li>

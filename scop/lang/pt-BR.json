@@ -1,77 +1,110 @@
 {
-    "SCOP.Add": "Novo",
-    "SCOP.New": "Novo",
-    "SCOP.Name": "Nome",
-    "SCOP.Damage": "Dano",
-    "SCOP.Recover": "Recupera",
-    "SCOP.Use": "Usa",
-    "SCOP.Level": "Nível",
-    "SCOP.Cost": "Custo",
-    "SCOP.Decrease": "Diminui",
-    "SCOP.MaxDecrease": "Diminui o Máximo",
-    "SCOP.Increase": "Aumenta",
-    "SCOP.MaxIncrease": "Aumenta o Máximo",
+    "SCOP": {
 
-    "SCOP.Rolling": "Rolando os Dados",
-    "SCOP.Roll": "Role os Dados",
-    "SCOP.Die": "dado",
-    "SCOP.Dice": "dados",
-    "SCOP.Uses": "usa",
-    "SCOP.Tries": "testa",
-    "SCOP.MakeAnEffort": "Busque suas Forças",
-    "SCOP.Exerts": "busca suas forças",
-    "SCOP.NoEnergy": "Sem Energia!",
-    "SCOP.BonusDice": "Dados de Bônus",
-    "SCOP.Modifier": "Modificador",
-    "SCOP.Modifiers": "Modificadores",
-    "SCOP.Total": "Total",
-    "SCOP.Result": "Resultado",
-    "SCOP.DramaDice": "Dado do Drama",
-    "SCOP.EffortBonus": "Esforço",
+        "Add": "Novo",
+        "New": "Novo",
+        "Name": "Nome",
+        "Damage": "Dano",
+        "Recover": "Recupera",
+        "Use": "Usa",
+        "Level": "Nível",
+        "Cost": "Custo",
+        "Decrease": "Diminui",
+        "MaxDecrease": "Diminui o Máximo",
+        "Increase": "Aumenta",
+        "MaxIncrease": "Aumenta o Máximo",
 
-    "SCOP.Features": "Características",
-    "SCOP.Vitality": "Vitalidade",
-    "SCOP.Energy": "Energia",
-    "SCOP.Background": "Antecedentes",
-    "SCOP.Description": "Descrição",
-    "SCOP.Biography": "Biografia",
+        "Features": "Características",
+        "Vitality": "Vitalidade",
+        "Energy": "Energia",
+        "Background": "Antecedentes",
+        "Description": "Descrição",
+        "Biography": "Biografia",
 
-    "SCOP.Concept": "Conceito",
-    "SCOP.Concepts": "Conceitos",
-    "SCOP.NewConcept": "Novo Conceito",
-    "SCOP.EditConcept": "Edita o Conceito",
-    "SCOP.DeleteConcept": "Apaga o Conceito",
-    "SCOP.Question": "Pergunta",
-    "SCOP.Answer": "Resposta",
+        "Roll": {
+            "Rolling": "Rolando os Dados",
+            "Roll": "Role os Dados",
+            "Die": "dado",
+            "Dice": "dados",
+            "NoSkill": "Sem Habilidade",
+            "Uses": "usa",
+            "Tries": "testa",
+            "Effort": "Busque suas Forças",
+            "Exerts": "busca suas forças",
+            "NoEnergy": "Sem Energia!",
+            "BonusDice": "Dados de Bônus",
+            "Modifier": "Modificador",
+            "Modifiers": "Modificadores",
+            "Total": "Total",
+            "Result": "Resultado",
+            "DramaDice": "Dado do Drama",
+            "EffortBonus": "Esforço"
+        },
 
-    "SCOP.Skill": "Habilidade",
-    "SCOP.Skills": "Habilidades",
-    "SCOP.NewSkill": "Nova Habilidade",
-    "SCOP.EditSkill": "Edita a Habilidade",
-    "SCOP.DeleteSkill": "Apaga a Habilidade",
-    "SCOP.NoSkill": "Sem Habilidade",
-    "SCOP.ConceptSkill": "Habilidade do Conceito",
+        "Concept": {
+            "Name": "Conceito",
+            "Plural": "Conceitos",
+            "New": "Novo Conceito",
+            "Edit": "Edita o Conceito",
+            "Delete": "Apaga o Conceito",
+            "Question": "Pergunta",
+            "Answer": "Resposta"
+        },
 
-    "SCOP.Resource": "Recurso",
-    "SCOP.Resources": "Recursos",
-    "SCOP.NewResource": "Novo Recurso",
-    "SCOP.UsingResource": "Usando o Recurso",
-    "SCOP.EditResource": "Edita o Recurso",
-    "SCOP.DeleteResource": "Apaga o Recurso",
+        "Skill": {
+            "Name": "Habilidade",
+            "Plural": "Habilidades",
+            "New": "Nova Habilidade",
+            "Edit": "Edita a Habilidade",
+            "Delete": "Apaga a Habilidade",
+            "Uses": "Usa",
+            "Concept": "Habilidade do Conceito"
+        },
 
-    "SCOP.Power": "Poder",
-    "SCOP.Powers": "Poderes",
-    "SCOP.PowerSkill": "Habilidade",
-    "SCOP.NewPower": "Novo Poder",
-    "SCOP.NewPowerSkill": "Nova Habilidade",
-    "SCOP.DeletePower": "Apaga o Poder",
-    "SCOP.SpecialAbility": "Habilidade Especial",
-    "SCOP.Leveled": "Nível",
+        "Resource": {
+            "Name": "Recurso",
+            "Plural": "Recursos",
+            "New": "Novo Recurso",
+            "Edit": "Edita o Recurso",
+            "Delete": "Apaga o Recurso",
+            "Using": "Usando o Recurso",
+            "Uses": "Usa",
+            "Use": "Usa"
+        },
 
-    "SCOP.Equipment": "Equipamento",
-    "SCOP.Equipments": "Equipamentos",
-    "SCOP.Quantity": "Quantidade",
-    "SCOP.NewEquipment": "Novo Equipamento",
-    "SCOP.EditEquipment": "Edita o Equipamento",
-    "SCOP.DeleteEquipment": "Apaga o Equipamento"
+        "Power": {
+            "Name": "Poder",
+            "Plural": "Poderes",
+            "New": "Novo Poder",
+            "Skill": "Habilidade",
+            "NewSkill": "Nova Habilidade",
+            "Edit": "Edita o Poder",
+            "Delete": "Apaga o Poder",
+            "SpecialAbility": "Habilidade Especial",
+            "Leveled": "Nível"
+        },
+
+        "Equipment": {
+            "Name": "Equipamento",
+            "Plural": "Equipamentos",
+            "Quantity": "Quantidade",
+            "New": "Novo Equipamento",
+            "Edit": "Edita o Equipamento",
+            "Delete": "Apaga o Equipamento"
+        }
+    },
+
+    "TYPES.concept": "Conceito",
+
+    "TYPES": {
+        "Actor": {
+            "character": "Character",
+            "npc": "NPC"
+        },
+        "Item": {
+            "item": "Item",
+            "feature": "Feature",
+            "spell": "Spell"
+        }
+    }
 }

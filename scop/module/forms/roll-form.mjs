@@ -54,7 +54,7 @@ class ScopRollBaseForm extends FormApplication {
             height: 'auto',
             id: 'roll-form',
             template: "systems/scop/templates/forms/roll-form.html",
-            title: game.i18n.localize("SCOP.Rolling")
+            title: game.i18n.localize("SCOP.Roll.Rolling")
         };
         const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
         return mergedOptions;
@@ -213,7 +213,7 @@ export class ScopNoSkillRollForm extends ScopRollBaseForm {
 
     constructor(actor, caller=undefined) {
         super(actor, caller);
-        this.name = game.i18n.localize("SCOP.NoSkill");
+        this.name = game.i18n.localize("SCOP.Roll.NoSkill");
         this.useConcepts = true;
         this.useBonusDice = true;
         this.useBonus = true;
@@ -226,7 +226,7 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
 
     constructor(actor, powerItem, caller=undefined) {
         super(actor, caller);
-        this.name = game.i18n.localize("SCOP.NoSkill");
+        this.name = game.i18n.localize("SCOP.Roll.NoSkill");
         this.power = powerItem;
         this.useConcepts = false;
         this.useBonusDice = false;
@@ -444,7 +444,7 @@ export class ScopEffortRoll {
             $(button).prop("disabled", true);
         } else {
             $(button).after('<div class="roll-no-energy">'
-                            + game.i18n.localize("SCOP.NoEnergy") + '</div>');
+                            + game.i18n.localize("SCOP.Roll.NoEnergy") + '</div>');
         }
 
         // I don't like this, but I couldn't find another way to make jQuery concatenate the HTML for a

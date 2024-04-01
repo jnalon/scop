@@ -13,16 +13,16 @@
     </div>
     <hr>
     {{#if (and (greaterThan useCost 0) (greaterEqual actor.system.energy.value useCost))}}
-        <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0">
-            {{localize "SCOP.Roll"}} ({{localize "SCOP.Cost"}} {{useCost}})
+        <button type="button" id="roll" title="{{localize 'SCOP.Roll.Roll'}}" class="flex0">
+            {{localize "SCOP.Roll.Roll"}} ({{localize "SCOP.Cost"}} {{useCost}})
         </button>
     {{else if (greaterEqual actor.system.energy.value useCost)}}
-        <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0">
-            {{localize "SCOP.Roll"}}
+        <button type="button" id="roll" title="{{localize 'SCOP.Roll.Roll'}}" class="flex0">
+            {{localize "SCOP.Roll.Roll"}}
         </button>
     {{else}}
-        <button type="button" id="roll" title="{{localize 'SCOP.Roll'}}" class="flex0" disabled>
-            {{localize "SCOP.NoEnergy"}} ({{localize "SCOP.Cost"}} {{useCost}})
+        <button type="button" id="roll" title="{{localize 'SCOP.Roll.Roll'}}" class="flex0" disabled>
+            {{localize "SCOP.Roll.NoEnergy"}} ({{localize "SCOP.Cost"}} {{useCost}})
         </button>
     {{/if}}
 

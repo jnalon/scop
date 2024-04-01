@@ -195,17 +195,17 @@ export class ScopActorSheet extends ActorSheet {
         const data = duplicate(header.dataset);
         let name = "";
         if (type == "concept") {
-            name = game.i18n.localize('SCOP.NewConcept');
+            name = game.i18n.localize('SCOP.Concept.New');
         } else if (type == "skill") {
-            name = game.i18n.localize('SCOP.NewSkill');
+            name = game.i18n.localize('SCOP.Skill.New');
         } else if (type == "resource") {
-            name = game.i18n.localize('SCOP.NewResource');
+            name = game.i18n.localize('SCOP.Resource.New');
         } else if (type == "power") {
-            name = game.i18n.localize('SCOP.NewPower');
+            name = game.i18n.localize('SCOP.Power.New');
         } else if (type == "powerskill") {
-            name = game.i18n.localize('SCOP.NewPowerSkill');
+            name = game.i18n.localize('SCOP.Power.NewSkill');
         } else if (type == "equipment") {
-            name = game.i18n.localize('SCOP.NewEquipment');
+            name = game.i18n.localize('SCOP.Equipment.New');
         } else {
             name = game.i18n.localize('SCOP.New');
         }

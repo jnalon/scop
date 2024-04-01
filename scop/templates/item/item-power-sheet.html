@@ -4,7 +4,7 @@
         <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
         <div class="header-fields">
             <h1 class="feature">
-                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'SCOP.Power.Name'}}"/>
             </h1>
             <div class="feature-level flexrow">
                 <div class="align-left">
@@ -13,7 +13,7 @@
                     {{else}}
                         <a class="item-control" id="toggle"><i class="fa-solid fa-square"></i></a>
                     {{/if}}
-                    <a class="header-label" id="text-toggle">{{localize "SCOP.SpecialAbility"}}</a>
+                    <a class="header-label" id="text-toggle">{{localize "SCOP.Power.SpecialAbility"}}</a>
                 </div>
                 {{#if this.isActor}}
                     <div class="align-right">

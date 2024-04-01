@@ -1,7 +1,7 @@
 <div class="item flexrow">
     {{#if useBonus}}
         <div class="item-name">
-            <span>{{localize "SCOP.Modifier"}}:</span>
+            <span>{{localize "SCOP.Roll.Modifier"}}:</span>
         </div>
         <div class="flex-group-right roll-bonus">
             <input type="text" value="{{numberFormat bonus sign=true}}" disabled/>
@@ -10,7 +10,7 @@
         </div>
     {{else}}
         <div class="item-name inactive">
-            <span>{{localize "SCOP.Modifier"}}:</span>
+            <span>{{localize "SCOP.Roll.Modifier"}}:</span>
         </div>
         <div class="flex-group-right roll-bonus">
             <input type="text" class="inactive" value="{{numberFormat bonus sign=true}}" disabled/>
