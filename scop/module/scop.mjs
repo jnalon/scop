@@ -130,12 +130,12 @@ Handlebars.registerHelper('printDice', function(valid, discard, drama) {
 });
 
 Handlebars.registerHelper('printDramaDie', function(drama) {
-    if (drama == 1) {
-        return '<span class="good-drama-dice">1!!</span>';
+    if (drama == 4) {
+        return '<span class="good-drama-dice">4!!</span>';
     } else if (drama == 10) {
         return '<span class="bad-drama-dice">10!!</span>';
     } else {
-        return '<span class="drama-doce">' + drama + '</span>';
+        return '<span class="drama-dice">' + drama + '</span>';
     }
 });
 

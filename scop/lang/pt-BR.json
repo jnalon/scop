@@ -1,4 +1,18 @@
 {
+    "TYPES": {
+        "Actor": {
+            "character": "Personagem"
+        },
+        "Item": {
+            "concept": "Conceito",
+            "skill": "Habilidade",
+            "resource": "Recurso",
+            "power": "Poder",
+            "powerskill": "Habilidade de Poder",
+            "equipment": "Equipamento"
+        }
+    },
+
     "SCOP": {
 
         "Add": "Novo",
@@ -91,20 +105,6 @@
             "New": "Novo Equipamento",
             "Edit": "Edita o Equipamento",
             "Delete": "Apaga o Equipamento"
-        }
-    },
-
-    "TYPES.concept": "Conceito",
-
-    "TYPES": {
-        "Actor": {
-            "character": "Character",
-            "npc": "NPC"
-        },
-        "Item": {
-            "item": "Item",
-            "feature": "Feature",
-            "spell": "Spell"
         }
     }
 }
