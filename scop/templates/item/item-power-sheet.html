@@ -17,17 +17,10 @@
                 </div>
                 {{#if this.isActor}}
                     <div class="align-right">
-                        {{#if item.system.leveled}}
-                            <label class="header-label" for="system.leveled">{{localize "SCOP.Level"}}:</label>
-                            <input type="text" value="{{numberFormat item.system.value sign=true}}" disabled/>
-                            <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
-                            <a class="item-control" id="increase" title="{{localize 'SCOP.Increase'}}"><i class="fas fa-arrow-up"></i></a>
-                        {{else}}
-                            <label class="header-label inactive" for="system.leveled">{{localize "SCOP.Level"}}:</label>
-                            <input type="text" value="" disabled/>
-                            <a class="item-control inactive"><i class="fas fa-arrow-down"></i></a>
-                            <a class="item-control inactive"><i class="fas fa-arrow-up"></i></a>
-                        {{/if}}
+                        <label class="header-label" for="system.leveled">{{localize "SCOP.Level"}}:</label>
+                        <input type="text" value="{{numberFormat item.system.value sign=true}}" disabled/>
+                        <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
+                        <a class="item-control" id="increase" title="{{localize 'SCOP.Increase'}}"><i class="fas fa-arrow-up"></i></a>
                     </div>
                 {{/if}}
             </div>

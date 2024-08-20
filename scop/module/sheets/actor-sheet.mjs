@@ -17,7 +17,7 @@ export class ScopActorSheet extends ActorSheet {
 
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        return foundry.utils.mergeObject(super.defaultOptions, {
             classes: [ "scop", "sheet", "actor" ],
             template: "systems/scop/templates/actor/actor-sheet.html",
             width: 600,

@@ -9,22 +9,29 @@
 <ol class="items-list">
     {{#each resources as |item id|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
-            <div class="item-image">
-                {{#if (greaterThan item.system.value 0)}}
+            {{#if (greaterThan item.system.value 0)}}
+                <div class="item-image">
                     <a class="resource-use">
                         <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
                     </a>
-                {{else}}
+                </div>
+                <div class="item-name">
+                    <h4>
+                        <a class="resource-use">
+                            {{item.name}}
+                        </a>
+                    </h4>
+                </div>
+            {{else}}
+                <div class="item-image">
                     <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-                {{/if}}
-            </div>
-            <div class="item-name">
-                <h4>
-                    <a class="resource-use">
+                </div>
+                <div class="item-name">
+                    <h4>
                         {{item.name}}
-                    </a>
-                </h4>
-            </div>
+                    </h4>
+                </div>
+            {{/if}}
             <div class="item-level-dots">
                 {{{dots item.system.value item.system.max}}}
                 {{#if (greaterThan item.system.value 0)}}

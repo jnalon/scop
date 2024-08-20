@@ -16,7 +16,7 @@ class ScopBaseRoll extends Roll {
 
     /** @override */
     async roll(options) {
-        super.roll(options);
+        await super.roll(options);
         this.drama = this.dice[0].results[0].result;
         for (let die of this.dice[0].results) {  // TODO: Ugly, there might be another way.
             if (die.result <= CUT_VALUE) {

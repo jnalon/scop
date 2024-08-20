@@ -197,7 +197,7 @@ class ScopRollBaseForm extends FormApplication {
         this.totalBonus = this.bonus + additionalBonus;
 
         this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
-        let roll = await this.mainRoll.roll({ async: true });
+        await this.mainRoll.roll();
         this.finalResult = this.mainRoll.result;
 
         const template_file = "systems/scop/templates/forms/roll-chat.html";
@@ -430,7 +430,7 @@ export class ScopEffortRoll {
         const rollData = this.actor.getRollData();
         this.effortRoll = new EffortRoll(this.diceNumber, this.totalBonus, rollData);
         await this.actor.decrease(this.actor.system.energy, 1);
-        await this.effortRoll.roll({ async: true });
+        await this.effortRoll.roll();
         this.effortBonus = this.effortRoll.result;
         this.finalResult = this.previousResult + this.effortBonus + this.totalBonus;
         await _sendChatMessage("systems/scop/templates/forms/effort-chat.html", this);

@@ -1,26 +1,32 @@
 <li class="item" data-item-id="{{_id}}">
-    <div class="item-image">
-        {{#if (greaterThan energy 0)}}
+    {{#if (greaterThan energy 0)}}
+        <div class="item-image">
             <a class="item-control special-use">
                 <img src="{{img}}" title="{{name}}" width="24" height="24"/>
             </a>
-        {{else}}
-            <img src="{{img}}" title="{{name}}" width="24" height="24"/>
-        {{/if}}
-    </div>
-    <div class="item-name">
-        {{#if (greaterThan energy 0)}}
+        </div>
+        <div class="item-name">
             <a class="item-control special-use">
                 <h4>
                     {{name}}
                 </h4>
             </a>
-        {{else}}
-                <h4>
-                    {{name}}
-                </h4>
-        {{/if}}
-    </div>
+        </div>
+    {{else}}
+        <div class="item-image">
+            <img src="{{img}}" title="{{name}}" width="24" height="24"/>
+        </div>
+        <div class="item-name">
+            <h4>
+                {{name}}
+            </h4>
+        </div>
+    {{/if}}
+    {{#if (notEqual system.value 0)}}
+        <div class="item-level">
+            {{numberFormat system.value sign=true}}
+        </div>
+    {{/if}}
     <div class="item-controls">
         <a class="item-control item-edit" id="edit" title="{{localize 'SCOP.Skill.Edit'}}"><i class="fas fa-edit"></i></a>
         <a class="item-control item-delete" id="delete" title="{{localize 'SCOP.Skill.Delete'}}"><i class="fas fa-trash"></i></a>
