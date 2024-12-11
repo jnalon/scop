@@ -8,7 +8,7 @@
 </div>
 <ol class="items-list">
     {{#each powers as |item id|}}
-        {{#if item.system.leveled}}
+        {{#if item.system.specialAbility}}
             {{> "systems/scop/templates/actor/parts/actor-power-list.html"}}
         {{else}}
             {{> "systems/scop/templates/actor/parts/actor-special-ability.html"

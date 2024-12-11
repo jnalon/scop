@@ -407,6 +407,7 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  padding-bottom: 12px;
   overflow-y: auto;
   scrollbar-width: thin;
   color: #444;

@@ -22,10 +22,10 @@ export class ScopItem extends Item {
     prepareDerivedData() {
         if (this.type == "concept") {
             this.img = "icons/magic/holy/yin-yang-balance-symbol.webp";
+        } else if (this.type == "condition") {
+            this.img = "icons/commodities/biological/organ-heart-red.webp";
         } else if (this.type == "skill") {
             this.img = "icons/tools/smithing/hammer-sledge-steel-grey.webp";
-        } else if (this.type == "resource") {
-            this.img = "icons/commodities/currency/coins-engraved-copper.webp";
         } else if (this.type == "power") {
             this.img = "icons/magic/light/explosion-star-glow-silhouette.webp";
         } else if (this.type == "powerskill") {
@@ -55,7 +55,7 @@ export class ScopItem extends Item {
         let new_value = this.system.value - 1;
         if (this.type == 'concept' && new_value < 1) {
             new_value = 1;
-        } else if (this.type == 'resource' && new_value < this.system.min) {
+        } else if (this.type == 'condition' && new_value < this.system.min) {
             new_value = this.system.min;
         } else if (this.type == 'equipment' && new_value < 0) {
             new_value = 0;
@@ -65,7 +65,7 @@ export class ScopItem extends Item {
 
     async increase() {
         const new_value = this.system.value + 1;
-        if (this.type == 'resource' && new_value > this.system.max) {
+        if (this.type == 'condition' && new_value > this.system.max) {
             new_value = this.system.max;
         }
         return this.update({ _id: this._id, "system.value": new_value });
@@ -103,8 +103,8 @@ export class ScopItem extends Item {
     }
 
     async toggle() {
-        const new_flag = !this.system.leveled;
-        return this.update({ _id: this._id, "system.leveled": new_flag });
+        const new_flag = !this.system.specialAbility;
+        return this.update({ _id: this._id, "system.specialAbility": new_flag });
     }
 
 }

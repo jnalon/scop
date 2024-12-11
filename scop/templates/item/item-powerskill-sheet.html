@@ -8,7 +8,7 @@
             </h1>
             {{#if (not this.isActor)}}
                 <div class="feature-level flex-group-right">
-                    <label class="header-label" for="power-name">{{localize "SCOP.Power.Skill"}}:</label>
+                    <label class="header-label" for="power-name">{{localize "SCOP.Power.Name"}}:</label>
                     <select name="power-name" id="power-name">
                         {{#each powerList as |power id|}}
                             {{#if (equal power.system.powerId @root.system.powerId)}}

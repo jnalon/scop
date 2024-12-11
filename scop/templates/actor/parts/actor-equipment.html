@@ -9,16 +9,37 @@
 <ol class="items-list">
     {{#each equipment as |item id|}}
         <li class="item" data-item-id="{{item._id}}">
-            <div class="item-image">
-                <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
-            </div>
-            <div class="item-name">
-                <h4>
-                    {{item.name}}
-                </h4>
-            </div>
-            <div class="item-level">
-                {{item.system.value}}
+            {{#if (greaterThan system.value 0)}}
+                <div class="item-image">
+                    <a class="rollable" data-roll-type="equipment-use">
+                        <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                    </a>
+                </div>
+                <div class="item-name">
+                    <a class="rollable" data-roll-type="equipment-use">
+                        <h4>
+                            {{item.name}}
+                        </h4>
+                    </a>
+                </div>
+            {{else}}
+                <div class="item-image">
+                    <img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/>
+                </div>
+                <div class="item-name">
+                    <h4>
+                        {{item.name}}
+                    </h4>
+                </div>
+            {{/if}}
+            <div class="item-level-dots">
+                {{{open-dots item.system.value item.system.max}}}
+                {{#if (greaterThan item.system.value 0)}}
+                    <a class="item-decrease" title="{{localize 'SCOP.Resource.Use'}}"><i class="fas fa-arrow-down"></i></a>
+                {{else}}
+                    <a class="inactive"><i class="fas fa-arrow-down"></i></a>
+                {{/if}}
+                <a class="item-increase" title="{{localize 'SCOP.Recover'}}"><i class="fas fa-arrow-up"></i></a>
             </div>
             <div class="item-controls">
                 <a class="item-control item-edit" id="edit" title="{{localize 'SCOP.Equipment.Edit'}}"><i class="fas fa-edit"></i></a>

@@ -86,6 +86,7 @@ Handlebars.registerHelper('greaterThan', (v1, v2) => v1 > v2);
 Handlebars.registerHelper('greaterEqual', (v1, v2) => v1 >= v2);
 Handlebars.registerHelper('lessEqualThan', (v1, v2) => v1 <= v2);
 Handlebars.registerHelper('or', (v1, v2) => v1 || v2);
+Handlebars.registerHelper('and', (v1, v2) => v1 && v2);
 
 Handlebars.registerHelper('plural', function(value, singular, plural) {
     if (Math.abs(value) > 1) {
@@ -100,6 +101,13 @@ Handlebars.registerHelper('dots', function(value, max) {
     const empty_symbol = '<span class="dots"><i class="fa-regular fa-circle"></i></span>';
     const white_space = '<span class="dots">&nbsp;</span>';
     const result = filled_symbol.repeat(value) + empty_symbol.repeat(max - value) + white_space;
+    return result;
+});
+
+Handlebars.registerHelper('open-dots', function(value, max) {
+    const filled_symbol = '<span class="dots"><i class="fa-solid fa-circle"></i></span>';
+    const white_space = '<span class="dots">&nbsp;</span>';
+    const result = filled_symbol.repeat(value) + white_space;
     return result;
 });
 

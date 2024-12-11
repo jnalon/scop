@@ -53,7 +53,7 @@ export class ScopItemSheet extends ItemSheet {
             if (this.item.type == 'powerskill') {
                 context.powerList = [ ];
                 for (let i of game.items) {
-                    if (i.type == 'power') {
+                    if (i.type == 'power' && i.system.specialAbility) {
                         context.powerList.push(i)
                     }
                 }

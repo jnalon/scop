@@ -1,4 +1,18 @@
 {
+    "TYPES": {
+        "Actor": {
+            "character": "Character"
+        },
+        "Item": {
+            "concept": "Concept",
+            "condition": "Condition",
+            "skill": "Skill",
+            "power": "Power",
+            "powerskill": "Power Skill",
+            "equipment": "Equipment"
+        }
+    },
+
     "SCOP": {
 
         "Add": "New",
@@ -38,7 +52,8 @@
             "Total": "Total",
             "Result": "Result",
             "DramaDice": "Drama Dice",
-            "EffortBonus": "Effort"
+            "EffortBonus": "Effort",
+            "UsingEquipment": "Using Equipment"
         },
 
         "Concept": {
@@ -51,6 +66,18 @@
             "Answer": "Answer"
         },
 
+        "Condition": {
+            "Name": "Condition",
+            "Plural": "Conditions",
+            "New": "New Condition",
+            "Edit": "Edit Condition",
+            "Delete": "Delete Condition",
+            "Increase": "Increase",
+            "MaxIncrease": "Increase Maximum",
+            "Decrease": "Decrease",
+            "MaxDecrease": "Decrease Maximum"
+        },
+
         "Skill": {
             "Name": "Skill",
             "Plural": "Skills",
@@ -59,17 +86,6 @@
             "Delete": "Delete Skill",
             "Uses": "Uses",
             "Concept": "Concept Skill"
-        },
-
-        "Resource": {
-            "Name": "Resource",
-            "Plural": "Resources",
-            "New": "New Resource",
-            "Edit": "Edit Resource",
-            "Delete": "Delete Resource",
-            "Using": "Using Resource",
-            "Uses": "Uses",
-            "Use": "Use"
         },
 
         "Power": {
@@ -91,20 +107,6 @@
             "New": "New Equipment",
             "Edit": "Edit Equipment",
             "Delete": "Delete Equipment"
-        }
-    },
-
-    "TYPES": {
-        "Actor": {
-            "character": "Character"
-        },
-        "Item": {
-            "concept": "Concept",
-            "skill": "Skill",
-            "resource": "Resource",
-            "power": "Power",
-            "powerskill": "Power Skill",
-            "equipment": "Equipment"
         }
     }
 }

@@ -36,56 +36,56 @@ export class ScopActor extends Actor {
         if (this.type !== 'character') return;
     }
 
-    async decrease(limit, value=1) {
-        let new_value = limit.value - value;
-        if (new_value < limit.min) {
-            new_value = limit.value;
+    async decrease(condition, value=1) {
+        let new_value = condition.value - value;
+        if (new_value < condition.min) {
+            new_value = condition.value;
         }
-        if (limit.type == "health") {
+        if (condition.type == "health") {
             return this.update({ _id: this._id, "system.health.value": new_value });
-        } else if (limit.type == "energy") {
+        } else if (condition.type == "energy") {
             return this.update({ _id: this._id, "system.energy.value": new_value });
         } else {
             return this;
         }
     }
 
-    async increase(limit, value=1) {
-        let new_value = limit.value + value;
-        if (new_value > limit.max) {
-            new_value = limit.max;
+    async increase(condition, value=1) {
+        let new_value = condition.value + value;
+        if (new_value > condition.max) {
+            new_value = condition.max;
         }
-        if (limit.type == "health") {
+        if (condition.type == "health") {
             return this.update({ _id: this._id, "system.health.value": new_value });
-        } else if (limit.type == "energy") {
+        } else if (condition.type == "energy") {
             return this.update({ _id: this._id, "system.energy.value": new_value });
         } else {
             return this;
         }
     }
 
-    async maxDecrease(limit, value=1) {
-        if (limit.max <= 0) {
+    async maxDecrease(condition, value=1) {
+        if (condition.max <= 0) {
             return this;
         } else {
-            const new_max = limit.max - value;
-            let new_value = limit.value;
+            const new_max = condition.max - value;
+            let new_value = condition.value;
             if (new_value > new_max) {
                 new_value = new_max;
             }
-            if (limit.type == "health") {
+            if (condition.type == "health") {
                 return this.update({ _id: this._id, "system.health.value": new_value, "system.health.max": new_max });
-            } else if (limit.type == "energy") {
+            } else if (condition.type == "energy") {
                 return this.update({ _id: this._id, "system.energy.value": new_value, "system.energy.max": new_max });
             }
         }
     }
 
-    async maxIncrease(limit, value=1) {
-        const new_max = limit.max + 1;
-        if (limit.type == "health") {
+    async maxIncrease(condition, value=1) {
+        const new_max = condition.max + 1;
+        if (condition.type == "health") {
             return this.update({ _id: this._id, "system.health.max": new_max });
-        } else if (limit.type == "energy") {
+        } else if (condition.type == "energy") {
             return this.update({ _id: this._id, "system.energy.max": new_max });
         }
     }

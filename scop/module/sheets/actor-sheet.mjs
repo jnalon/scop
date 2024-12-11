@@ -1,7 +1,8 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { ScopHealthForm } from "../forms/health-form.mjs";
 import { ScopEnergyForm } from "../forms/energy-form.mjs";
-import { ScopNoSkillRollForm, ScopSkillRollForm, ScopNoPowerSkillRollForm, ScopPowerSkillRollForm }
+import { ScopNoSkillRollForm, ScopSkillRollForm, ScopNoPowerSkillRollForm, ScopPowerSkillRollForm,
+         ScopEquipmentUseRollForm }
        from "../forms/roll-form.mjs";
 
 /**
@@ -56,8 +57,8 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     _prepareItems(context) {
         const concepts = [];
+        const conditions = [];
         const skills = [];
-        const resources = [];
         const powers = [];
         const powersMap = new Map();
         const equipment = [];
@@ -65,10 +66,10 @@ export class ScopActorSheet extends ActorSheet {
             i.img = i.img || DEFAULT_TOKEN;
             if (i.type == 'concept') {
                 concepts.push(i);
+            } else if (i.type == 'condition') {
+                conditions.push(i);
             } else if (i.type == 'skill') {
                 skills.push(i);
-            } else if (i.type == 'resource') {
-                resources.push(i);
             } else if (i.type == 'power') {
                 i.skills = [ ];
                 powers.push(i);
@@ -85,8 +86,8 @@ export class ScopActorSheet extends ActorSheet {
             power.skills = power.skills.sort((a, b) => { return b.system.value - a.system.value });
         }
         context.concepts = concepts;
+        context.conditions = conditions;
         context.skills = skills.sort((a, b) => { return b.system.value - a.system.value });
-        context.resources = resources;
         context.powers = powers;
         context.equipment = equipment;
     }
@@ -108,7 +109,6 @@ export class ScopActorSheet extends ActorSheet {
         super.activateListeners(html);
         $('.rollable').click(this._onRoll.bind(this));
         $('.no-power-skill').click(this._onNoPowerSkillRoll.bind(this));
-        $('.resource-use').click(this._onResourceUse.bind(this));
         $('.special-use').click(this._onSpecialAbilityUse.bind(this));
         if (this.isEditable) {
             $('.item-create').click(this._onItemCreate.bind(this));
@@ -192,14 +192,14 @@ export class ScopActorSheet extends ActorSheet {
 
         const header = event.currentTarget;
         const type = header.dataset.type;
-        const data = duplicate(header.dataset);
+        const data = foundry.utils.duplicate(header.dataset);
         let name = "";
         if (type == "concept") {
             name = game.i18n.localize('SCOP.Concept.New');
+        } else if (type == "condition") {
+            name = game.i18n.localize('SCOP.Condition.New');
         } else if (type == "skill") {
             name = game.i18n.localize('SCOP.Skill.New');
-        } else if (type == "resource") {
-            name = game.i18n.localize('SCOP.Resource.New');
         } else if (type == "power") {
             name = game.i18n.localize('SCOP.Power.New');
         } else if (type == "powerskill") {
@@ -309,25 +309,6 @@ export class ScopActorSheet extends ActorSheet {
         }
     }
 
-    /** @private */
-    async _onResourceUse(event) {
-        event.preventDefault();
-        if (this._getActorId(event) != this.actor._id) {
-            return;
-        }
-        const item = await this._getItem(event).decrease();
-        const template_file = "systems/scop/templates/forms/resource-chat.html";
-        const rendered_html = await renderTemplate(template_file, item);
-        const speaker = ChatMessage.getSpeaker({ actor: this.actor });
-        const rollMode = game.settings.get('core', 'rollMode');
-        ChatMessage.create({
-            speaker: speaker,
-            rollMode: rollMode,
-            flavor: rendered_html,
-            content: ''
-        });
-    }
-
     async _onSpecialAbilityUse(event) {
         event.preventDefault();
         if (this._getActorId(event) != this.actor._id) {
@@ -365,12 +346,17 @@ export class ScopActorSheet extends ActorSheet {
             const item = this.actor.items.get(itemId);
             const sheet = new ScopSkillRollForm(this.actor, item, this);
             sheet.render(true);
-        }
-        if (dataset.rollType == 'power-skill') {
+        } else if (dataset.rollType == 'power-skill') {
             const itemId = element.closest('.item').dataset.itemId;
             const item = this.actor.items.get(itemId);
             const powerItem = this._getItemByPowerId(item.system.powerId);
             const sheet = new ScopPowerSkillRollForm(this.actor, item, powerItem, this);
+            sheet.render(true);
+        } else if (dataset.rollType == 'equipment-use') {
+            const itemId = element.closest('.item').dataset.itemId;
+            const item = this.actor.items.get(itemId);
+            console.log("Equipment use");
+            const sheet = new ScopEquipmentUseRollForm(this.actor, item, this);
             sheet.render(true);
         }
     }

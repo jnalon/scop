@@ -20,6 +20,7 @@ class ScopRollBaseForm extends FormApplication {
         super();
         this.actor = actor;
         this.name = "";
+        this.action = game.i18n.localize("SCOP.Roll.Tries");
         this._getConcepts();
         this.useConcepts = true;
         this.useBonusDice = true;
@@ -27,8 +28,10 @@ class ScopRollBaseForm extends FormApplication {
         this.conceptBonus = 0;
         this.bonusDice = 0;
         this.bonus = 0;
+        this.useDramaDice = true;
         this.totalBonus = 0;
         this.finalResult = 0;
+        this.allowEffort = true;
         if (caller != undefined) {
             this.caller = caller;
             this.caller.deactivate();
@@ -73,6 +76,7 @@ class ScopRollBaseForm extends FormApplication {
         // Teste para ver os dados do usuário:
         context.actor = actorData;
         context.name = this.name;
+        context.action = this.action;
         context.concepts = this.concepts;
         context.useConcepts = this.useConcepts;
         context.useBonusDice = this.useBonusDice;
@@ -80,11 +84,17 @@ class ScopRollBaseForm extends FormApplication {
         context.conceptBonus = this.conceptBonus;
         context.bonusDice = this.bonusDice;
         context.bonus = this.bonus;
+        context.useDramaDice = this.useDramaDice;
         context.useCost = this._getUseCost();
         context.effortCost = this._getEffortCost();
         context.mainRoll = this.mainRoll;
         context.finalResult = this.finalResult;
-        context.totalBonus = this.totalBonus;
+        if (this.finalResult <= 0) {
+            context.totalBonus = this.totalBonus;
+        } else {
+            context.totalBonus = 0;
+        }
+        context.allowEffort = this.allowEffort;
         context.system = actorData.system;
         context.flags = actorData.flags;
         return context;
@@ -447,8 +457,8 @@ export class ScopEffortRoll {
                             + game.i18n.localize("SCOP.Roll.NoEnergy") + '</div>');
         }
 
-        // I don't like this, but I couldn't find another way to make jQuery concatenate the HTML for a
-        // sequence of HTML tags.
+        // I don't like this, but I couldn't find another way to make jQuery concatenate the HTML
+        // for a sequence of HTML tags.
         var ptext = "";
         for (var p of $(content)) {
             if (p.outerHTML) {
@@ -457,4 +467,41 @@ export class ScopEffortRoll {
         }
         this.message.update({ _id: this.messageId, content: ptext });
     }
+}
+
+
+export class ScopEquipmentUseRollForm extends ScopRollBaseForm {
+
+    constructor(actor, equipmentItem, caller=undefined) {
+        super(actor, caller);
+        this.windowTitle = game.i18n.localize("SCOP.Roll.UsingEquipment");
+        this.name = equipmentItem.name;
+        this.item = equipmentItem;
+        this.action = game.i18n.localize("SCOP.Roll.Uses");
+        this.allowEffort = false;
+    }
+
+    /** @override */
+    static get defaultOptions() {
+        const defaults = super.defaultOptions;
+        const overrides = {
+            classes: [ "scop", "sheet", "form" ],
+            height: 'auto',
+            id: 'roll-form',
+            template: "systems/scop/templates/forms/roll-form.html",
+            title: game.i18n.localize("SCOP.Roll.UsingEquipment")
+        };
+        const mergedOptions = foundry.utils.mergeObject(defaults, overrides);
+        return mergedOptions;
+    }
+
+    async _onRoll(event) {
+        await super._onRoll(event);
+        const result = this.finalResult;
+        const value = this.item.system.value;
+        if (result <= value) {
+            this.item.decrease();
+        }
+    }
+
 }

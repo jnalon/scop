@@ -5,8 +5,8 @@
         },
         "Item": {
             "concept": "Conceito",
+            "condition": "Condição",
             "skill": "Habilidade",
-            "resource": "Recurso",
             "power": "Poder",
             "powerskill": "Habilidade de Poder",
             "equipment": "Equipamento"
@@ -52,7 +52,8 @@
             "Total": "Total",
             "Result": "Resultado",
             "DramaDice": "Dado do Drama",
-            "EffortBonus": "Esforço"
+            "EffortBonus": "Esforço",
+            "UsingEquipment": "Usando Equipamento"
         },
 
         "Concept": {
@@ -65,6 +66,18 @@
             "Answer": "Resposta"
         },
 
+        "Condition": {
+            "Name": "Condição",
+            "Plural": "Condições",
+            "New": "Nova Condição",
+            "Edit": "Edita a Condição",
+            "Delete": "Apaga a Condição",
+            "Increase": "Aumenta",
+            "MaxIncrease": "Aumenta o Máximo",
+            "Decrease": "Diminui",
+            "MaxDecrease": "Diminui o Máximo"
+        },
+
         "Skill": {
             "Name": "Habilidade",
             "Plural": "Habilidades",
@@ -73,17 +86,6 @@
             "Delete": "Apaga a Habilidade",
             "Uses": "Usa",
             "Concept": "Habilidade do Conceito"
-        },
-
-        "Resource": {
-            "Name": "Recurso",
-            "Plural": "Recursos",
-            "New": "Novo Recurso",
-            "Edit": "Edita o Recurso",
-            "Delete": "Apaga o Recurso",
-            "Using": "Usando o Recurso",
-            "Uses": "Usa",
-            "Use": "Usa"
         },
 
         "Power": {

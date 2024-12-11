@@ -13,21 +13,19 @@
 
         {{!-- Owned Features Tab --}}
         <div class="tab features" data-group="primary" data-tab="features">
+            {{> "systems/scop/templates/actor/parts/actor-conditions.html"}}
             {{> "systems/scop/templates/actor/parts/actor-concepts.html"}}
             <div class="resources grid grid-2col">
                 <div>
                     {{> "systems/scop/templates/actor/parts/actor-skills.html"}}
                 </div>
                 <div>
-                    {{> "systems/scop/templates/actor/parts/actor-powers.html"}}
-                </div>
-            </div>
-            <div class="resources grid grid-2col">
-                <div>
-                    {{> "systems/scop/templates/actor/parts/actor-resources.html"}}
-                </div>
-                <div>
-                    {{> "systems/scop/templates/actor/parts/actor-equipment.html"}}
+                    <div>
+                        {{> "systems/scop/templates/actor/parts/actor-powers.html"}}
+                    </div>
+                    <div>
+                        {{> "systems/scop/templates/actor/parts/actor-equipment.html"}}
+                    </div>
                 </div>
             </div>
         </div>
