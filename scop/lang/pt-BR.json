@@ -108,5 +108,10 @@
             "Edit": "Edita o Equipamento",
             "Delete": "Apaga o Equipamento"
         }
+    },
+
+    "SETTINGS": {
+        "DiceType": "Tipo de Dado",
+        "DiceTypeHint": "Define o tipo de dado a ser jogado nos testes."
     }
 }

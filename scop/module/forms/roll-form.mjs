@@ -87,7 +87,11 @@ class ScopRollBaseForm extends FormApplication {
         context.useDramaDice = this.useDramaDice;
         context.useCost = this._getUseCost();
         context.effortCost = this._getEffortCost();
-        context.mainRoll = this.mainRoll;
+        context.diceType = this.diceType;
+        context.cutValue = this.cutValue;
+        context.drama = this.drama;
+        context.valid = this.valid;
+        context.discard = this.discard;
         context.finalResult = this.finalResult;
         if (this.finalResult <= 0) {
             context.totalBonus = this.totalBonus;
@@ -208,6 +212,11 @@ class ScopRollBaseForm extends FormApplication {
 
         this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
         await this.mainRoll.roll();
+        this.diceType = this.mainRoll.diceType;
+        this.cutValue = this.mainRoll.cutValue;
+        this.valid = this.mainRoll.valid;
+        this.discard = this.mainRoll.discard;
+        this.drama = this.mainRoll.drama;
         this.finalResult = this.mainRoll.result;
 
         const template_file = "systems/scop/templates/forms/roll-chat.html";
@@ -412,6 +421,18 @@ export class ScopEffortRoll {
         this.effortCost = this._getEffortCost();
     }
 
+    getData() {
+        const context = {
+            "effortBonus": this.effortRoll.result,
+            "diceType": this.effortRoll.diceType,
+            "cutValue": this.effortRoll.cutValue,
+            "valid": this.effortRoll.valid,
+            "discard": this.effortRoll.discard,
+            "finalResult": this.finalResult
+        };
+        return context;
+    }
+
     _getMessage(messageId) {
         return game.messages.get(messageId);
     }
@@ -442,8 +463,15 @@ export class ScopEffortRoll {
         await this.actor.decrease(this.actor.system.energy, 1);
         await this.effortRoll.roll();
         this.effortBonus = this.effortRoll.result;
+        this.diceType = this.effortRoll.diceType;
+        this.cutValue = this.effortRoll.cutValue;
+        this.valid = this.effortRoll.valid;
+        this.discard = this.effortRoll.discard;
         this.finalResult = this.previousResult + this.effortBonus + this.totalBonus;
-        await _sendChatMessage("systems/scop/templates/forms/effort-chat.html", this);
+
+        const template_file = "systems/scop/templates/forms/effort-chat.html"
+        const context = this.getData();
+        await _sendChatMessage(template_file, this);
     }
 
     async updateChatMessage() {

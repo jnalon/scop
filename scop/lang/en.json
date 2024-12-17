@@ -108,5 +108,10 @@
             "Edit": "Edit Equipment",
             "Delete": "Delete Equipment"
         }
+    },
+
+    "SETTINGS": {
+        "DiceType": "Dice Type",
+        "DiceTypeHint": "Define the type of dice to be rolled."
     }
 }

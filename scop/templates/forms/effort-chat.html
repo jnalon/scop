@@ -1,7 +1,7 @@
 <h3>
     {{actor.name}} {{localize "SCOP.Roll.Exerts"}}
 </h3>
-{{{printDice effortRoll.valid effortRoll.discard 0}}}
+{{{printDice valid discard 0 diceType cutValue}}}
 {{#if (notEqual bonus 0)}}
     <div class="roll-mod">
         {{localize "SCOP.Roll.Modifiers"}} ({{localize "SCOP.Roll.Total"}}: {{numberFormat totalBonus sign=true}})

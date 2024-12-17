@@ -2,7 +2,7 @@
   "id": "scop",
   "title": "Scop",
   "description": "Scop RPG para o FoundryVTT!",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "compatibility": {
     "minimum": 10,
     "verified": "12.331",
@@ -31,7 +31,7 @@
   "secondaryTokenAttribute": "energy",
   "url": "https://scop.net.br/",
   "manifest": "https://raw.githubusercontent.com/jnalon/scop/main/scop/system.json",
-  "download": "https://github.com/jnalon/scop/raw/main/releases/scop-0.1.15.zip",
+  "download": "https://github.com/jnalon/scop/raw/main/releases/scop-0.1.16.zip",
   "license": "LICENSE.txt",
   "changelog": "CHANGELOG.md"
 }

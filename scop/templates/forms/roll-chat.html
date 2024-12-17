@@ -3,21 +3,24 @@
 </h3>
 {{> "systems/scop/templates/forms/parts/roll-chat-concept-bonus.html"}}
 {{> "systems/scop/templates/forms/parts/roll-chat-bonus-dice.html"}}
-{{{printDice mainRoll.valid mainRoll.discard mainRoll.drama}}}
+{{{printDice valid discard drama diceType cutValue}}}
 {{> "systems/scop/templates/forms/parts/roll-chat-bonus.html"}}
 <div class="roll-final">
     <span class="result-label">{{localize "SCOP.Roll.Result"}}: {{finalResult}}</span>
 </div>
 {{#if (equal useDramaDice true)}}
     <div class="roll-final">
-        <span class="result-label">{{localize "SCOP.Roll.DramaDice"}}: {{{printDramaDie mainRoll.drama}}}</span>
+        <span class="result-label">
+            {{localize "SCOP.Roll.DramaDice"}}:
+            {{{printDramaDie drama diceType cutValue}}}
+        </span>
     </div>
 {{/if}}
-{{#if (and (equal allowEffort true) (greaterThan mainRoll.discard.length 0))}}
+{{#if (and (equal allowEffort true) (greaterThan discard.length 0))}}
     <div class="chat-buttons" data-owner-id="{{actor._id}}">
         <button type="button" id="effort" title="Effort" class="chat-effort-button"
                 data-actor-id="{{actor._id}}" data-previous-result="{{finalResult}}"
-                data-reroll-dice="{{mainRoll.discard.length}}" data-total-bonus="{{totalBonus}}"
+                data-reroll-dice="{{discard.length}}" data-total-bonus="{{totalBonus}}"
                 data-effort-cost="{{effortCost}}">
             {{localize "SCOP.Roll.Effort"}}
         </button>

@@ -1,17 +1,14 @@
-// Import document classes.
 import { ScopActor } from "./documents/actor.mjs";
 import { ScopItem } from "./documents/item.mjs";
-// Import sheet classes.
 import { ScopActorSheet } from "./sheets/actor-sheet.mjs";
 import { ScopItemSheet } from "./sheets/item-sheet.mjs";
-// Import forms.
 import { ScopHealthForm } from "./forms/health-form.mjs";
-// Import helper/utility classes and constants.
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
-import { SCOP } from "./helpers/config.mjs";
+import { SCOP, registerSettings } from "./helpers/config.mjs";
 import { ScopEffortRoll } from "./forms/roll-form.mjs";
 
 
+// Hooks ///////////////////////////////////////////////////////////////////////////////////////////
 Hooks.once('init', async function() {
 
     // Add utility classes to the global game object so that they're more easily
@@ -35,10 +32,11 @@ Hooks.once('init', async function() {
     Items.unregisterSheet("core", ItemSheet);
     Items.registerSheet("scop", ScopItemSheet, { makeDefault: true });
 
+    registerSettings();
+
     // Preload Handlebars templates.
     return preloadHandlebarsTemplates();
 });
-
 
 // Hides the Effort button if the user is not the owner of the message.
 Hooks.on("renderChatMessage", (app, html, data) => {
@@ -56,15 +54,19 @@ Hooks.on("renderChatMessage", (app, html, data) => {
     }
 });
 
-
 async function _onEffortButton(event) {
     event.preventDefault();
     const effortRoll = new ScopEffortRoll(event);
     await effortRoll.updateChatMessage();
 }
 
+Hooks.once("ready", async function() {
+    // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
+    Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+});
 
-// If you need to add Handlebars helpers, here are a few useful examples:
+
+// Handlebars Helpers //////////////////////////////////////////////////////////////////////////////
 Handlebars.registerHelper('concat', function() {
     var outStr = '';
     for (var arg in arguments) {
@@ -111,25 +113,33 @@ Handlebars.registerHelper('open-dots', function(value, max) {
     return result;
 });
 
-Handlebars.registerHelper('printDice', function(valid, discard, drama) {
+function formatDramaDice(drama, diceType, cutValue) {
+    if (drama == cutValue) {
+        return "good-drama-dice";
+    } else if (drama == diceType) {
+        return "bad-drama-dice";
+    } else {
+        return "drama-dice";
+    }
+}
+
+Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType, cutValue) {
     const main_roll = valid.concat(discard);
     const drama_index = main_roll.indexOf(drama);
+    var drama_printed = false;
     var result = '<div class="flexrow flex-group-center roll-results">';
     for (let index=0; index < main_roll.length; index++) {
         const value = main_roll[index];
-        var valid_style = 'valid-dice';
-        if (value > 4) {
+        var valid_style = '';
+        var drama_style = '';
+        if (value <= cutValue) {
+            valid_style = 'valid-dice';
+        } else {
             valid_style = 'discarded-dice';
         }
-        var drama_style = '';
-        if (index == drama_index) {
-            if (value == 1) {
-                drama_style = 'good-drama-dice';
-            } else if (value == 10) {
-                drama_style = 'bad-drama-dice';
-            } else {
-                drama_style = 'drama-dice';
-            }
+        if (value == drama && !drama_printed) {
+            drama_style = formatDramaDice(drama, diceType, cutValue);
+            drama_printed = true;
         }
         result += `<span class="${valid_style} ${drama_style}">${value}</span>`;
     }
@@ -137,20 +147,9 @@ Handlebars.registerHelper('printDice', function(valid, discard, drama) {
     return result;
 });
 
-Handlebars.registerHelper('printDramaDie', function(drama) {
-    if (drama == 4) {
-        return '<span class="good-drama-dice">4!!</span>';
-    } else if (drama == 10) {
-        return '<span class="bad-drama-dice">10!!</span>';
-    } else {
-        return '<span class="drama-dice">' + drama + '</span>';
-    }
-});
-
-
-Hooks.once("ready", async function() {
-    // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-    Hooks.on("hotbarDrop", (bar, data, slot) => createItemMacro(data, slot));
+Handlebars.registerHelper('printDramaDie', function(drama, diceType, cutValue) {
+    const dramaStyle = formatDramaDice(drama, diceType, cutValue);
+    return `<span class="${dramaStyle}">${drama}</span>`;
 });
 
 

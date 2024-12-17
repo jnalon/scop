@@ -1,23 +1,19 @@
 export const SCOP = {};
 
-/**
- * The set of Ability Scores used within the sytem.
- * @type {Object}
- */
- SCOP.abilities = {
-  "str": "SCOP.AbilityStr",
-  "dex": "SCOP.AbilityDex",
-  "con": "SCOP.AbilityCon",
-  "int": "SCOP.AbilityInt",
-  "wis": "SCOP.AbilityWis",
-  "cha": "SCOP.AbilityCha"
-};
+export function registerSettings() {
 
-SCOP.abilityAbbreviations = {
-  "str": "SCOP.AbilityStrAbbr",
-  "dex": "SCOP.AbilityDexAbbr",
-  "con": "SCOP.AbilityConAbbr",
-  "int": "SCOP.AbilityIntAbbr",
-  "wis": "SCOP.AbilityWisAbbr",
-  "cha": "SCOP.AbilityChaAbbr"
-};
+    game.settings.register("scop", "diceType", {
+        name: game.i18n.localize("SETTINGS.DiceType"),
+        hint: game.i18n.localize("SETTINGS.DiceTypeHint"),
+        scope: "world",
+        type: String,
+        choices: {
+            "a": "d6",
+            "b": "d8",
+            "c": "d10"
+        },
+        default: "c",
+        config: true
+    });
+
+}
