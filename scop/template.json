@@ -2,7 +2,7 @@
     "Actor": {
         "types": [ "character" ],
         "templates": {
-            "limits": {
+            "canonical-conditions": {
                 "health": {
                     "type": "health",
                     "value": 6,
@@ -22,7 +22,7 @@
             }
         },
         "character": {
-            "templates": [ "limits", "background" ],
+            "templates": [ "canonical-conditions", "background" ],
             "concepts": [ ],
             "conditions": [ ],
             "skills": [ ],
@@ -61,7 +61,7 @@
         "powerskill": {
             "templates": [ "base" ],
             "powerId": "",
-            "value": 0,
+            "value": -2,
             "cost": 1
         },
         "equipment": {

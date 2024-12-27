@@ -28,24 +28,12 @@ class ScopRollBaseForm extends FormApplication {
         this.conceptBonus = 0;
         this.bonusDice = 0;
         this.bonus = 0;
-        this.useDramaDice = true;
         this.totalBonus = 0;
         this.finalResult = 0;
         this.allowEffort = true;
         if (caller != undefined) {
             this.caller = caller;
             this.caller.deactivate();
-        }
-    }
-
-    _getConcepts() {
-        this.concepts = [];
-        for (let i of this.actor.items) {
-            i.img = i.img || DEFAULT_TOKEN;
-            if (i.type == 'concept') {
-                const concept = { concept: i, use: 0 };
-                this.concepts.push(concept);
-            }
         }
     }
 
@@ -64,11 +52,6 @@ class ScopRollBaseForm extends FormApplication {
     }
 
     /** @override */
-    get template() {
-        return `systems/scop/templates/forms/roll-form.html`;
-    }
-
-    /** @override */
     getData() {
         const context = super.getData();
         const actorData = this.actor.toObject(false);
@@ -84,7 +67,6 @@ class ScopRollBaseForm extends FormApplication {
         context.conceptBonus = this.conceptBonus;
         context.bonusDice = this.bonusDice;
         context.bonus = this.bonus;
-        context.useDramaDice = this.useDramaDice;
         context.useCost = this._getUseCost();
         context.effortCost = this._getEffortCost();
         context.diceType = this.diceType;
@@ -102,6 +84,17 @@ class ScopRollBaseForm extends FormApplication {
         context.system = actorData.system;
         context.flags = actorData.flags;
         return context;
+    }
+
+    _getConcepts() {
+        this.concepts = [];
+        for (let i of this.actor.items) {
+            i.img = i.img || DEFAULT_TOKEN;
+            if (i.type == 'concept') {
+                const concept = { concept: i, use: 0 };
+                this.concepts.push(concept);
+            }
+        }
     }
 
     /** @override */
@@ -209,9 +202,9 @@ class ScopRollBaseForm extends FormApplication {
         const testLevel = this._getSkillLevel() + this._applyConcepts() + this.bonusDice;
         const additionalBonus = this._getAdditionalBonus();
         this.totalBonus = this.bonus + additionalBonus;
-
         this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
         await this.mainRoll.roll();
+
         this.diceType = this.mainRoll.diceType;
         this.cutValue = this.mainRoll.cutValue;
         this.valid = this.mainRoll.valid;
@@ -219,9 +212,9 @@ class ScopRollBaseForm extends FormApplication {
         this.drama = this.mainRoll.drama;
         this.finalResult = this.mainRoll.result;
 
-        const template_file = "systems/scop/templates/forms/roll-chat.html";
         const context = this.getData();
-        await _sendChatMessage(template_file, context);
+        this.template_file = "systems/scop/templates/forms/roll-chat.html";
+        await _sendChatMessage(this.template_file, context);
         this.close();
     }
 
@@ -348,7 +341,7 @@ export class ScopPowerSkillRollForm extends ScopRollBaseForm {
         this.name = skillItem.name;
         this.skill = skillItem;
         this.power = powerItem;
-        this.usePower = false;
+        this.usePower = game.settings.get("scop", "usePower");
     }
 
     getData() {
@@ -459,7 +452,7 @@ export class ScopEffortRoll {
 
     async roll() {
         const rollData = this.actor.getRollData();
-        this.effortRoll = new EffortRoll(this.diceNumber, this.totalBonus, rollData);
+        this.effortRoll = new EffortRoll(this.diceNumber, this.drama, this.totalBonus, rollData);
         await this.actor.decrease(this.actor.system.energy, 1);
         await this.effortRoll.roll();
         this.effortBonus = this.effortRoll.result;

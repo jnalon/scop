@@ -2,8 +2,7 @@ import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/
 import { ScopHealthForm } from "../forms/health-form.mjs";
 import { ScopEnergyForm } from "../forms/energy-form.mjs";
 import { ScopNoSkillRollForm, ScopSkillRollForm, ScopNoPowerSkillRollForm, ScopPowerSkillRollForm,
-         ScopEquipmentUseRollForm }
-       from "../forms/roll-form.mjs";
+         ScopEquipmentUseRollForm } from "../forms/roll-form.mjs";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -104,21 +103,21 @@ export class ScopActorSheet extends ActorSheet {
 
     /** @override */
     activateListeners(html) {
-        if (!this._active)
-            return;
-        super.activateListeners(html);
-        $('.rollable').click(this._onRoll.bind(this));
-        $('.no-power-skill').click(this._onNoPowerSkillRoll.bind(this));
-        $('.special-use').click(this._onSpecialAbilityUse.bind(this));
-        if (this.isEditable) {
-            $('.item-create').click(this._onItemCreate.bind(this));
-            $('.item-edit').click(this._onItemEdit.bind(this));
-            $('.item-decrease').click(this._onItemDecrease.bind(this));
-            $('.item-increase').click(this._onItemIncrease.bind(this));
-            $('.item-delete').click(this._onItemDelete.bind(this));
-            $('.limit-edit').click(this._onLimitEdit.bind(this));
-            $('.limit-decrease').click(this._onLimitDecrease.bind(this));
-            $('.limit-increase').click(this._onLimitIncrease.bind(this));
+        if (this._active) {
+            super.activateListeners(html);
+            $('.rollable').click(this._onRoll.bind(this));
+            $('.no-power-skill').click(this._onNoPowerSkillRoll.bind(this));
+            $('.special-use').click(this._onSpecialAbilityUse.bind(this));
+            if (this.isEditable) {
+                $('.item-create').click(this._onItemCreate.bind(this));
+                $('.item-edit').click(this._onItemEdit.bind(this));
+                $('.item-decrease').click(this._onItemDecrease.bind(this));
+                $('.item-increase').click(this._onItemIncrease.bind(this));
+                $('.item-delete').click(this._onItemDelete.bind(this));
+                $('.condition-edit').click(this._onConditionEdit.bind(this));
+                $('.condition-decrease').click(this._onConditionDecrease.bind(this));
+                $('.condition-increase').click(this._onConditionIncrease.bind(this));
+            }
         }
     }
 
@@ -165,15 +164,6 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
-    _getItemByName(name) {
-        for (let i of this.actor.items) {
-            if (i.name == name) {
-                return i;
-            }
-        }
-    }
-
-    /** @private */
     _getItemByPowerId(powerId) {
         for (let i of this.actor.items) {
             if (i.type == 'power' && i.system.powerId == powerId) {
@@ -193,22 +183,15 @@ export class ScopActorSheet extends ActorSheet {
         const header = event.currentTarget;
         const type = header.dataset.type;
         const data = foundry.utils.duplicate(header.dataset);
-        let name = "";
-        if (type == "concept") {
-            name = game.i18n.localize('SCOP.Concept.New');
-        } else if (type == "condition") {
-            name = game.i18n.localize('SCOP.Condition.New');
-        } else if (type == "skill") {
-            name = game.i18n.localize('SCOP.Skill.New');
-        } else if (type == "power") {
-            name = game.i18n.localize('SCOP.Power.New');
-        } else if (type == "powerskill") {
-            name = game.i18n.localize('SCOP.Power.NewSkill');
-        } else if (type == "equipment") {
-            name = game.i18n.localize('SCOP.Equipment.New');
-        } else {
-            name = game.i18n.localize('SCOP.New');
+        const name_map = {
+            "concept": game.i18n.localize('SCOP.Concept.New'),
+            "condition": game.i18n.localize('SCOP.Condition.New'),
+            "skill": game.i18n.localize('SCOP.Skill.New'),
+            "power": game.i18n.localize('SCOP.Power.New'),
+            "powerskill": game.i18n.localize('SCOP.Power.NewSkill'),
+            "equipment": game.i18n.localize('SCOP.Equipment.New')
         }
+        const name = name_map[type];
         const itemData = {
             name: name,
             type: type,
@@ -266,7 +249,7 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
-    async _onLimitEdit(event) {
+    async _onConditionEdit(event) {
         event.preventDefault();
         if (this._getActorId(event) != this.actor._id) {
             return;
@@ -282,7 +265,7 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
-    async _onLimitDecrease(event) {
+    async _onConditionDecrease(event) {
         event.preventDefault();
         if (this._getActorId(event) != this.actor._id) {
             return;
@@ -296,7 +279,7 @@ export class ScopActorSheet extends ActorSheet {
     }
 
     /** @private */
-    async _onLimitIncrease(event) {
+    async _onConditionIncrease(event) {
         event.preventDefault();
         if (this._getActorId(event) != this.actor._id) {
             return;

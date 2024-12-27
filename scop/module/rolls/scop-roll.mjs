@@ -13,7 +13,12 @@ const DICE_TYPES = {
         "diceType": 10,
         "cutValue": 4,
         "baseDice": 2
-    }
+    },
+    "d": {
+        "diceType": 12,
+        "cutValue": 4,
+        "baseDice": 2
+    },
 }
 
 function getDiceData() {
@@ -57,8 +62,9 @@ class ScopBaseRoll extends Roll {
     /** @override */
     async roll(options) {
         await super.roll(options);
-        this.drama = this.dice[0].results[0].result;
-        for (let die of this.dice[0].results) {  // TODO: Ugly, there might be another way.
+        const dice = this.dice[0].results;
+        this.drama = dice[0].result;
+        for (let die of dice) {
             if (die.result <= this.cutValue) {
                 this.valid.push(die.result);
             } else {
@@ -83,10 +89,10 @@ export class ScopRoll extends ScopBaseRoll {
     /** @override */
     get result() {
         if (this.valid.length > 0) {
-            const successes = this.valid.length;
             const lastIndex = this.valid.length - 1;
             const baseValue = this.valid[lastIndex];
-            return baseValue + (successes - 1) + this.bonus;
+            const successes = this.valid.length - 1;
+            return baseValue + successes + this.bonus;
         } else {
             return 0;
         }

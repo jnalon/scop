@@ -5,89 +5,34 @@
  */
 export class ScopActor extends Actor {
 
-    /** @override */
-    prepareData() {
-        super.prepareData();
+    async adjust(condition, new_value, field) {
+        const key = `system.${condition.type}.${field}`
+        return this.update({ _id: this._id, [key]: new_value });
     }
 
-    /** @override */
-    prepareBaseData() {
+    async decrease(condition, delta=1) {
+        const new_value = Math.max(0, condition.value - delta);
+        return this.adjust(condition, new_value, "value");
     }
 
-    /** @override */
-    prepareDerivedData() {
-        const flags = this.flags.scop || { };
-        if (this.type == 'character') this._prepareCharacterData();
+    async increase(condition, delta=1) {
+        const new_value = Math.min(condition.value + delta, condition.max);
+        return this.adjust(condition, new_value, "value");
     }
 
-    /** @private */
-    async _prepareCharacterData() {
+    // Updating on different fields in the `Actor` should be done all at the same time, or some
+    // side effects might appear.
+    async maxDecrease(condition, delta=1) {
+        const new_max = Math.max(condition.max - delta, 0);
+        const new_value = Math.min(condition.value, new_max);
+        const value_key = `system.${condition.type}.value`;
+        const max_key = `system.${condition.type}.max`;
+        return this.update({ _id: this._id, [value_key]: new_value, [max_key]: new_max });
     }
 
-    /** @override */
-    getRollData() {
-        const data = super.getRollData();
-        this._getCharacterRollData(data);
-        return data;
-    }
-
-    /** @private */
-    _getCharacterRollData(data) {
-        if (this.type !== 'character') return;
-    }
-
-    async decrease(condition, value=1) {
-        let new_value = condition.value - value;
-        if (new_value < condition.min) {
-            new_value = condition.value;
-        }
-        if (condition.type == "health") {
-            return this.update({ _id: this._id, "system.health.value": new_value });
-        } else if (condition.type == "energy") {
-            return this.update({ _id: this._id, "system.energy.value": new_value });
-        } else {
-            return this;
-        }
-    }
-
-    async increase(condition, value=1) {
-        let new_value = condition.value + value;
-        if (new_value > condition.max) {
-            new_value = condition.max;
-        }
-        if (condition.type == "health") {
-            return this.update({ _id: this._id, "system.health.value": new_value });
-        } else if (condition.type == "energy") {
-            return this.update({ _id: this._id, "system.energy.value": new_value });
-        } else {
-            return this;
-        }
-    }
-
-    async maxDecrease(condition, value=1) {
-        if (condition.max <= 0) {
-            return this;
-        } else {
-            const new_max = condition.max - value;
-            let new_value = condition.value;
-            if (new_value > new_max) {
-                new_value = new_max;
-            }
-            if (condition.type == "health") {
-                return this.update({ _id: this._id, "system.health.value": new_value, "system.health.max": new_max });
-            } else if (condition.type == "energy") {
-                return this.update({ _id: this._id, "system.energy.value": new_value, "system.energy.max": new_max });
-            }
-        }
-    }
-
-    async maxIncrease(condition, value=1) {
-        const new_max = condition.max + 1;
-        if (condition.type == "health") {
-            return this.update({ _id: this._id, "system.health.max": new_max });
-        } else if (condition.type == "energy") {
-            return this.update({ _id: this._id, "system.energy.max": new_max });
-        }
+    async maxIncrease(condition, delta=1) {
+        const new_max = condition.max + delta;
+        return this.adjust(condition, new_max, "max");
     }
 
 }

@@ -2,11 +2,6 @@
     {{actor.name}} {{localize "SCOP.Roll.Exerts"}}
 </h3>
 {{{printDice valid discard 0 diceType cutValue}}}
-{{#if (notEqual bonus 0)}}
-    <div class="roll-mod">
-        {{localize "SCOP.Roll.Modifiers"}} ({{localize "SCOP.Roll.Total"}}: {{numberFormat totalBonus sign=true}})
-    </div>
-{{/if}}
 <div class="roll-mod">
     <span class="result-label">{{localize "SCOP.Roll.EffortBonus"}}: {{numberFormat effortBonus sign=true}}</span>
 </div>

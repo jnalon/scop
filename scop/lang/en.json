@@ -112,6 +112,10 @@
 
     "SETTINGS": {
         "DiceType": "Dice Type",
-        "DiceTypeHint": "Define the type of dice to be rolled."
+        "DiceTypeHint": "Define the type of dice to be rolled.",
+        "UseDramaDice": "Use Drama Dice",
+        "UseDramaDiceHint": "If checked, Drama Dice will be highlighted in chat messages.",
+        "UsePower": "Use Power level",
+        "UsePowerHint": "If checked, Power level is used as a bonus in tests of related Skills."
     }
 }

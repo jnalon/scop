@@ -1,0 +1,18 @@
+<li class="item flexrow" data-type={{datatype}}>
+    <div class="item-name">
+        <a class="header-label condition-edit">{{localize name}}</a>
+    </div>
+    <div class="flex-group-right">
+        {{{dots condition.value condition.max}}}
+        {{#if (greaterThan condition.value 0)}}
+            <a class="item-control condition-decrease" title="{{localize 'SCOP.Use'}}"><i class="fas fa-arrow-down"></i></a>
+        {{else}}
+            <a class="item-control inactive"><i class="fas fa-arrow-down"></i></a>
+        {{/if}}
+        {{#if (greaterThan condition.max condition.value)}}
+            <a class="item-control condition-increase" title="{{localize 'SCOP.Recover'}}"><i class="fas fa-arrow-up"></i></a>
+        {{else}}
+            <a class="item-control inactive"><i class="fas fa-arrow-up"></i></a>
+        {{/if}}
+    </div>
+</li>

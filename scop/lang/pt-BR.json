@@ -111,7 +111,11 @@
     },
 
     "SETTINGS": {
-        "DiceType": "Tipo de Dado",
-        "DiceTypeHint": "Define o tipo de dado a ser jogado nos testes."
+        "DiceType": "Tipo de dado",
+        "DiceTypeHint": "Define o tipo de dado a ser jogado nos testes.",
+        "UseDramaDice": "Usar o Dado do Drama",
+        "UseDramaDiceHint": "Se marcado, o Dado da Drama será realçado nas mensagens.",
+        "UsePower": "Usar o nível do Poder",
+        "UsePowerHint": "Se marcado, o nível do Poder é usado como bônus nos testes das Habilidades relacionadas."
     }
 }

@@ -20,24 +20,22 @@ export class ScopItem extends Item {
 
     /** @override */
     prepareDerivedData() {
-        if (this.type == "concept") {
-            this.img = "icons/magic/holy/yin-yang-balance-symbol.webp";
-        } else if (this.type == "condition") {
-            this.img = "icons/commodities/biological/organ-heart-red.webp";
-        } else if (this.type == "skill") {
-            this.img = "icons/tools/smithing/hammer-sledge-steel-grey.webp";
-        } else if (this.type == "power") {
-            this.img = "icons/magic/light/explosion-star-glow-silhouette.webp";
-        } else if (this.type == "powerskill") {
-            this.img = "icons/magic/fire/beam-jet-stream-embers.webp";
-        } else if (this.type == "equipment") {
-            this.img = "icons/containers/bags/pack-leather-black-brown.webp";
-        }
+        const img_map = {
+            "concept": "icons/magic/holy/yin-yang-balance-symbol.webp",
+            "condition": "icons/commodities/biological/organ-heart-red.webp",
+            "skill": "icons/tools/smithing/hammer-sledge-steel-grey.webp",
+            "power": "icons/magic/light/explosion-star-glow-silhouette.webp",
+            "powerskill": "icons/magic/fire/beam-jet-stream-embers.webp",
+            "equipment": "icons/containers/bags/pack-leather-black-brown.webp"
+        };
+        this.img = img_map[this.type] || this.img;
     }
 
     /** @override */
     getRollData() {
-        if (!this.actor) return null;
+        if (!this.actor) {
+            return null;
+        }
         const rollData = this.actor.getRollData();
         rollData.item = foundry.utils.deepClone(this.system);
         return rollData;
@@ -51,55 +49,58 @@ export class ScopItem extends Item {
         return this.update({ _id: this._id, "system.powerId": powerId });
     }
 
-    async decrease() {
-        let new_value = this.system.value - 1;
-        if (this.type == 'concept' && new_value < 1) {
-            new_value = 1;
-        } else if (this.type == 'condition' && new_value < this.system.min) {
-            new_value = this.system.min;
-        } else if (this.type == 'equipment' && new_value < 0) {
-            new_value = 0;
-        }
+    async adjust(delta, min=0, max=Infinity) {
+        const new_value = Math.min(Math.max(min, this.system.value + delta), max);
         return this.update({ _id: this._id, "system.value": new_value });
     }
 
-    async increase() {
-        const new_value = this.system.value + 1;
-        if (this.type == 'condition' && new_value > this.system.max) {
-            new_value = this.system.max;
-        }
-        return this.update({ _id: this._id, "system.value": new_value });
-    }
-
-    async costDecrease() {
-        let new_cost = this.system.cost - 1;
-        if (new_cost < 1) {
-            new_cost = 1;
-        }
-        return this.update({ _id: this._id, "system.cost": new_cost });
-    }
-
-    async costIncrease() {
-        const new_cost = this.system.cost + 1;
-        return this.update({ _id: this._id, "system.cost": new_cost });
-    }
-
-    async maxDecrease() {
-        if (this.system.max > 0) {
-            const new_max = this.system.max - 1;
-            let new_value = this.system.value;
-            if (this.system.value > new_max) {
-                new_value = new_max;
-            }
-            return this.update({ _id: this._id, "system.value": new_value, "system.max": new_max });
+    async decrease(delta=1) {
+        if (this.type == 'concept') {
+            return this.adjust(-delta, 1);
+        } else if (this.type == 'condition') {
+            return this.adjust(-delta, this.system.min, this.system.max);
+        } else if (this.type == 'power') {
+            return this.adjust(-delta, -Infinity);
+        } else if (this.type == 'skill') {
+            return this.adjust(-delta, -Infinity);
+        } else if (this.type == 'powerskill') {
+            return this.adjust(-delta, -Infinity);
+        } else if (this.type == 'equipment') {
+            return this.adjust(-delta);
         } else {
             return this;
         }
     }
 
-    async maxIncrease() {
-        const new_max = this.system.max + 1;
+    async increase(delta=1) {
+        const new_value = this.system.value + delta;
+        if (this.type == 'condition') {
+            return this.adjust(delta, this.system.min, this.system.max);
+        } else {
+            return this.update({ _id: this._id, "system.value": new_value });
+        }
+    }
+
+    async maxDecrease(delta=1) {
+        const new_max = Math.max(0, this.system.max - delta);
+        const new_value = Math.min(this.system.value, new_max);
+        return this.update({ _id: this._id, "system.value": new_value, "system.max": new_max });
+    }
+
+    async maxIncrease(delta=1) {
+        const new_max = this.system.max + delta;
         return this.update({ _id: this._id, "system.max": new_max });
+    }
+
+    async costDecrease(delta=1) {
+        let new_cost = this.system.cost - delta;
+        new_cost = Math.max(1, new_cost);
+        return this.update({ _id: this._id, "system.cost": new_cost });
+    }
+
+    async costIncrease(delta=1) {
+        const new_cost = this.system.cost + delta;
+        return this.update({ _id: this._id, "system.cost": new_cost });
     }
 
     async toggle() {

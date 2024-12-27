@@ -7,7 +7,7 @@
     return loadTemplates([
         // Actor partials.
         "systems/scop/templates/actor/parts/actor-header.html",
-        "systems/scop/templates/actor/parts/actor-limits.html",
+        "systems/scop/templates/actor/parts/actor-canonical-conditions.html",
         "systems/scop/templates/actor/parts/actor-concepts.html",
         "systems/scop/templates/actor/parts/actor-conditions.html",
         "systems/scop/templates/actor/parts/actor-skills.html",
@@ -25,6 +25,6 @@
         "systems/scop/templates/forms/parts/roll-chat-concept-bonus.html",
         "systems/scop/templates/forms/parts/roll-chat-bonus-dice.html",
         "systems/scop/templates/forms/parts/roll-chat-bonus.html",
-        "systems/scop/templates/forms/parts/limit-form.html",
+        "systems/scop/templates/forms/parts/canonical-condition-form.html",
     ]);
 };

@@ -46,8 +46,8 @@ export class ScopItemSheet extends ItemSheet {
         context.rollData = {};
         let actor = this.object?.parent ?? null;
         if (actor) {
-            context.rollData = actor.getRollData();
             context.isActor = true;
+            context.rollData = actor.getRollData();
         } else {
             context.isActor = false;
             if (this.item.type == 'powerskill') {
@@ -83,7 +83,7 @@ export class ScopItemSheet extends ItemSheet {
     /** @private */
     _onItemDelete(event) {
         event.preventDefault();
-        if (this.item.type == "power") {
+        if (this.item.type == "power" && this.item.actor) {
             this._removePowerSkills();
         }
         this.item.delete();
@@ -92,8 +92,6 @@ export class ScopItemSheet extends ItemSheet {
 
     /** @private */
     _removePowerSkills() {
-        if (!this.item.actor)
-            return;
         const thisPowerId = this.item.system.powerId;
         for (let i of this.item.actor.items) {
             if (i.type == "powerskill" && i.system.powerId == thisPowerId) {
@@ -115,8 +113,20 @@ export class ScopItemSheet extends ItemSheet {
     }
 
     /** @private */
+    _onMaxDecrease(event) {
+        event.preventDefault();
+        this.item.maxDecrease();
+    }
+
+    /** @private */
+    _onMaxIncrease(event) {
+        event.preventDefault();
+        this.item.maxIncrease();
+    }
+
+    /** @private */
     _onCostDecrease(event) {
-        event.preventDefault(false);
+        event.preventDefault();
         if (this.item.type == "powerskill") {
             this.item.costDecrease();
         }
@@ -128,18 +138,6 @@ export class ScopItemSheet extends ItemSheet {
         if (this.item.type == "powerskill") {
             this.item.costIncrease();
         }
-    }
-
-    /** @private */
-    _onMaxDecrease(event) {
-        event.preventDefault(false);
-        this.item.maxDecrease();
-    }
-
-    /** @private */
-    _onMaxIncrease(event) {
-        event.preventDefault();
-        this.item.maxIncrease();
     }
 
     /** @private */

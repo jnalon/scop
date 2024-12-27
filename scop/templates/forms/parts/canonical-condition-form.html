@@ -7,19 +7,19 @@
                 <input type="text" value="{{localize name}}" placeholder="{{localize name}}" disabled/>
             </h1>
             <div class="feature-level flex-group-right">
-                {{{dots limit.value limit.max}}}
-                {{#if (greaterThan limit.value limit.min)}}
+                {{{dots condition.value condition.max}}}
+                {{#if (greaterThan condition.value condition.min)}}
                     <a class="item-control" id="decrease" title="{{localize 'SCOP.Decrease'}}"><i class="fas fa-arrow-down"></i></a>
                 {{else}}
                     <span class="item-control inactive"><i class="fas fa-arrow-down"></i></span>
                 {{/if}}
-                {{#if (greaterThan limit.max limit.value)}}
+                {{#if (greaterThan condition.max condition.value)}}
                     <a class="item-control" id="increase" title="{{localize 'SCOP.Increase'}}"><i class="fas fa-arrow-up"></i></a>
                 {{else}}
                     <span class="item-control inactive"><i class="fas fa-arrow-up"></i></span>
                 {{/if}}
                 <span> / </span>
-                {{#if (greaterThan limit.max 0)}}
+                {{#if (greaterThan condition.max 0)}}
                       <a class="item-control" id="max-decrease" title="{{localize 'SCOP.MaxDecrease'}}"><i class="fas fa-arrow-down"></i></a>
                 {{else}}
                       <span class="item-control inactive"><i class="fas fa-arrow-down"></i></span>

@@ -10,9 +10,28 @@ export function registerSettings() {
         choices: {
             "a": "d6",
             "b": "d8",
-            "c": "d10"
+            "c": "d10",
+            "d": "d12"
         },
         default: "c",
+        config: true
+    });
+
+    game.settings.register("scop", "useDramaDice", {
+        name: game.i18n.localize("SETTINGS.UseDramaDice"),
+        hint: game.i18n.localize("SETTINGS.UseDramaDiceHint"),
+        scope: "world",
+        type: Boolean,
+        default: true,
+        config: true
+    });
+
+    game.settings.register("scop", "usePower", {
+        name: game.i18n.localize("SETTINGS.UsePower"),
+        hint: game.i18n.localize("SETTINGS.UsePowerHint"),
+        scope: "world",
+        type: Boolean,
+        default: false,
         config: true
     });
 
