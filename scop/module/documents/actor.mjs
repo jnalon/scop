@@ -5,6 +5,18 @@
  */
 export class ScopActor extends Actor {
 
+    _filterItems(type) {
+        return this.items.filter((item) => item.type === type);
+    }
+
+    getConcepts() {
+        return this._filterItems("concept");
+    }
+
+    getSkills() {
+        return this._filterItems("skill");
+    }
+
     async adjust(condition, new_value, field) {
         const key = `system.${condition.type}.${field}`
         return this.update({ _id: this._id, [key]: new_value });

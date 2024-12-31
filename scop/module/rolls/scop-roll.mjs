@@ -75,6 +75,22 @@ class ScopBaseRoll extends Roll {
         this.discard = this.discard.sort((a, b) => { return a - b });
     }
 
+    getJSON() {
+        const dice = this.dice[0].results;
+        let throws = [ ];
+        for (let die of dice) {
+            throws.push({
+                result: die.result,
+                resultLabel: die.result,
+                type: `d${this.diceType}`,
+                vectors: [],
+                options: {}
+            });
+        }
+        const data = { throws: [ { dice: throws } ] };
+        return data;
+    }
+
 }
 
 

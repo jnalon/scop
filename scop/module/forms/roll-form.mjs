@@ -3,13 +3,16 @@ import { ScopRoll, EffortRoll } from "../rolls/scop-roll.mjs";
 
 async function _sendChatMessage(template_file, data) {
     const rendered_html = await renderTemplate(template_file, data);
-    const speaker = ChatMessage.getSpeaker({ actor: data.actor });
+    const speakerData = ChatMessage.getSpeaker({ actor: data.actor });
     const rollMode = game.settings.get('core', 'rollMode');
     ChatMessage.create({
-        speaker: speaker,
+        speaker: speakerData,
         rollMode: rollMode,
         content: rendered_html
     });
+    if (game.modules.has("dice-so-nice")) {
+        game.dice3d.show(data.jsonData);
+    }
 }
 
 
@@ -81,6 +84,7 @@ class ScopRollBaseForm extends FormApplication {
             context.totalBonus = 0;
         }
         context.allowEffort = this.allowEffort;
+        context.jsonData = this.jsonData;
         context.system = actorData.system;
         context.flags = actorData.flags;
         return context;
@@ -88,12 +92,10 @@ class ScopRollBaseForm extends FormApplication {
 
     _getConcepts() {
         this.concepts = [];
-        for (let i of this.actor.items) {
+        for (let i of this.actor.getConcepts()) {
             i.img = i.img || DEFAULT_TOKEN;
-            if (i.type == 'concept') {
-                const concept = { concept: i, use: 0 };
-                this.concepts.push(concept);
-            }
+            const concept = { concept: i, use: 0 };
+            this.concepts.push(concept);
         }
     }
 
@@ -211,6 +213,7 @@ class ScopRollBaseForm extends FormApplication {
         this.discard = this.mainRoll.discard;
         this.drama = this.mainRoll.drama;
         this.finalResult = this.mainRoll.result;
+        this.jsonData = this.mainRoll.getJSON();
 
         const context = this.getData();
         this.template_file = "systems/scop/templates/forms/roll-chat.html";
@@ -421,7 +424,8 @@ export class ScopEffortRoll {
             "cutValue": this.effortRoll.cutValue,
             "valid": this.effortRoll.valid,
             "discard": this.effortRoll.discard,
-            "finalResult": this.finalResult
+            "finalResult": this.finalResult,
+            "jsonData": this.jsonData,
         };
         return context;
     }
@@ -455,12 +459,14 @@ export class ScopEffortRoll {
         this.effortRoll = new EffortRoll(this.diceNumber, this.drama, this.totalBonus, rollData);
         await this.actor.decrease(this.actor.system.energy, 1);
         await this.effortRoll.roll();
+
         this.effortBonus = this.effortRoll.result;
         this.diceType = this.effortRoll.diceType;
         this.cutValue = this.effortRoll.cutValue;
         this.valid = this.effortRoll.valid;
         this.discard = this.effortRoll.discard;
         this.finalResult = this.previousResult + this.effortBonus + this.totalBonus;
+        this.jsonData = this.effortRoll.getJSON();
 
         const template_file = "systems/scop/templates/forms/effort-chat.html"
         const context = this.getData();
