@@ -338,7 +338,6 @@ export class ScopActorSheet extends ActorSheet {
         } else if (dataset.rollType == 'equipment-use') {
             const itemId = element.closest('.item').dataset.itemId;
             const item = this.actor.items.get(itemId);
-            console.log("Equipment use");
             const sheet = new ScopEquipmentUseRollForm(this.actor, item, this);
             sheet.render(true);
         }

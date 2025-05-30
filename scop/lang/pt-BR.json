@@ -116,6 +116,8 @@
         "UseDramaDice": "Usar o Dado do Drama",
         "UseDramaDiceHint": "Se marcado, o Dado da Drama será realçado nas mensagens.",
         "UsePower": "Usar o nível do Poder",
-        "UsePowerHint": "Se marcado, o nível do Poder é usado como bônus nos testes das Habilidades relacionadas."
+        "UsePowerHint": "Se marcado, o nível do Poder é usado como bônus nos testes das Habilidades relacionadas.",
+        "NewDiceRoll": "Usar nova rolagem.",
+        "NewDiceRollHint": "Se marcado, utiliza o novo estilo de jogada de dados."
     }
 }

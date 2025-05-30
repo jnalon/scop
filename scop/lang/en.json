@@ -116,6 +116,9 @@
         "UseDramaDice": "Use Drama Dice",
         "UseDramaDiceHint": "If checked, Drama Dice will be highlighted in chat messages.",
         "UsePower": "Use Power level",
-        "UsePowerHint": "If checked, Power level is used as a bonus in tests of related Skills."
+        "UsePowerHint": "If checked, Power level is used as a bonus in tests of related Skills.",
+        "NewDiceRoll": "Use new roll style.",
+        "NewDiceRollHint": "If checked, new dice roll style is used for all tests."
+
     }
 }

@@ -134,7 +134,7 @@ function formatDramaDice(drama, diceType, cutValue) {
     }
 }
 
-Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType, cutValue) {
+function printDice(valid, discard, drama, diceType, cutValue) {
     const main_roll = valid.concat(discard);
     const drama_index = main_roll.indexOf(drama);
     var drama_printed = false;
@@ -151,6 +151,34 @@ Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType,
     }
     result += '</div>';
     return result;
+}
+
+function printNewDice(valid, discard, drama, diceType, cutValue) {
+    var result = '<div class="flexrow flex-group-center roll-results">';
+    const drama_style = formatDramaDice(drama, diceType, cutValue);
+    if (drama > 0) {
+        if (drama <= cutValue) {
+            result += `<span class="valid-dice ${drama_style}">${drama}</span>`;
+        } else {
+            result += `<span class="discarded-dice ${drama_style}">${drama}</span>`;
+        }
+    }
+    for (let value of valid) {
+        result += `<span class="valid-dice">${value}</span>`;
+    }
+    for (let value of discard) {
+        result += `<span class="discarded-dice">${value}</span>`;
+    }
+    result += '</div>';
+    return result;
+}
+
+Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType, cutValue) {
+    if (game.settings.get("scop", "newDiceRoll")) {
+        return printNewDice(valid, discard, drama, diceType, cutValue);
+    } else {
+        return printDice(valid, discard, drama, diceType, cutValue);
+    }
 });
 
 

@@ -134,3 +134,63 @@ export class EffortRoll extends ScopBaseRoll {
     }
 
 }
+
+
+// New dice roll
+export class NewScopRoll extends Roll {
+
+    /** @override */
+    constructor(testLevel, bonus, rollData) {
+        const diceNumber = testLevel + getBaseDice();
+        const diceType = getDiceType()
+        const formula = `${diceNumber}d${diceType}`;
+        super(formula, rollData);
+        this.diceType = diceType;
+        this.cutValue = getCutValue();
+        this.baseDice = getBaseDice();
+        this.bonus = bonus;
+        this.drama = 0;
+        this.valid = new Array();
+        this.discard = new Array();
+    }
+
+    /** @override */
+    async roll(options) {
+        await super.roll(options);
+        const dice = this.dice[0].results;
+        this.drama = dice[0].result;
+        for (let die of dice.slice(1)) {
+            if (die.result <= this.cutValue) {
+                this.valid.push(die.result);
+            } else {
+                this.discard.push(die.result);
+            }
+        }
+        this.valid = this.valid.sort((a, b) => { return a - b });
+        this.discard = this.discard.sort((a, b) => { return a - b });
+    }
+
+    getJSON() {
+        const dice = this.dice[0].results;
+        let throws = [ ];
+        for (let die of dice) {
+            throws.push({
+                result: die.result,
+                resultLabel: die.result,
+                type: `d${this.diceType}`,
+                vectors: [],
+                options: {}
+            });
+        }
+        const data = { throws: [ { dice: throws } ] };
+        return data;
+    }
+
+    /** @override */
+    get result() {
+        const base = this.drama <= this.cutValue ? this.drama : 0;
+        const raise = this.valid.length;
+        return base + raise + this.bonus;
+    }
+
+}

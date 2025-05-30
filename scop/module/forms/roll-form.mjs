@@ -1,4 +1,4 @@
-import { ScopRoll, EffortRoll } from "../rolls/scop-roll.mjs";
+import { ScopRoll, EffortRoll, NewScopRoll } from "../rolls/scop-roll.mjs";
 
 
 async function _sendChatMessage(template_file, data) {
@@ -204,7 +204,12 @@ class ScopRollBaseForm extends FormApplication {
         const testLevel = this._getSkillLevel() + this._applyConcepts() + this.bonusDice;
         const additionalBonus = this._getAdditionalBonus();
         this.totalBonus = this.bonus + additionalBonus;
-        this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
+
+        if (game.settings.get("scop", "newDiceRoll")) {
+            this.mainRoll = new NewScopRoll(testLevel, this.totalBonus, rollData);
+        } else {
+            this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
+        }
         await this.mainRoll.roll();
 
         this.diceType = this.mainRoll.diceType;

@@ -35,4 +35,13 @@ export function registerSettings() {
         config: true
     });
 
+    game.settings.register("scop", "newDiceRoll", {
+        name: game.i18n.localize("SETTINGS.NewDiceRoll"),
+        hint: game.i18n.localize("SETTINGS.NewDiceRollHint"),
+        scope: "world",
+        type: Boolean,
+        default: false,
+        config: true
+    });
+
 }
