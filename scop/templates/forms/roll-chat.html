@@ -5,12 +5,13 @@
 <div class="roll-final">
     <span class="result-label">{{localize "SCOP.Roll.Result"}}: {{finalResult}}</span>
 </div>
-{{#if (and (equal allowEffort true) (greaterThan discard.length 0))}}
+{{#if (and (equal allowEffort true) (greaterThan rerollDiceNumber 0))}}
     <div class="chat-buttons" data-owner-id="{{actor._id}}">
         <button type="button" id="effort" title="Effort" class="chat-effort-button"
                 data-actor-id="{{actor._id}}" data-previous-result="{{finalResult}}"
-                data-reroll-dice="{{discard.length}}" data-total-bonus="{{totalBonus}}"
-                data-effort-cost="{{effortCost}}">
+                data-reroll-dice="{{rerollDiceNumber}}" data-total-bonus="{{totalBonus}}"
+                data-effort-cost="{{effortCost}}" data-drama="{{drama}}"
+                data-cut-value="{{cutValue}}">
             {{localize "SCOP.Roll.Effort"}}
         </button>
     </div>

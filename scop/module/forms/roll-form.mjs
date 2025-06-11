@@ -220,8 +220,13 @@ class ScopRollBaseForm extends FormApplication {
         this.finalResult = this.mainRoll.result;
         this.jsonData = this.mainRoll.getJSON();
 
-        const context = this.getData();
         this.template_file = "systems/scop/templates/forms/roll-chat.html";
+        const context = this.getData();
+        if (this.drama > this.cutValue && game.settings.get("scop", "newDiceRoll")) {
+            context.rerollDiceNumber = this.discard.length + 1;
+        } else {
+            context.rerollDiceNumber = this.discard.length;
+        }
         await _sendChatMessage(this.template_file, context);
         this.close();
     }
@@ -417,9 +422,11 @@ export class ScopEffortRoll {
         this.actorId = $(this.button).data("actorId");
         this.actor = this._getActor(this.actorId);
         this.previousResult = this._getPreviousResult();
-        this.diceNumber = this._getRerollDice();
+        this.drama = this._getDrama();
+        this.cutValue = this._getCutValue();
         this.totalBonus = this._getTotalBonus();
         this.effortCost = this._getEffortCost();
+        this.diceNumber = this._getRerollDice();
     }
 
     getData() {
@@ -448,7 +455,8 @@ export class ScopEffortRoll {
     }
 
     _getRerollDice() {
-        return $(this.button).data("rerollDice");
+        var dice_number = $(this.button).data("rerollDice");
+        return dice_number;
     }
 
     _getTotalBonus() {
@@ -459,9 +467,17 @@ export class ScopEffortRoll {
         return $(this.button).data("effortCost");
     }
 
+    _getDrama() {
+        return $(this.button).data("drama");
+    }
+
+    _getCutValue() {
+        return $(this.button).data("cutValue");
+    }
+
     async roll() {
         const rollData = this.actor.getRollData();
-        this.effortRoll = new EffortRoll(this.diceNumber, this.drama, this.totalBonus, rollData);
+        this.effortRoll = new EffortRoll(this.diceNumber, this.totalBonus, rollData);
         await this.actor.decrease(this.actor.system.energy, 1);
         await this.effortRoll.roll();
 

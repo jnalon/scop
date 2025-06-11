@@ -82,11 +82,11 @@ export class ScopActorSheet extends ActorSheet {
             }
         }
         for (let power of powers) {
-            power.skills = power.skills.sort((a, b) => { return b.system.value - a.system.value });
+            power.skills = power.skills.sort((a, b) => { return a.name.localeCompare(b.name) });
         }
         context.concepts = concepts;
         context.conditions = conditions;
-        context.skills = skills.sort((a, b) => { return b.system.value - a.system.value });
+        context.skills = skills.sort((a, b) => { return a.name.localeCompare(b.name) });
         context.powers = powers;
         context.equipment = equipment;
     }
