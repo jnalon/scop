@@ -37,6 +37,7 @@ class ScopBaseRoll extends Roll {
 
     /** @override */
     constructor(diceNumber, bonus, rollData) {
+        console.log(`diceNumber = ${diceNumber}`);
         const diceType = getDiceType()
         const formula = `${diceNumber}d${diceType}`;
         super(formula, rollData);
@@ -46,6 +47,8 @@ class ScopBaseRoll extends Roll {
         this.drama = 0;
         this.valid = new Array();
         this.discard = new Array();
+        this.isPenalty = false;
+
     }
 
     /** @override */
@@ -87,8 +90,9 @@ export class ScopRoll extends ScopBaseRoll {
 
     /** @override */
     constructor(testLevel, bonus, rollData) {
-        const diceNumber = testLevel + 1;
+        const diceNumber = Math.abs(testLevel) + 1;
         super(diceNumber, bonus,  rollData);
+        this.isPenalty = (testLevel < 0);
     }
 
     /** @override */
@@ -109,7 +113,10 @@ export class ScopRoll extends ScopBaseRoll {
     /** @override */
     get result() {
         const base = this.drama <= this.cutValue ? this.drama : 0;
-        const raise = this.valid.length;
+        let raise = this.valid.length;
+        if (this.isPenalty) {
+            raise = - raise;
+        }
         return base + raise + this.bonus;
     }
 

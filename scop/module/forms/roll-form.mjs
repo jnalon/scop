@@ -74,6 +74,7 @@ class ScopRollBaseForm extends FormApplication {
         context.effortCost = this._getEffortCost();
         context.diceType = this.diceType;
         context.cutValue = this.cutValue;
+        context.isPenalty = this.isPenalty;
         context.drama = this.drama;
         context.valid = this.valid;
         context.discard = this.discard;
@@ -214,6 +215,7 @@ class ScopRollBaseForm extends FormApplication {
 
         this.diceType = this.mainRoll.diceType;
         this.cutValue = this.mainRoll.cutValue;
+        this.isPenalty = this.mainRoll.isPenalty;
         this.valid = this.mainRoll.valid;
         this.discard = this.mainRoll.discard;
         this.drama = this.mainRoll.drama;
@@ -253,9 +255,9 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
         super(actor, caller);
         this.name = game.i18n.localize("SCOP.Roll.NoSkill");
         this.power = powerItem;
-        this.useConcepts = false;
-        this.useBonusDice = false;
-        this.useBonus = false;
+        this.useConcepts = true;
+        this.useBonusDice = true;
+        this.useBonus = true;
         this.usePower = false;
     }
 
@@ -264,15 +266,6 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
         context.power = this.power;
         context.usePower = this.usePower;
         return context;
-    }
-
-    _resetBonus() {
-        super._resetBonus()
-        this.usePower = false;
-    }
-
-    _applyConcepts() {
-        return 0;
     }
 
     _applyPower() {
@@ -295,7 +288,7 @@ export class ScopNoPowerSkillRollForm extends ScopRollBaseForm {
     }
 
     _getSkillLevel(event) {
-        return -1;
+        return -2;
     }
 
     _getUseCost() {
@@ -515,6 +508,14 @@ export class ScopEffortRoll {
         }
         this.message.update({ _id: this.messageId, content: ptext });
     }
+}
+
+
+
+export async function onEffortButton(event) {
+    event.preventDefault();
+    const effortRoll = new ScopEffortRoll(event);
+    await effortRoll.updateChatMessage();
 }
 
 

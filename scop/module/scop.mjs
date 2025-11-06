@@ -4,7 +4,8 @@ import { ScopActorSheet } from "./sheets/actor-sheet.mjs";
 import { ScopItemSheet } from "./sheets/item-sheet.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SCOP, registerSettings } from "./helpers/config.mjs";
-import { ScopEffortRoll } from "./forms/roll-form.mjs";
+import { onEffortButton } from "./forms/roll-form.mjs";
+import { printDice, printOldDice } from "./helpers/dice.mjs";
 
 
 // Hooks ///////////////////////////////////////////////////////////////////////////////////////////
@@ -46,18 +47,12 @@ Hooks.on("renderChatMessage", (app, html, data) => {
         const userId = game.data.userId;
         const ownership = actor.ownership[userId];
         if (ownership == CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER) {
-            button.click(_onEffortButton);
+            button.click(onEffortButton);
         } else {
             $(button).hide();
         }
     }
 });
-
-async function _onEffortButton(event) {
-    event.preventDefault();
-    const effortRoll = new ScopEffortRoll(event);
-    await effortRoll.updateChatMessage();
-}
 
 Hooks.once("ready", async function() {
     // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
@@ -112,71 +107,11 @@ Handlebars.registerHelper('open-dots', function(value, max) {
     return result;
 });
 
-function formatValidDice(value, cutValue) {
-    if (value <= cutValue) {
-        return 'valid-dice';
-    } else {
-        return 'discarded-dice';
-    }
-}
-
-function formatDramaDice(drama, diceType, cutValue) {
-    const use_drama = game.settings.get("scop", "useDramaDice");
-    if (!use_drama) {
-        return "";
-    } else if (drama == cutValue) {
-        return "good-drama-dice";
-    } else if (drama == diceType) {
-        return "bad-drama-dice";
-    } else {
-        return "drama-dice";
-    }
-}
-
-function printOldDice(valid, discard, drama, diceType, cutValue) {
-    const main_roll = valid.concat(discard);
-    const drama_index = main_roll.indexOf(drama);
-    var drama_printed = false;
-    var result = '<div class="flexrow flex-group-center roll-results">';
-    for (let index=0; index < main_roll.length; index++) {
-        const value = main_roll[index];
-        const valid_style = formatValidDice(value, cutValue);
-        var drama_style = '';
-        if (value == drama && !drama_printed) {
-            drama_style = formatDramaDice(drama, diceType, cutValue);
-            drama_printed = true;
-        }
-        result += `<span class="${valid_style} ${drama_style}">${value}</span>`;
-    }
-    result += '</div>';
-    return result;
-}
-
-function printDice(valid, discard, drama, diceType, cutValue) {
-    var result = '<div class="flexrow flex-group-center roll-results">';
-    const drama_style = formatDramaDice(drama, diceType, cutValue);
-    if (drama > 0) {
-        if (drama <= cutValue) {
-            result += `<span class="valid-dice ${drama_style}">${drama}</span>`;
-        } else {
-            result += `<span class="discarded-dice ${drama_style}">${drama}</span>`;
-        }
-    }
-    for (let value of valid) {
-        result += `<span class="valid-dice">${value}</span>`;
-    }
-    for (let value of discard) {
-        result += `<span class="discarded-dice">${value}</span>`;
-    }
-    result += '</div>';
-    return result;
-}
-
-Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType, cutValue) {
+Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType, cutValue, isPenalty) {
     if (game.settings.get("scop", "oldScopRoll")) {
-        return printOldDice(valid, discard, drama, diceType, cutValue);
+        return printOldDice(valid, discard, drama, diceType, cutValue, isPenalty);
     } else {
-        return printDice(valid, discard, drama, diceType, cutValue);
+        return printDice(valid, discard, drama, diceType, cutValue, isPenalty);
     }
 });
 
