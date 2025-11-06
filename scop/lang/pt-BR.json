@@ -5,7 +5,6 @@
         },
         "Item": {
             "concept": "Conceito",
-            "condition": "Condição",
             "skill": "Habilidade",
             "power": "Poder",
             "powerskill": "Habilidade de Poder",
@@ -31,6 +30,7 @@
         "Features": "Características",
         "Vitality": "Vitalidade",
         "Energy": "Energia",
+        "Mind": "Mente",
         "Background": "Antecedentes",
         "Description": "Descrição",
         "Biography": "Biografia",
@@ -64,18 +64,6 @@
             "Delete": "Apaga o Conceito",
             "Question": "Pergunta",
             "Answer": "Resposta"
-        },
-
-        "Condition": {
-            "Name": "Condição",
-            "Plural": "Condições",
-            "New": "Nova Condição",
-            "Edit": "Edita a Condição",
-            "Delete": "Apaga a Condição",
-            "Increase": "Aumenta",
-            "MaxIncrease": "Aumenta o Máximo",
-            "Decrease": "Diminui",
-            "MaxDecrease": "Diminui o Máximo"
         },
 
         "Skill": {
@@ -117,7 +105,7 @@
         "UseDramaDiceHint": "Se marcado, o Dado da Drama será realçado nas mensagens.",
         "UsePower": "Usar o nível do Poder",
         "UsePowerHint": "Se marcado, o nível do Poder é usado como bônus nos testes das Habilidades relacionadas.",
-        "NewDiceRoll": "Usar nova rolagem.",
-        "NewDiceRollHint": "Se marcado, utiliza o novo estilo de jogada de dados."
+        "OldDiceRoll": "Usar rolagem antiga.",
+        "OldDiceRollHint": "Se marcado, utiliza o antigo estilo de jogada de dados."
     }
 }

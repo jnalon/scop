@@ -35,9 +35,9 @@ export function registerSettings() {
         config: true
     });
 
-    game.settings.register("scop", "newDiceRoll", {
-        name: game.i18n.localize("SETTINGS.NewDiceRoll"),
-        hint: game.i18n.localize("SETTINGS.NewDiceRollHint"),
+    game.settings.register("scop", "oldScopRoll", {
+        name: game.i18n.localize("SETTINGS.OldDiceRoll"),
+        hint: game.i18n.localize("SETTINGS.OldDiceRollHint"),
         scope: "world",
         type: Boolean,
         default: false,

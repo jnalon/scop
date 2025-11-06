@@ -5,8 +5,9 @@
             <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'SCOP.Name'}}"/>
         </h1>
         <ol class="items-list">
-            {{> "systems/scop/templates/actor/parts/actor-canonical-conditions.html" condition=system.health datatype='health' name='SCOP.Vitality'}}
-            {{> "systems/scop/templates/actor/parts/actor-canonical-conditions.html" condition=system.energy datatype='energy' name='SCOP.Energy'}}
+            {{> "systems/scop/templates/actor/parts/actor-conditions.html" condition=system.health datatype='health' name='SCOP.Vitality'}}
+            {{> "systems/scop/templates/actor/parts/actor-conditions.html" condition=system.energy datatype='energy' name='SCOP.Energy'}}
+            {{> "systems/scop/templates/actor/parts/actor-conditions.html" condition=system.mind datatype='mind' name='SCOP.Mind'}}
         </ol>
     </div>
 </header>

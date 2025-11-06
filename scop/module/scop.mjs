@@ -2,7 +2,6 @@ import { ScopActor } from "./documents/actor.mjs";
 import { ScopItem } from "./documents/item.mjs";
 import { ScopActorSheet } from "./sheets/actor-sheet.mjs";
 import { ScopItemSheet } from "./sheets/item-sheet.mjs";
-import { ScopHealthForm } from "./forms/health-form.mjs";
 import { preloadHandlebarsTemplates } from "./helpers/templates.mjs";
 import { SCOP, registerSettings } from "./helpers/config.mjs";
 import { ScopEffortRoll } from "./forms/roll-form.mjs";
@@ -134,7 +133,7 @@ function formatDramaDice(drama, diceType, cutValue) {
     }
 }
 
-function printDice(valid, discard, drama, diceType, cutValue) {
+function printOldDice(valid, discard, drama, diceType, cutValue) {
     const main_roll = valid.concat(discard);
     const drama_index = main_roll.indexOf(drama);
     var drama_printed = false;
@@ -153,7 +152,7 @@ function printDice(valid, discard, drama, diceType, cutValue) {
     return result;
 }
 
-function printNewDice(valid, discard, drama, diceType, cutValue) {
+function printDice(valid, discard, drama, diceType, cutValue) {
     var result = '<div class="flexrow flex-group-center roll-results">';
     const drama_style = formatDramaDice(drama, diceType, cutValue);
     if (drama > 0) {
@@ -174,8 +173,8 @@ function printNewDice(valid, discard, drama, diceType, cutValue) {
 }
 
 Handlebars.registerHelper('printDice', function(valid, discard, drama, diceType, cutValue) {
-    if (game.settings.get("scop", "newDiceRoll")) {
-        return printNewDice(valid, discard, drama, diceType, cutValue);
+    if (game.settings.get("scop", "oldScopRoll")) {
+        return printOldDice(valid, discard, drama, diceType, cutValue);
     } else {
         return printDice(valid, discard, drama, diceType, cutValue);
     }

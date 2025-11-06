@@ -1,23 +1,19 @@
 const DICE_TYPES = {
     "a": {
         "diceType": 6,
-        "cutValue": 3,
-        "baseDice": 2
+        "cutValue": 3
     },
     "b": {
         "diceType": 8,
-        "cutValue": 3,
-        "baseDice": 2
+        "cutValue": 3
     },
     "c": {
         "diceType": 10,
-        "cutValue": 4,
-        "baseDice": 2
+        "cutValue": 4
     },
     "d": {
         "diceType": 12,
-        "cutValue": 4,
-        "baseDice": 2
+        "cutValue": 4
     },
 }
 
@@ -36,12 +32,6 @@ function getCutValue() {
     return diceData["cutValue"];
 }
 
-function getBaseDice() {
-    const diceData = getDiceData();
-    return diceData["baseDice"];
-}
-
-
 
 class ScopBaseRoll extends Roll {
 
@@ -52,7 +42,6 @@ class ScopBaseRoll extends Roll {
         super(formula, rollData);
         this.diceType = diceType;
         this.cutValue = getCutValue();
-        this.baseDice = getBaseDice();
         this.bonus = bonus;
         this.drama = 0;
         this.valid = new Array();
@@ -98,24 +87,33 @@ export class ScopRoll extends ScopBaseRoll {
 
     /** @override */
     constructor(testLevel, bonus, rollData) {
-        const diceNumber = testLevel + getBaseDice();
-        super(diceNumber, bonus, rollData);
+        const diceNumber = testLevel + 1;
+        super(diceNumber, bonus,  rollData);
+    }
+
+    /** @override */
+    async roll(options) {
+        await super.roll(options);
+        this.valid = this._removeFirst(this.valid, this.drama);
+        this.discard = this._removeFirst(this.discard, this.drama);
+    }
+
+    _removeFirst(arr, value) {
+        let index = arr.indexOf(value);
+        if (index !== -1) {
+            arr.splice(index, 1);
+        }
+        return arr.sort((a, b) => { return a - b });
     }
 
     /** @override */
     get result() {
-        if (this.valid.length > 0) {
-            const lastIndex = this.valid.length - 1;
-            const baseValue = this.valid[lastIndex];
-            const successes = this.valid.length - 1;
-            return baseValue + successes + this.bonus;
-        } else {
-            return 0;
-        }
+        const base = this.drama <= this.cutValue ? this.drama : 0;
+        const raise = this.valid.length;
+        return base + raise + this.bonus;
     }
 
 }
-
 
 export class EffortRoll extends ScopBaseRoll {
 
@@ -136,61 +134,24 @@ export class EffortRoll extends ScopBaseRoll {
 }
 
 
-// New dice roll
-export class NewScopRoll extends Roll {
+export class OldScopRoll extends ScopBaseRoll {
 
     /** @override */
     constructor(testLevel, bonus, rollData) {
-        const diceNumber = testLevel + getBaseDice();
-        const diceType = getDiceType()
-        const formula = `${diceNumber}d${diceType}`;
-        super(formula, rollData);
-        this.diceType = diceType;
-        this.cutValue = getCutValue();
-        this.baseDice = getBaseDice();
-        this.bonus = bonus;
-        this.drama = 0;
-        this.valid = new Array();
-        this.discard = new Array();
-    }
-
-    /** @override */
-    async roll(options) {
-        await super.roll(options);
-        const dice = this.dice[0].results;
-        this.drama = dice[0].result;
-        for (let die of dice.slice(1)) {
-            if (die.result <= this.cutValue) {
-                this.valid.push(die.result);
-            } else {
-                this.discard.push(die.result);
-            }
-        }
-        this.valid = this.valid.sort((a, b) => { return a - b });
-        this.discard = this.discard.sort((a, b) => { return a - b });
-    }
-
-    getJSON() {
-        const dice = this.dice[0].results;
-        let throws = [ ];
-        for (let die of dice) {
-            throws.push({
-                result: die.result,
-                resultLabel: die.result,
-                type: `d${this.diceType}`,
-                vectors: [],
-                options: {}
-            });
-        }
-        const data = { throws: [ { dice: throws } ] };
-        return data;
+        const diceNumber = testLevel + 2;
+        super(diceNumber, bonus, rollData);
     }
 
     /** @override */
     get result() {
-        const base = this.drama <= this.cutValue ? this.drama : 0;
-        const raise = this.valid.length;
-        return base + raise + this.bonus;
+        if (this.valid.length > 0) {
+            const lastIndex = this.valid.length - 1;
+            const baseValue = this.valid[lastIndex];
+            const successes = this.valid.length - 1;
+            return baseValue + successes + this.bonus;
+        } else {
+            return 0;
+        }
     }
 
 }

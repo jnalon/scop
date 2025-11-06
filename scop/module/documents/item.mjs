@@ -22,7 +22,6 @@ export class ScopItem extends Item {
     prepareDerivedData() {
         const img_map = {
             "concept": "icons/magic/holy/yin-yang-balance-symbol.webp",
-            "condition": "icons/commodities/biological/organ-heart-red.webp",
             "skill": "icons/tools/smithing/hammer-sledge-steel-grey.webp",
             "power": "icons/magic/light/explosion-star-glow-silhouette.webp",
             "powerskill": "icons/magic/fire/beam-jet-stream-embers.webp",
@@ -57,8 +56,6 @@ export class ScopItem extends Item {
     async decrease(delta=1) {
         if (this.type == 'concept') {
             return this.adjust(-delta, 1);
-        } else if (this.type == 'condition') {
-            return this.adjust(-delta, this.system.min, this.system.max);
         } else if (this.type == 'power') {
             return this.adjust(-delta, -Infinity);
         } else if (this.type == 'skill') {
@@ -74,11 +71,7 @@ export class ScopItem extends Item {
 
     async increase(delta=1) {
         const new_value = this.system.value + delta;
-        if (this.type == 'condition') {
-            return this.adjust(delta, this.system.min, this.system.max);
-        } else {
-            return this.update({ _id: this._id, "system.value": new_value });
-        }
+        return this.update({ _id: this._id, "system.value": new_value });
     }
 
     async maxDecrease(delta=1) {

@@ -1,6 +1,7 @@
 import { onManageActiveEffect, prepareActiveEffectCategories } from "../helpers/effects.mjs";
 import { ScopHealthForm } from "../forms/health-form.mjs";
 import { ScopEnergyForm } from "../forms/energy-form.mjs";
+import { ScopMindForm } from "../forms/mind-form.mjs";
 import { ScopNoSkillRollForm, ScopSkillRollForm, ScopNoPowerSkillRollForm, ScopPowerSkillRollForm,
          ScopEquipmentUseRollForm } from "../forms/roll-form.mjs";
 
@@ -56,7 +57,6 @@ export class ScopActorSheet extends ActorSheet {
     /** @private */
     _prepareItems(context) {
         const concepts = [];
-        const conditions = [];
         const skills = [];
         const powers = [];
         const powersMap = new Map();
@@ -65,8 +65,6 @@ export class ScopActorSheet extends ActorSheet {
             i.img = i.img || DEFAULT_TOKEN;
             if (i.type == 'concept') {
                 concepts.push(i);
-            } else if (i.type == 'condition') {
-                conditions.push(i);
             } else if (i.type == 'skill') {
                 skills.push(i);
             } else if (i.type == 'power') {
@@ -85,7 +83,6 @@ export class ScopActorSheet extends ActorSheet {
             power.skills = power.skills.sort((a, b) => { return a.name.localeCompare(b.name) });
         }
         context.concepts = concepts;
-        context.conditions = conditions;
         context.skills = skills.sort((a, b) => { return a.name.localeCompare(b.name) });
         context.powers = powers;
         context.equipment = equipment;
@@ -185,7 +182,6 @@ export class ScopActorSheet extends ActorSheet {
         const data = foundry.utils.duplicate(header.dataset);
         const name_map = {
             "concept": game.i18n.localize('SCOP.Concept.New'),
-            "condition": game.i18n.localize('SCOP.Condition.New'),
             "skill": game.i18n.localize('SCOP.Skill.New'),
             "power": game.i18n.localize('SCOP.Power.New'),
             "powerskill": game.i18n.localize('SCOP.Power.NewSkill'),
@@ -261,6 +257,9 @@ export class ScopActorSheet extends ActorSheet {
         } else if (type == "energy") {
             const sheet = new ScopEnergyForm(this.actor, this);
             await sheet.render(true);
+        } else if (type == "mind") {
+            const sheet = new ScopMindForm(this.actor, this);
+            await sheet.render(true);
         }
     }
 
@@ -275,6 +274,8 @@ export class ScopActorSheet extends ActorSheet {
             this.actor.decrease(this.actor.system.health);
         } else if (type == "energy") {
             this.actor.decrease(this.actor.system.energy);
+        } else if (type == "mind") {
+            this.actor.decrease(this.actor.system.mind);
         }
     }
 
@@ -289,6 +290,8 @@ export class ScopActorSheet extends ActorSheet {
             this.actor.increase(this.actor.system.health);
         } else if (type == "energy") {
             this.actor.increase(this.actor.system.energy);
+        } else if (type == "mind") {
+            this.actor.increase(this.actor.system.mind);
         }
     }
 

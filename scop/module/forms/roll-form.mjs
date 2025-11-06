@@ -1,4 +1,4 @@
-import { ScopRoll, EffortRoll, NewScopRoll } from "../rolls/scop-roll.mjs";
+import { ScopRoll, EffortRoll, OldScopRoll } from "../rolls/scop-roll.mjs";
 
 
 async function _sendChatMessage(template_file, data) {
@@ -205,8 +205,8 @@ class ScopRollBaseForm extends FormApplication {
         const additionalBonus = this._getAdditionalBonus();
         this.totalBonus = this.bonus + additionalBonus;
 
-        if (game.settings.get("scop", "newDiceRoll")) {
-            this.mainRoll = new NewScopRoll(testLevel, this.totalBonus, rollData);
+        if (game.settings.get("scop", "oldScopRoll")) {
+            this.mainRoll = new OldScopRoll(testLevel, this.totalBonus, rollData);
         } else {
             this.mainRoll = new ScopRoll(testLevel, this.totalBonus, rollData);
         }
@@ -222,7 +222,7 @@ class ScopRollBaseForm extends FormApplication {
 
         this.template_file = "systems/scop/templates/forms/roll-chat.html";
         const context = this.getData();
-        if (this.drama > this.cutValue && game.settings.get("scop", "newDiceRoll")) {
+        if (this.drama > this.cutValue && !game.settings.get("scop", "oldScopRoll")) {
             context.rerollDiceNumber = this.discard.length + 1;
         } else {
             context.rerollDiceNumber = this.discard.length;

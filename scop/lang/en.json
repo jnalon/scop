@@ -5,7 +5,6 @@
         },
         "Item": {
             "concept": "Concept",
-            "condition": "Condition",
             "skill": "Skill",
             "power": "Power",
             "powerskill": "Power Skill",
@@ -31,6 +30,7 @@
         "Features": "Features",
         "Vitality": "Vitality",
         "Energy": "Energy",
+        "Mind": "Mind",
         "Background": "Background",
         "Description": "Description",
         "Biography": "Biography",
@@ -64,18 +64,6 @@
             "Delete": "Delete Concept",
             "Question": "Question",
             "Answer": "Answer"
-        },
-
-        "Condition": {
-            "Name": "Condition",
-            "Plural": "Conditions",
-            "New": "New Condition",
-            "Edit": "Edit Condition",
-            "Delete": "Delete Condition",
-            "Increase": "Increase",
-            "MaxIncrease": "Increase Maximum",
-            "Decrease": "Decrease",
-            "MaxDecrease": "Decrease Maximum"
         },
 
         "Skill": {
@@ -117,8 +105,8 @@
         "UseDramaDiceHint": "If checked, Drama Dice will be highlighted in chat messages.",
         "UsePower": "Use Power level",
         "UsePowerHint": "If checked, Power level is used as a bonus in tests of related Skills.",
-        "NewDiceRoll": "Use new roll style.",
-        "NewDiceRollHint": "If checked, new dice roll style is used for all tests."
+        "OldDiceRoll": "Use old roll style.",
+        "OldDiceRollHint": "If checked, old dice roll style is used for all tests."
 
     }
 }
