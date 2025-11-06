@@ -663,11 +663,11 @@
 }
 
 .valid-dice {
-  font-size: 200%;
+  font-size: 150%;
 }
 
 .discarded-dice {
-  font-size: 200%;
+  font-size: 150%;
   opacity: 0.5;
 }
 
@@ -709,7 +709,7 @@
 }
 
 .roll-final {
-  font-size: 150%;
+  font-size: 125%;
   font-weight: bold;
 }
 
@@ -762,21 +762,3 @@
 .scop .chat-effort-button button[disabled] {
   opacity: 0.2;
 }
-
-/**************************************************************************************************/
-/*
-.scop .list-level input {
-  width: 60%;
-  margin-top: 5px;
-  padding: 0;
-  text-align: center;
-}
-
-.scop .list-level input:disabled {
-  width: 60%;
-  margin-top: 5px;
-  padding: 0;
-  text-align: center;
-  border: 1px solid;
-  border-color: var(--color-border-light-tertiary);
-}*/
