@@ -37,7 +37,6 @@ class ScopBaseRoll extends Roll {
 
     /** @override */
     constructor(diceNumber, bonus, rollData) {
-        console.log(`diceNumber = ${diceNumber}`);
         const diceType = getDiceType()
         const formula = `${diceNumber}d${diceType}`;
         super(formula, rollData);
@@ -117,7 +116,11 @@ export class ScopRoll extends ScopBaseRoll {
         if (this.isPenalty) {
             raise = - raise;
         }
-        return base + raise + this.bonus;
+        if (base + raise <= 0) {
+            return base + raise;
+        } else {
+            return base + raise + this.bonus;
+        }
     }
 
 }
